@@ -1,0 +1,32 @@
+<?php
+?>
+
+
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>TTS</title>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+</head>
+<body>
+
+
+<form action="Registrierungsformular.php">
+<input type="submit" value="Zur Registrierung"> </br></br>
+</form>
+<form action="Anmeldung.php">
+<input type="submit" value="Zur Anmeldung"> </br></br>
+</form>
+
+<form action="reset.php">
+    <input type="submit" value="Zum Reset"> </br></br>
+</form>
+
+<form action="hauptseite.php">
+    <input type="submit" value="Zur Hauptseite"> </br></br>
+</form>
+</body>
+
+</html>
