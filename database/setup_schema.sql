@@ -15,3 +15,8 @@ CREATE TABLE IF NOT EXISTS tts_user (
     CONSTRAINT rolle_zwischen_0_und_2 CHECK (0 <=rolle AND rolle < 3),
     PRIMARY KEY (id)
 );
+
+CREATE TABLE IF NOT EXISTS tts_team(
+    id          INT8 auto_increment,
+    land        VARCHAR(50) unique not null  -- Theoretisch würde der Ländername auch als Key reichen
+);
