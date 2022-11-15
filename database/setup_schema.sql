@@ -34,3 +34,15 @@ CREATE TABLE IF NOT EXISTS tts_spiel (
     FOREIGN KEY (team_2) REFERENCES tts_team(id),
     PRIMARY KEY (id)
 );
+
+CREATE TABLE IF NOT EXISTS tts_tipps (
+    id          INT8 auto_increment,
+    tipper      INT8,
+    spiel       INT8,
+    tipp_team1  TINYINT unsigned not null,
+    tipp_team2  TINYINT unsigned not null,
+    verdient    TINYINT unsigned not null,
+    FOREIGN KEY (tipper) REFERENCES  tts_user(id),
+    FOREIGN KEY (spiel) REFERENCES tts_team(id),
+    PRIMARY KEY (id)
+);
