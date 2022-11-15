@@ -20,3 +20,17 @@ CREATE TABLE IF NOT EXISTS tts_team(
     id          INT8 auto_increment,
     land        VARCHAR(50) unique not null  -- Theoretisch würde der Ländername auch als Key reichen
 );
+
+CREATE TABLE IF NOT EXISTS tts_spiel (
+    id          INT8 auto_increment,
+    team_1      INT8,
+    team_2      INT8,
+    tore_team1  TINYINT unsigned default null, -- null bedeutet, dass das Ergebnis noch nicht da ist
+    tore_team2  TINYINT unsigned default null,
+    uhrzeit     TIMESTAMP not null,
+    -- https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_timediff
+    beendet     BOOLEAN default false,
+    FOREIGN KEY (team_1) REFERENCES tts_team(id),
+    FOREIGN KEY (team_2) REFERENCES tts_team(id),
+    PRIMARY KEY (id)
+);
