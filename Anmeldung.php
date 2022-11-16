@@ -1,4 +1,4 @@
-<?php
+?php
 #Überprüfung ob Logindaten korrekt, dann Weiterleitung
 #Logo fehlt
 ?>
