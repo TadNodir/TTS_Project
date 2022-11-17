@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS tts_user (
+CREATE TABLE IF NOT EXISTS user (
     id          INT8 auto_increment,
     rolle       TINYINT unsigned not null,
     vorname     VARCHAR(50) not null,
@@ -16,12 +16,12 @@ CREATE TABLE IF NOT EXISTS tts_user (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS tts_team(
+CREATE TABLE IF NOT EXISTS team(
     id          INT8 auto_increment,
     land        VARCHAR(50) unique not null  -- Theoretisch würde der Ländername auch als Key reichen
 );
 
-CREATE TABLE IF NOT EXISTS tts_spiel (
+CREATE TABLE IF NOT EXISTS spiel (
     id          INT8 auto_increment,
     team_1      INT8,
     team_2      INT8,
@@ -30,19 +30,19 @@ CREATE TABLE IF NOT EXISTS tts_spiel (
     uhrzeit     TIMESTAMP not null,
     -- https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_timediff
     beendet     BOOLEAN default false,
-    FOREIGN KEY (team_1) REFERENCES tts_team(id),
-    FOREIGN KEY (team_2) REFERENCES tts_team(id),
+    FOREIGN KEY (team_1) REFERENCES team(id),
+    FOREIGN KEY (team_2) REFERENCES team(id),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS tts_tipps (
+CREATE TABLE IF NOT EXISTS tipps (
     id          INT8 auto_increment,
     tipper      INT8,
     spiel       INT8,
     tipp_team1  TINYINT unsigned not null,
     tipp_team2  TINYINT unsigned not null,
     verdient    TINYINT unsigned not null,
-    FOREIGN KEY (tipper) REFERENCES  tts_user(id),
-    FOREIGN KEY (spiel) REFERENCES tts_team(id),
+    FOREIGN KEY (tipper) REFERENCES  user(id),
+    FOREIGN KEY (spiel) REFERENCES team(id),
     PRIMARY KEY (id)
 );
