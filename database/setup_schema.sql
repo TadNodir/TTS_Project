@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS benutzer (
     id          INT8 auto_increment,
     rolle       TINYINT unsigned not null,
     vorname     VARCHAR(50) not null,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS tipps (
     tipp_team1  TINYINT unsigned not null,
     tipp_team2  TINYINT unsigned not null,
     verdient    TINYINT unsigned not null,
-    FOREIGN KEY (tipper) REFERENCES  user(id),
+    FOREIGN KEY (tipper) REFERENCES  benutzer(id),
     FOREIGN KEY (spiel) REFERENCES team(id),
     PRIMARY KEY (id)
 );
