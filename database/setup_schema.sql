@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS benutzer (
 
 CREATE TABLE IF NOT EXISTS team(
     id          INT8 auto_increment,
-    land        VARCHAR(50) unique not null  -- Theoretisch würde der Ländername auch als Key reichen
+    land        VARCHAR(50) unique not null,  -- Theoretisch würde der Ländername auch als Key reichen
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS spiel (
