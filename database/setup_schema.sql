@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS spiel (
     uhrzeit     TIMESTAMP not null,
     -- https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_timediff
     beendet     BOOLEAN default false,
+    CONSTRAINT teams_unterschiedlich CHECK (team_1 != team_2),
     FOREIGN KEY (team_1) REFERENCES team(id),
     FOREIGN KEY (team_2) REFERENCES team(id),
     PRIMARY KEY (id)
