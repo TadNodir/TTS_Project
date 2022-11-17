@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS benutzer (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS team(
+CREATE TABLE IF NOT EXISTS teams (
     id          INT8 auto_increment,
     land        VARCHAR(50) unique not null,  -- Theoretisch würde der Ländername auch als Key reichen
     PRIMARY KEY(id)
