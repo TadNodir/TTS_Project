@@ -45,6 +45,6 @@ CREATE TABLE IF NOT EXISTS tipps (
     tipp_team2  TINYINT unsigned not null,
     verdient    TINYINT unsigned not null,
     FOREIGN KEY (tipper) REFERENCES  benutzer(id),
-    FOREIGN KEY (spiel) REFERENCES team(id),
+    FOREIGN KEY (spiel) REFERENCES spiele(id),
     PRIMARY KEY (id)
 );
