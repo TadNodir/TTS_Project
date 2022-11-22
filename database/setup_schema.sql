@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS teams (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE IF NOT EXISTS spiel (
+CREATE TABLE IF NOT EXISTS spiele (
     id          INT8 auto_increment,
     team_1      INT8,
     team_2      INT8,
