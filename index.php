@@ -13,7 +13,7 @@
 <body>
 
 
-<form action="Registrierungsformular.php">
+<form action="Registrierung/Registrierungsformular.php">
 <input type="submit" value="Zur Registrierung"> </br></br>
 </form>
 <form action="Anmeldung/Anmeldung.php">

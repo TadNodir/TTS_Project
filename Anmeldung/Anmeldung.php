@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="background">
-    <img src="logo.png" alt="logo">
+    <img src="../logo.png" alt="logo">
     <div class="formular">
         <form method="post" action="../Hauptseite.php">
             <h3>Login</h3>
@@ -31,7 +31,7 @@
         </form>
         <div class="registration">
             <span>Neuer Benutzer:</span>
-            <a href="../Registrierungsformular.php">
+            <a href="../Registrierung/Registrierungsformular.php">
                 <button class="register">Registrieren</button>
             </a>
         </div>
