@@ -21,7 +21,7 @@ $nutzer = array(
 <fieldset>
     <form action="Anmeldung/Anmeldung.php" method="post">
         <label for="vorname">Vorname:</label>
-        <input type="text" name="vorname" id="vorname" required maxlength="10">
+        <input type="text" name="vorname" id="vorname" required maxlength="20">
 
         <label for="nachname">Nachname:</label>
         <input type="text" name="nachname" id="nachname" required maxlength="20">
@@ -34,10 +34,10 @@ $nutzer = array(
         <input type="email" name="email" id="email" required maxlength="25">
         <br><br>
         <label for="passwort">Passwort</label>
-        <input type="passwort" name="passwort" id="passwort" required>
+        <input type="password" name="passwort" id="passwort" required>
 
         <label for="passwort2">Passwort bestätigen:</label>
-        <input type="passwort2" name="passwort2" id="passwort2" required>
+        <input type="password" name="passwort2" id="passwort2" required>
         <br><br><br>
         <input type="submit" value="Registrieren">
     </form>
