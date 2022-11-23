@@ -1,0 +1,141 @@
+*{
+    box-sizing: border-box;
+}
+
+.flexbox-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.news{
+    align-self: flex-end;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+section{
+    margin-inline: 5rem;
+}
+
+.navigation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:cadetblue;
+    color: white;
+}
+
+.navigation label{
+    font-size: 1.5rem;
+    margin: .5rem;
+}
+
+.navigation ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navigation li{
+    list-style: none;
+}
+
+.navigation li a{
+    text-decoration: none;
+    color: white;
+    padding: 1rem;
+    display: block;
+}
+
+.navigation li:hover{
+    background-color: darkcyan;
+}
+
+.toggle-button{
+    position: absolute;
+    top: .75rem;
+    right: 1rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+}
+
+.toggle-button .bar{
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+@media(max-width: 980px){
+    .toggle-button{
+        display: flex;
+    }
+
+    .nav-links{
+        display: none;
+        width: 100%;
+    }
+    .navigation{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .nav-links ul{
+        width: 100%;
+        flex-direction: column;
+    }
+    .nav-links li{
+        text-align: center;
+    }
+    .navigation li a{
+        padding: .5rem 1rem;
+    }
+
+    .nav-links.active{
+        display: flex;
+    }
+}
+
+
+
+
+
+
+table{
+    border: black 1px solid;
+}
+
+
+th{
+    background-color: cadetblue;
+    color: white;
+}
+
+td:not(:first-child){
+    text-align: center;
+}
+tr:nth-child(odd) {
+    background-color: white;
+    color: cadetblue;
+}
+tr:nth-child(even) {
+    background-color: cadetblue;
+    color: white;
+}
+
+footer{
+    text-align: center;
+    padding-inline: 3%;
+    margin-inline: 5%;
+    border-top: 1px solid black;
+    margin-top: 75px;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+}
