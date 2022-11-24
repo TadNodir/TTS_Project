@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS benutzer (
     nachname    VARCHAR(50) not null,
     nickname    VARCHAR(50) not null unique,
     passwort    VARCHAR(255) not null,
+    salt        VARCHAR(255) not null,
     -- speichern wir den Salt hier ab oder benutzten wir die ID gehashed?
     punktestand INT8 unsigned default 0,
     -- nicht sicher ob der Default nicht null sein sollte?
