@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS benutzer (
     punktestand INT8 unsigned default 0,
     -- nicht sicher ob der Default nicht null sein sollte?
     -- Wenn Admin würde ich es wahrscheinlich auf null setzten...
-    gespeert    BOOLEAN default false,
+    gesperrt    BOOLEAN default false,
 
     -- 0 = User; 1 = Admin; 2 = Superadmin
     CONSTRAINT rolle_zwischen_0_und_2 CHECK (0 <=rolle AND rolle < 3),
