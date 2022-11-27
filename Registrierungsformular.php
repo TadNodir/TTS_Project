@@ -19,7 +19,7 @@ $nutzer = array(
 
 <body>
 <fieldset>
-    <form action="Anmeldung.php" method="post">
+    <form action="Anmeldung/Anmeldung.php" method="post">
         <label for="vorname">Vorname:</label>
         <input type="text" name="vorname" id="vorname" required maxlength="20">
 

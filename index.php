@@ -16,7 +16,7 @@
 <form action="Registrierungsformular.php">
 <input type="submit" value="Zur Registrierung"> </br></br>
 </form>
-<form action="Anmeldung.php">
+<form action="Anmeldung/Anmeldung.php">
 <input type="submit" value="Zur Anmeldung"> </br></br>
 </form>
 
