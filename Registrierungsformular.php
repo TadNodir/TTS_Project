@@ -22,7 +22,8 @@ $nutzer = array(
     <form action="Anmeldung.php" method="post">
         <label for="vorname">Vorname:</label>
         <input type="text" name="vorname" id="vorname" required maxlength="10">
-
+        <br>
+        <br>
         <label for="nachname">Nachname:</label>
         <input type="text" name="nachname" id="nachname" required maxlength="20">
         <br>
