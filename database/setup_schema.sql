@@ -1,3 +1,5 @@
+use swe_tts;
+
 CREATE TABLE IF NOT EXISTS benutzer (
     id          INT8 auto_increment,
     rolle       TINYINT unsigned not null,
