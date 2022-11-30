@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS benutzer (
     vorname     VARCHAR(50) not null,
     nachname    VARCHAR(50) not null,
     nickname    VARCHAR(50) not null unique,
+    email       VARCHAR(50) not null,
     passwort    VARCHAR(255) not null,
     salt        VARCHAR(255) not null,
     -- speichern wir den Salt hier ab oder benutzten wir die ID gehashed?
