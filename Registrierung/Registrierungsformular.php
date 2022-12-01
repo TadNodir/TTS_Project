@@ -1,11 +1,112 @@
 <?php
+include("../database/db_functions.php");
+
+$link = createLink();
+
+# Guckt in Datenbank ob es ein Ergebnis zum User gibt
+function checkUser($user,$link): bool
+{
+
+    /** @noinspection SqlResolve */
+    $sql ="SELECT id FROM benutzer 
+                   WHERE nickname ='".$user."';";
+
+    $result = mysqli_query($link, $sql);
+
+
+    if(mysqli_fetch_assoc($result)=== NULL)
+        return false;
+    else
+        return true;
+
+}
+
+# Guckt in Datenbank ob es ein Ergebnis zur E-Mail gibt
+function checkEmail($email,$link): bool
+{
+
+    /** @noinspection SqlResolve */
+    $sql ="SELECT id FROM benutzer 
+                   WHERE email ='".$email."';";
+
+    $result = mysqli_query($link, $sql);
+
+
+    if(mysqli_fetch_assoc($result)=== NULL)
+        return false;
+    else
+        return true;
+
+}
+
+# Array um Nutzerdaten zwischenzuspeichern.
 $nutzer = array(
     "vorname"=>"",
     "nachname"=>"",
     "benutzer"=>"",
     "email"=>"",
-    "passwort"=>""
-)
+    "passwort"=>"",
+    "passwort2"=>""
+);
+
+#Fehler Array. False = Kein Fehler vorhanden. True = Fehler vorhanden
+$errors = array(
+    "passwortFalsch"=>false,
+    "nicknameExistiert"=>false,
+    "emailExistiert"=>false,
+    "emailFormat"=>false,
+);
+
+
+
+if(isset($_POST['submit'])){
+
+    # Array mit cleanen Nutzerdaten. Leerzeichen am Anfang und Ende werden entfernt
+    $nutzer['vorname'] = trim($_POST['vorname'] ?? "");
+    $nutzer['nachname'] =  trim($_POST['nachname'] ?? "");
+    $nutzer['benutzer'] =  trim($_POST['username'] ?? "");
+    $nutzer['email'] =  trim($_POST['email'] ?? "");
+    $nutzer['passwort'] =  trim($_POST['password'] ?? "");
+    $nutzer['passwort2'] =  trim($_POST['password2'] ?? "");
+
+    #Kontrolle der möglichen Fehlerquellen.
+    #Damit nicht nach jeder Eingabe ein neuer Fehler kommen werden sofort alle Fehler ausgegeben
+    if($nutzer['passwort']=== $nutzer['passwort2'])
+        $errors['passwortFalsch']=false;
+    else
+        $errors['passwortFalsch']=true;
+
+    if(filter_var( $nutzer['email'], FILTER_VALIDATE_EMAIL) === false)
+        $errors['emailFormat']=true;
+    else
+        $errors['emailFormat']=false;
+
+    if(checkUser($nutzer['benutzer'],$link))
+        $errors['nicknameExistiert']= true;
+    else
+        $errors['nicknameExistiert'] = false;
+
+    if(checkEmail($nutzer['email'],$link))
+        $errors['emailExistiert']= true;
+    else
+        $errors['emailExistiert'] = false;
+
+
+    #Solten keine Fehler im Array sein wird der Benutzer in die Datenbank eingetragen
+    if(!in_array(true,$errors)){
+
+        $link = createLink();
+        /** @noinspection SqlResolve */
+        $sql ="INSERT INTO benutzer (rolle,vorname,nachname,nickname,passwort,salt,email)
+                    VALUES ('0','".$nutzer['vorname']."','".$nutzer['nachname']."','".$nutzer['benutzer']."',
+                    '".$nutzer['passwort']."','salzig','".$nutzer['email']."');";
+
+        mysqli_query($link, $sql);
+
+
+    }
+    closeLink($link);
+}
 ?>
 
 <!DOCTYPE html>
@@ -22,27 +123,44 @@ $nutzer = array(
 <div class="background">
     <img src="../logo.png" alt="logo">
     <div class="formular">
-        <form action="../Anmeldung/Anmeldung.php" method="post">
+        <form  method="post">
             <h3>Registrieren</h3>
             <label for="vorname">Vorname:</label>
-            <input type="text" name="vorname" id="vorname" placeholder="Max" required maxlength="20">
+            <input type="text" name="vorname" id="vorname" placeholder="Max" required maxlength="20"
+                   value="<?php if(isset($_POST['vorname'])) echo $_POST['vorname'];  ?>">
 
             <label for="nachname">Nachname:</label>
-            <input type="text" name="nachname" id="nachname" placeholder="Mustermann" required maxlength="20">
+            <input type="text" name="nachname" id="nachname" placeholder="Mustermann" required maxlength="20"
+                   value="<?php if(isset($_POST['nachname'])) echo $_POST['nachname'];  ?>">
 
             <label for="username">Benutzername</label>
-            <input type="text" placeholder="MusterMax" id="username" required maxlength="25">
+            <input type="text" placeholder="MusterMax" name="username" id="username" required maxlength="25"
+                   value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>" >
+
+            <?php
+            if($errors['nicknameExistiert'])
+                echo"<p style='color:lightcoral;'>Benutzername existiert bereits.</p>"?>
 
             <label for="email">E-Mail:</label>
-            <input type="email" name="email" id="email" placeholder="max.mustermann@gmail.com" required maxlength="25">
+            <input type="email" name="email" id="email" placeholder="max.mustermann@gmail.com" required maxlength="25"
+                   value="<?php if(isset($_POST['email'])) echo $_POST['email'];  ?>">
+            <?php
+            if($errors['emailFormat'])
+                echo"<p style='color:lightcoral;'>Kein gültiges E-Mail Format.</p>";
+
+            if($errors['emailExistiert'])
+                echo"<p style='color:lightcoral;'>E-Mail existiert bereits.</p>";?>
 
             <label for="password">Passwort</label>
-            <input type="password" placeholder="********" id="password" required minlength="8">
+            <input type="password" placeholder="********" id="password" name="password" required minlength="8">
 
             <label for="password2">Passwort</label>
-            <input type="password" placeholder="********" id="password2" required minlength="8">
+            <input type="password" placeholder="********" id="password2" name="password2" required minlength="8">
+            <?php
+            if($errors['passwortFalsch'])
+                echo"<p style='color:lightcoral;'>Die Passwörter stimmen nicht überein.</p>"?>
 
-            <button class="register">Registrieren</button>
+            <input type="submit" name="submit" value="Registrieren" class="register">
             <hr>
         </form>
         <div class="anmelden">
@@ -54,26 +172,6 @@ $nutzer = array(
     </div>
 </div>
 
-<?php
-    # Noch zu implementieren
-    # Passwort Übereinstimmung ?
-    # einzelne Nutzerdaten schon in DB ?
-    # Logo fehlt
-
-    $nutzer['vorname'] = $_POST['vorname'];
-    $nutzer['nachname'] = $_POST['nachname'];
-    $nutzer['benutzer'] = $_POST['benutzer'];
-    $nutzer['email'] = $_POST['email'];
-    $nutzer['passwort'] = $_POST['passwort'];
-
-    #echo var_dump($nutzer);
-
-
-    $myFile = fopen("datenbank.txt","a") or die("Kann nicht geöffnet werden");
-    fwrite($myFile,serialize($nutzer));
-    fclose($myFile);
-
-?>
 </body>
 
 </html>
