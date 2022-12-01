@@ -16,7 +16,7 @@
 <div class="background">
     <img src="../logo.png" alt="logo">
     <div class="formular">
-        <form method="post" action="../Hauptseite.php">
+        <form method="post" action="../Hauptseite/Hauptseite.php">
             <h3>Login</h3>
 
             <label for="username">Benutzername</label>

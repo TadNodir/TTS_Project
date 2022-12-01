@@ -1,0 +1,210 @@
+body {
+    background-color: white;
+    margin: 0;
+}
+
+body * {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+.navigation {
+    position: sticky;
+    background-color: #00B1AC;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+}
+
+.navigation .nav-links {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.navigation a, span {
+    display: inline-block;
+    padding: 20px 20px;
+    text-decoration: none;
+    transition: background-color 0.5s ease-out;
+    color: white;
+}
+.navigation a:hover {
+    background-color: rgba(255, 255, 255, 0.47);
+}
+
+.navigation .icon {
+    display: none;
+}
+
+/*This is the block of the login formular, which contains logo (.background img)
+ and formular (.formular) and uses flex for better flexibility, centering its
+ content in the center*/
+.background {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: row;
+    margin: 30px auto;
+}
+
+.main_page {
+    width: 950px;
+    order: 1;
+    flex-shrink: 5;
+    margin: 1vw 4vw;
+}
+
+.rest {
+    flex: 0 0 auto;
+    order: 2;
+    flex-shrink: 5;
+    margin: 1vw 4vw;
+}
+
+table {
+    width: 100%;
+    border-radius: 10px;
+    border-collapse: collapse;
+    overflow: hidden;
+    background: #00B1AC;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+}
+
+th,
+td {
+    padding: 15px;
+    background-color: rgba(255,255,255,0.2);
+    color: #fff;
+}
+
+th {
+    text-align: left;
+}
+
+thead th {
+    background-color: #55608f;
+}
+
+tbody tr:hover {
+    background-color: rgba(255,255,255,0.3);
+}
+
+tbody td {
+    position: relative;
+}
+
+tbody button {
+    padding: 10px;
+    font-size: 14px;
+    background: white;
+    color: #080710;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.47);
+}
+
+h1 {
+    text-align: center;
+}
+
+#news {
+    background: white;
+    margin: 0;
+    padding: 8px 8px;
+    text-align: center;
+
+}
+
+.news {
+    border-radius: 10px;
+    border-collapse: collapse;
+    overflow: hidden;
+    background: #00B1AC;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+}
+
+.news li {
+    list-style: none;
+}
+
+/*
+ Fragment of the code, which arranges responsiveness of the
+ Login site, which is under 500px takes following conditions
+ */
+@media screen and (max-width: 700px) {
+    .main_page, .rest {
+        width: 350px;
+        align-self: center;
+    }
+
+
+    .background {
+        width: 365px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-direction: column;
+
+    }
+
+    .navigation a {
+        display: none;
+    }
+
+    .navigation a.icon {
+        float: right;
+        display: block;
+    }
+
+    table td, table th, table button {
+        padding: 3px;
+        text-align: center;
+        margin: 3px;
+    }
+
+    .rest img {
+        display: none;
+    }
+
+    .background * {
+        letter-spacing: 0.3px;
+        font-size: 3.5vw;
+    }
+
+    .background h1 {
+        font-size: 4.5vw;
+    }
+
+}
+
+
+@media screen and (max-width: 700px) {
+    .navigation.responsive {position: relative;}
+    .navigation.responsive .icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .navigation.responsive a {
+        font-size: 13px;
+        font-weight: 600;
+        float: none;
+        display: block;
+        text-align: left;
+    }
+    .navigation.responsive {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+}
