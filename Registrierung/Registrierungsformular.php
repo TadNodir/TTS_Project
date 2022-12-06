@@ -51,12 +51,13 @@ $nutzer = array(
 
 #Fehler Array. False = Kein Fehler vorhanden. True = Fehler vorhanden
 $errors = array(
+    "nachnameFalsch"=>false,
+    "vornameFalsch"=>false,
     "passwortFalsch"=>false,
     "nicknameExistiert"=>false,
     "emailExistiert"=>false,
     "emailFormat"=>false,
 );
-
 
 
 if(isset($_POST['submit'])){
@@ -71,6 +72,16 @@ if(isset($_POST['submit'])){
 
     #Kontrolle der möglichen Fehlerquellen.
     #Damit nicht nach jeder Eingabe ein neuer Fehler kommen werden sofort alle Fehler ausgegeben
+    if(ctype_alpha($nutzer['vorname']))
+        $errors['vornameFalsch']=false;
+    else
+        $errors['vornameFalsch']=true;
+
+    if(ctype_alpha($nutzer['nachname']))
+        $errors['nachnameFalsch']=false;
+    else
+        $errors['nachnameFalsch']=true;
+
     if($nutzer['passwort']=== $nutzer['passwort2'])
         $errors['passwortFalsch']=false;
     else
@@ -94,16 +105,21 @@ if(isset($_POST['submit'])){
 
     #Solten keine Fehler im Array sein wird der Benutzer in die Datenbank eingetragen
     if(!in_array(true,$errors)){
-
+        $salt ="";
+        for( $i = 0; $i <=5;$i++){
+            $salt = $salt.chr(rand(65,90));
+        }
+        $hash =sha1($salt.$nutzer['passwort']);
         $link = createLink();
         /** @noinspection SqlResolve */
         $sql ="INSERT INTO benutzer (rolle,vorname,nachname,nickname,passwort,salt,email)
                     VALUES ('0','".$nutzer['vorname']."','".$nutzer['nachname']."','".$nutzer['benutzer']."',
-                    '".$nutzer['passwort']."','salzig','".$nutzer['email']."');";
+                    '".$hash."','".$salt."','".$nutzer['email']."');";
 
         mysqli_query($link, $sql);
-
-
+        closeLink($link);
+        header("Location: http://localhost:63342/tts/Anmeldung/Anmeldung.php");
+        exit;
     }
     closeLink($link);
 }
@@ -128,10 +144,16 @@ if(isset($_POST['submit'])){
             <label for="vorname">Vorname:</label>
             <input type="text" name="vorname" id="vorname" placeholder="Max" required maxlength="20"
                    value="<?php if(isset($_POST['vorname'])) echo $_POST['vorname'];  ?>">
+            <?php
+            if($errors['vornameFalsch'])
+                echo"<p style='color:lightcoral;'>Vorname darf nur aus A-Z und a-z bestehen</p>"?>
 
             <label for="nachname">Nachname:</label>
             <input type="text" name="nachname" id="nachname" placeholder="Mustermann" required maxlength="20"
                    value="<?php if(isset($_POST['nachname'])) echo $_POST['nachname'];  ?>">
+            <?php
+            if($errors['nachnameFalsch'])
+                echo"<p style='color:lightcoral;'>Nachname darf nur aus A-Z und a-z bestehen</p>"?>
 
             <label for="username">Benutzername</label>
             <input type="text" placeholder="MusterMax" name="username" id="username" required maxlength="25"

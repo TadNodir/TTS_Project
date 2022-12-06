@@ -1,4 +1,7 @@
 <?php
+session_start();
+if(isset($_SESSION['gesperrt']))
+    echo $_SESSION['gesperrt'];
 # Reset hat bisher nur die Form aufgebaut
 # Es findet kein Reset und keine Weiterleitung statt
 ?>
