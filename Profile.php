@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $conn = mysqli_connect(
         "localhost",
     "root",
@@ -10,6 +10,7 @@ $conn = mysqli_connect(
 if($conn->connect_error){
     die("Connection failed: " . $conn->connect_error);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -98,12 +99,18 @@ if($conn->connect_error){
             <tr>
                 <th>
                     <?php
-                    echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT nickname FROM swe.benutzer where id = 1"))["nickname"];
+                   # echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT nickname FROM swe.benutzer where id = 1"))["nickname"];
+                    if(isset($_SESSION['nickname']))
+                        echo $_SESSION['nickname'];
+                    else echo "Fehler";
                     ?>
                 </th>
                 <th>
                     <?php
-                    echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT punktestand FROM swe.benutzer"))["punktestand"];
+                    #echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT punktestand FROM swe.benutzer"))["punktestand"];
+                    if(isset($_SESSION['punktestand']))
+                        echo $_SESSION['punktestand'];
+                    else echo "Fehler";
                     ?>
                 </th>
             </tr>
@@ -114,12 +121,18 @@ if($conn->connect_error){
             <tr>
                 <td>
                     <?php
-                    echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT vorname FROM swe.benutzer"))["vorname"];
+                    #echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT vorname FROM swe.benutzer"))["vorname"];
+                    if(isset($_SESSION['vorname']))
+                        echo $_SESSION['vorname'];
+                    else echo "Fehler";
                     ?>
                 </td>
                 <td>
                     <?php
-                    echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT nachname FROM swe.benutzer"))["nachname"];
+                    #echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT nachname FROM swe.benutzer"))["nachname"];
+                    if(isset($_SESSION['nachname']))
+                        echo $_SESSION['nachname'];
+                    else echo "Fehler";
                     ?>
                 </td>
             </tr>
