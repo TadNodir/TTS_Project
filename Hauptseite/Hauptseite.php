@@ -20,7 +20,7 @@
             <a href="#News">News</a>
             <a href="#Anstehende">Anstehende</a>
             <a href="#Vergangene">Vergangene</a>
-            <a href="">Profil</a>
+            <a href="../Profile/Profile.php">Profil</a>
             <a href="">Abmelden</a>
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
         </div>

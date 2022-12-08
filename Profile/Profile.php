@@ -42,6 +42,10 @@ function Trashmail($e){
     <meta charset="UTF-8" />
     <title>Profile</title>
     <style>
+
+
+
+
         .flex-container{
             display: flex;
             height: 500px;
@@ -131,7 +135,8 @@ function Trashmail($e){
                 <th>
                     <?php
                     //echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT nickname FROM swe_tts.benutzer where id=1"))["nickname"];
-                    if(isset($_SESSION['nickname']))
+
+                    if (isset($_SESSION['nickname']))
                     {
                         echo $_SESSION['nickname'];
                     }
@@ -144,16 +149,17 @@ function Trashmail($e){
                 <th>
                     <?php
                     //echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT punktestand FROM swe_tts.benutzer where id=1"))["punktestand"];
-                    if(isset($_SESSION['rolle']))
+
+                    if (isset($_SESSION['rolle']))
                     {
                         if ($_SESSION['rolle'] == 0)
                         {
-                            echo $_SESSION['rolle'];
+                            echo $_SESSION['punktestand'];
                         }
-                        else
-                        {
-                            echo "Fehler";
-                        }
+                    }
+                    else
+                    {
+                        echo "Fehler";
                     }
                     ?>
                 </th>
@@ -165,12 +171,31 @@ function Trashmail($e){
             <tr>
                 <td>
                     <?php
-                    echo mysqli_fetch_assoc(getQueryResult($conn, "SELECT vorname FROM swe_tts.benutzer where id=1"))["vorname"];
+                    //echo mysqli_fetch_assoc(getQueryResult($conn, "SELECT vorname FROM swe_tts.benutzer where id=1"))["vorname"];
+
+                    if (isset($_SESSION['vorname']))
+                    {
+                        echo $_SESSION['vorname'];
+                    }
+                    else
+                    {
+                        echo "Fehler";
+                    }
                     ?>
                 </td>
                 <td>
                     <?php
-                    echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT nachname FROM swe_tts.benutzer where id=1"))["nachname"];
+                    //echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT nachname FROM swe_tts.benutzer where id=1"))["nachname"];
+
+                    if (isset($_SESSION['nachname']))
+                    {
+                        echo $_SESSION['nachname'];
+                    }
+                    else
+                    {
+                        echo "Fehler";
+                    }
+
                     ?>
                 </td>
             </tr>
@@ -180,8 +205,16 @@ function Trashmail($e){
             <tr>
                 <td colspan="2">
                     <?php
-                    $emaol = getQueryResult($conn,"SELECT email FROM swe_tts.benutzer");
-                    echo mysqli_fetch_assoc($emaol)["email"];
+                    //$emaol = getQueryResult($conn,"SELECT email FROM swe_tts.benutzer");
+                    //echo mysqli_fetch_assoc($emaol)["email"];
+                    if (isset($_SESSION['email']))
+                    {
+                        echo $_SESSION['email'];
+                    }
+                    else
+                    {
+                        echo "Fehler";
+                    }
                     ?>
                 </td>
             </tr>
@@ -191,7 +224,16 @@ function Trashmail($e){
             <tr>
                 <td>
                     <?php
-                    echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT passwort FROM swe_tts.benutzer where id=1"))["passwort"];
+                    //echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT passwort FROM swe_tts.benutzer where id=1"))["passwort"];
+
+                    if (isset($_SESSION['passwort']))
+                    {
+                        echo $_SESSION['passwort'];
+                    }
+                    else
+                    {
+                        echo "Fehler";
+                    }
                     ?>
                 </td>
                 <td>
@@ -237,27 +279,24 @@ function Trashmail($e){
 
         if (isset($_POST["benutzer"]))
         {
-
-            //$g = "SELECT nickname FROM swe_tts.benutzer WHERE EXISTS(SELECT nickname FROM swe_tts.benutzer WHERE nickname = '".$_POST["benutzer"]."')";
-
-
             if ($_POST["benutzer"] != "")
             {
-                $sql = "UPDATE swe_tts.benutzer SET nickname = '".$_POST["benutzer"]."' WHERE id = 1";
-                mysqli_query($conn, $sql);
+                $g = "SELECT id FROM swe_tts.benutzer WHERE nickname = '".$_POST["benutzer"]."';";
 
-                echo "<label class='erfolg'> Erfolgreiche änderung! </label>";
+                if (mysqli_fetch_assoc(mysqli_query($conn, $g)) === NULL)
+                {
+                    $sql = "UPDATE swe_tts.benutzer SET nickname = '".$_POST["benutzer"]."' WHERE id = 1";
+                    mysqli_query($conn, $sql);
 
-                echo "<meta http-equiv='refresh' content='3'>";
+                    echo "<label class='erfolg'> Erfolgreiche änderung des Benutzernamens </label>";
+                    echo "<br>";
+                    echo "<meta http-equiv='refresh' content='3'>";
+                }
+                else
+                {
+                    echo "<label class='fehlermeldung'> Der gewünschte Benutzername existiert bereits! </label>";
+                }
             }
-
-
-
-
-
-
-
-
         }
 
         if (isset($_POST["email"]))
@@ -269,8 +308,8 @@ function Trashmail($e){
                     $sql = "UPDATE swe_tts.benutzer SET email = '".$_POST["email"]."' WHERE id = 1";
                     mysqli_query($conn, $sql);
 
-                    echo "<label class='erfolg'> Erfolgreiche änderung! </label>";
-
+                    echo "<label class='erfolg'> Erfolgreiche änderung der E-mail adresse </label>";
+                    echo "<br>";
                     echo "<meta http-equiv='refresh' content='3'>";
                 }
                 else
@@ -296,7 +335,7 @@ function Trashmail($e){
                     $sql = "UPDATE swe_tts.benutzer SET passwort = '".$_POST["password"]."' WHERE id = 1";
                     mysqli_query($conn, $sql);
 
-                    echo "<label class='erfolg'> Erfolgreiche änderung! </label>";
+                    echo "<label class='erfolg'> Erfolgreiche änderung des Passwortes </label>";
 
                     echo "<meta http-equiv='refresh' content='3'>";
                 }
