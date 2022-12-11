@@ -39,63 +39,18 @@ function Trashmail($e){
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="Profile.css" rel="stylesheet" type="text/css" media="screen">
     <title>Profile</title>
-    <style>
-
-
-
-
-        .flex-container{
-            display: flex;
-            height: 500px;
-            flex-direction: row;
-            justify-content: space-between;
-            margin-inline: 5rem;
-        }
-
-        .flex-item-middle{
-            align-self: center;
-        }
-
-        .form-popup{
-            display: none;
-        }
-
-        .delete-popup{
-            display: none;
-        }
-
-        .erfolg{
-            color: lawngreen;
-        }
-
-        .fehlermeldung{
-            color: red;
-        }
-
-        @media (max-width: 800px) {
-            .flex-container{
-                flex-direction: column;
-            }
-
-            .flex-item-right{
-                align-self: center;
-            }
-
-            .flex-item-left{
-                align-self: center;
-            }
-        }
-    </style>
-
     <script>
         function openForm() {
             document.getElementById("myForm").style.display = "block";
+            document.getElementById("infoTable").style.display = "none";
         }
 
         function closeForm(){
             document.getElementById("myForm").style.display = "none";
+            document.getElementById("infoTable").style.display = "block";
         }
 
         function openDelete() {
@@ -126,13 +81,16 @@ function Trashmail($e){
     </script>
 </head>
 <body>
+
 <div class="flex-container">
+
     <div class="flex-item-left">  <a href="../Hauptseite/Hauptseite.php"> <img src="../logo_200x200.png" alt="TTS-Logo"> </a> </div>
 
     <div class="flex-item-middle">
-        <table>
+        <h2>Benutzerinfo</h2>
+        <table id="infoTable">
             <tr>
-                <th>
+                <th class="tbl">
                     <?php
                     //echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT nickname FROM swe_tts.benutzer where id=1"))["nickname"];
 
@@ -146,7 +104,7 @@ function Trashmail($e){
                     }
                     ?>
                 </th>
-                <th>
+                <th class="tbl">
                     <?php
                     //echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT punktestand FROM swe_tts.benutzer where id=1"))["punktestand"];
 
@@ -169,7 +127,7 @@ function Trashmail($e){
                 <td> Nachname: </td>
             </tr>
             <tr>
-                <td>
+                <td class="tbl">
                     <?php
                     //echo mysqli_fetch_assoc(getQueryResult($conn, "SELECT vorname FROM swe_tts.benutzer where id=1"))["vorname"];
 
@@ -183,7 +141,7 @@ function Trashmail($e){
                     }
                     ?>
                 </td>
-                <td>
+                <td class="tbl">
                     <?php
                     //echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT nachname FROM swe_tts.benutzer where id=1"))["nachname"];
 
@@ -203,7 +161,7 @@ function Trashmail($e){
                 <td colspan="2"> E-Mail: </td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td colspan="2" class="tbl">
                     <?php
                     //$emaol = getQueryResult($conn,"SELECT email FROM swe_tts.benutzer");
                     //echo mysqli_fetch_assoc($emaol)["email"];
@@ -220,9 +178,7 @@ function Trashmail($e){
             </tr>
             <tr>
                 <td> Password: </td>
-            </tr>
-            <tr>
-                <td>
+                <td class="tbl">
                     <?php
                     //echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT passwort FROM swe_tts.benutzer where id=1"))["passwort"];
 
@@ -236,6 +192,8 @@ function Trashmail($e){
                     }
                     ?>
                 </td>
+            </tr>
+            <tr>
                 <td>
                     <button class="open-button" onclick="openForm()"> Daten ändern </button>
                 </td>
@@ -251,24 +209,16 @@ function Trashmail($e){
                 <label for="benutzername"> Benutzername: </label>
                 <input type="text" name="benutzer" id="benutzername">
 
-                <br> <br>
-
                 <label for="email"> E-mail: </label>
                 <input type="email" name="email" id="email">
-
-                <br> <br>
 
                 <label for="password"> Password: </label>
                 <input type="password" name="password" id="password">
                 <label> <input type="checkbox" onclick="myPassword()"> Show Password </label>
 
-                <br> <br>
-
                 <label for="passwordRe"> Password bestätigen: </label>
                 <input type="password" name="passwordRe" id="passwordRe">
                 <label> <input type="checkbox" onclick="myPasswordRe()"> Show Password </label>
-
-                <br> <br>
 
                 <button type="submit" class="btn"> Daten ändern </button>
                 <button type="button" class="btn cancel" onclick="closeForm()"> Abbrechen </button>
@@ -348,10 +298,9 @@ function Trashmail($e){
         ?>
 
     </div>
-    <br> <br>
     <div class="flex-item-right">
         <form name="Abmelden" action="../Anmeldung/Anmeldung.php">
-            <input type="submit" value="Abmelden">
+            <input type="submit" class="logout" value="Abmelden">
         </form>
         <br>
         <button class="delete-button" onclick="openDelete()"> Konto löschen </button>
