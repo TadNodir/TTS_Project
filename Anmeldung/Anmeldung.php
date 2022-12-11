@@ -3,52 +3,42 @@
 include("../database/db_functions.php");
 session_start();
 #email oder benutzername
-function checkAccount($user,$password): int
+function checkAccount($user,$password): bool
 {
     $link = createLink();
 
 
     # Suche die ID der zugehörigen email oder des Benutzernamens
     /** @noinspection SqlResolve */
-    $sql ="SELECT id,gesperrt,nickname,salt FROM benutzer 
+    $sql ="SELECT id FROM benutzer 
                    WHERE nickname ='".$user."';";
 
     $result = mysqli_query($link, $sql);
-    $resultRow = mysqli_fetch_assoc($result);
 
-    if($resultRow=== NULL){
+    if(mysqli_fetch_assoc($result)=== NULL){
 
         /** @noinspection SqlResolve */
-        $sql ="SELECT id,gesperrt,nickname,salt FROM benutzer 
+        $sql ="SELECT id FROM benutzer 
                    WHERE email ='".$user."';";
+
         $result = mysqli_query($link, $sql);
-        $resultRow = mysqli_fetch_assoc($result);
     }
 
     #Sollte keine ID zum Namen gefunden werden gib Fehlercode 3 zurück
-    if($resultRow=== NULL){
+    if(mysqli_fetch_assoc($result)=== NULL){
         return 3;
     }
 
-    $idName=$resultRow['id'];
+    $row=mysqli_fetch_assoc($result);
+    $idName=$row['id'];
 
 
-    if($resultRow['gesperrt']>=5){
-
-        $_SESSION['gesperrt'] = "Der Benutzer".$resultRow['nickname']." wurde gesperrt. Bitte setzen Sie ihr Passwort zurück.";
-        closeLink($link);
-        header( "Location: http://localhost:63342/tts/reset.php");
-        exit;
-
-    }
-    $hash = sha1($resultRow['salt'].$password);
     # Kontrolliere ob die gefundene ID mit dem Passwort übereinstimmt
     /** @noinspection SqlResolve */
     $sql ="SELECT id FROM benutzer 
-                   WHERE id ='".$idName."' AND passwort = '".$hash."';";
+                   WHERE id ='".$idName."' AND passwort = '".$password."';";
 
     $result = mysqli_query($link, $sql);
-
     closeLink($link);
     #Sollte das Passwort mit der ID nicht übereinstimmen gib Fehlercode 2 zurück
     if(mysqli_fetch_assoc($result)=== NULL){
@@ -59,8 +49,6 @@ function checkAccount($user,$password): int
         return 1;
     }
 }
-
-
 
 $nutzer = array(
     "benutzer"=>"",
@@ -77,58 +65,27 @@ if(isset($_POST['submit'])){
     $nutzer['passwort'] =  trim($_POST['password'] ?? "");
 
     $fehlerCode = checkAccount($nutzer['benutzer'],$nutzer['passwort']);
-    echo $fehlerCode;
-    $link = createLink();
-    if($fehlerCode == 1){
+    if($fehlerCode==1){
 
-            $sql ="UPDATE benutzer
-                SET gesperrt = 0
-                   WHERE nickname ='".$nutzer['benutzer']."';";
-            mysqli_query($link, $sql);
+        $link = createLink();
+        $sql ="SELECT id,rolle,vorname,nachname,punktestand, passwort FROM swe_tts.benutzer WHERE nickname ='".$nutzer['benutzer']."';";
 
-            $sql ="SELECT rolle,id,vorname,nachname,punktestand,email FROM benutzer WHERE nickname ='".$nutzer['benutzer']."';";
-
-            $result = mysqli_query($link, $sql);
-            $resultArray = mysqli_fetch_assoc($result);
-
-            $_SESSION['id']= $resultArray['id'];
-            $_SESSION['nickname']= $nutzer['benutzer'];
-            $_SESSION['vorname']= $resultArray['vorname'];
-            $_SESSION['nachname']= $resultArray['nachname'];
-            $_SESSION['punktestand']= $resultArray['punktestand'];
-            $_SESSION['email']= $resultArray['email'];
-            $_SESSION['rolle']= $resultArray['rolle'];
-
-            closeLink($link);
-            header("Location: http://localhost:63342/tts/Hauptseite/Hauptseite.php");
-            exit();
-
-
-    }else if($fehlerCode == 2){
-
-
-        $sql ="UPDATE benutzer
-                SET gesperrt = gesperrt+1 
-                   WHERE nickname ='".$nutzer['benutzer']."';";
-        mysqli_query($link, $sql);
-
-        $sql= "SELECT gesperrt 
-                FROM benutzer 
-                WHERE nickname ='".$nutzer['benutzer']."';";
-        $result=mysqli_query($link, $sql);
+        $result = mysqli_query($link, $sql);
         $resultArray = mysqli_fetch_assoc($result);
 
-       if($resultArray['gesperrt']>=5){
-           $_SESSION['gesperrt'] = "Der Benutzer ".$nutzer['benutzer']." wurde gesperrt. Bitte setzen Sie ihr Passwort zurück.";
-           header( "Location: http://localhost:63342/tts/reset.php");
-           exit;
-       }
+        $_SESSION['id']= $resultArray['id'];
+        $_SESSION['rolle'] = $resultArray['rolle'];
+        $_SESSION['nickname']= $nutzer['benutzer'];
+        $_SESSION['vorname']= $resultArray['vorname'];
+        $_SESSION['nachname']= $resultArray['nachname'];
+        $_SESSION['punktestand']= $resultArray['punktestand'];
+        $_SESSION['passwort']= $resultArray['passwort'];
 
 
+        header("Location: http://localhost:63342/tts/Hauptseite/Hauptseite.php");
+        exit();
 
     }
-    closeLink($link);
-    unset($_POST["submit"]);
 }
 
 
@@ -150,7 +107,7 @@ if(isset($_POST['submit'])){
 <div class="background">
     <img src="../logo.png" alt="logo">
     <div class="formular">
-        <form method="post"  >
+        <form method="post"  action="../Hauptseite/Hauptseite.php" >
             <h3>Login</h3>
 
             <label for="username">Benutzername</label>
