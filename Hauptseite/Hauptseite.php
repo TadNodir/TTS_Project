@@ -20,7 +20,7 @@
             <a href="#News">News</a>
             <a href="#Anstehende">Anstehende</a>
             <a href="#Vergangene">Vergangene</a>
-            <a href="../Profile.php">Profil</a>
+            <a href="">Profil</a>
             <a href="">Abmelden</a>
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
         </div>
@@ -148,11 +148,76 @@
         <section class="news">
             <h1 id="news">Newsfeed</h1>
             <p>
-                <ul>
-                  <li>Spiel X wurde hinzugefügt</li><br>
-                  <li>Ergebnis für Spiel Y ist raus</li><br>
-                  <li>Ergebnis für Spiel Z ist raus</li><br>
-                </ul>
+            <ul>
+                <?php
+                //holen der Daten aus der Datenbank
+                $link = mysqli_connect("localhost", // Host der Datenbank
+                    "dev_tts",                 // Benutzername zur Anmeldung
+                    "QN7ZAqgGY9wZ",    // Passwort
+                    "swe_tts"    // Auswahl der Datenbanken (bzw. des Schemas)
+                // optional port der Datenbank
+                );
+
+                if (!$link) {
+                    echo "Verbindung fehlgeschlagen: ", mysqli_connect_error();
+                    exit();
+                }
+
+                //fragt alle Spiele Ab die entweder noch ausstehen oder vor weniger als 2 Tagen beendet wurden
+                $sql = "SELECT team_1, team_2 , beendet, uhrzeit FROM spiele
+                        WHERE beendet = 0 OR uhrzeit <= NOW() - 2";
+
+                $result = mysqli_query($link, $sql);
+                if (!$result) {
+                    echo "Fehler während der Abfrage:  ", mysqli_error($link);
+                    exit();
+                }
+                $data = mysqli_fetch_all($result, MYSQLI_BOTH);
+
+
+                //gibt alle spiele der eben sortierten Spiele aus
+                foreach ($data as $spiele){
+
+                    $hilfteam_1 = $spiele['team_1'];
+                    $hilfteam_2 = $spiele['team_2'];
+                    $sql = "SELECT land FROM teams WHERE id = $hilfteam_1 OR id = $hilfteam_2";
+
+                    $result = mysqli_query($link, $sql);
+                    if (!$result) {
+                        echo "Fehler während der Abfrage:  ", mysqli_error($link);
+                        exit();
+                    }
+                    $teamdata = mysqli_fetch_all($result, MYSQLI_BOTH);
+                    $hilf = 0;
+                    $text = "";
+                    foreach ($teamdata as $namen) {
+                        if($hilf == 0){
+                            if ($spiele['beendet'] == 1) {
+                                $text = $text . '<li>'.'<a href="#Vergangene">' . "Spiel " . $namen['0'] . " gegen ";
+                            } else if ($spiele['beendet'] == 0) {
+                                $text = $text . '<li>'.'<a href="#Anstehende">' . "Spiel " . $namen['0'] . " gegen ";
+                            } else {
+                                echo 'Spiel wurde nicht gefunden!';
+                            }
+                            $hilf++;
+                        }
+                        else{
+                            if($spiele['beendet'] == 1) {
+                                $text = $text . $namen['0'] . " ist vorbei" . '</a>' .'</li>'.'<br>';
+                            }
+                            else if ($spiele['beendet'] == 0){
+                                $text = $text . $namen['0'] . " wurde hinzugefügt" . '</a>' .'</li>'. '<br>';
+                            }
+                            else {
+                                echo 'Spiel wurde nicht gefunden!';
+                            }
+                            $hilf = 0;
+                        }
+                    }
+                    echo $text;
+                }
+                ?>
+            </ul>
             </p>
         </section>
     </div>
