@@ -45,10 +45,10 @@ INSERT INTO teams VALUES
 
 -- Befüllen zweier Beispiel Nutzer
 -- 0 = benutzer, 1 = Admin, und 2 = Superadmin.
-INSERT INTO benutzer VALUES
-                         (1, 0, 'Testvorname', 'Testnachname', 'Testnickname', 'Passwort', 'Salt', 42069, false),
-                         (2, 1, 'Adminalfred', 'Adminhansmann', 'Gigachad', 'Tripper', 'Adminsalt', 69420, false),
-                         (3, 2, 'Sadminhans', 'Sadminvnstark', 'enjoyer', 'Megaturtok', 'Sadminsalt', 2, false);
+INSERT INTO benutzer(rolle, vorname, nachname, nickname, email, passwort, salt, punktestand, gesperrt) VALUES
+                         (0, 'Testvorname', 'Testnachname', 'Testnickname','prov@em.com' , 'Passwort', 'Salt', 42069, false),
+                         (1, 'Adminalfred', 'Adminhansmann', 'Gigachad','egal@88.com', 'Tripper', 'Adminsalt', 69420, false),
+                         (2, 'Sadminhans', 'Sadminvnstark', 'enjoyer','der@führer.de', 'Megaturtok', 'Sadminsalt', 2, false);
 
 -- Befüllen einse Spiels
 INSERT INTO spiele VALUES

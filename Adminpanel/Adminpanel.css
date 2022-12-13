@@ -1,0 +1,209 @@
+html,
+body {
+    height: 100%;
+}
+
+body *{
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+.navigation {
+    position: sticky;
+    background-color: #00B1AC;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+}
+
+.navigation .nav-links {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation a, span {
+    display: inline-block;
+    padding: 20px 20px;
+    text-decoration: none;
+    transition: background-color 0.5s ease-out;
+    color: white;
+}
+
+.navigation a:hover{
+    background-color: rgba(255, 255, 255, 0.47);
+}
+
+.background{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: row;
+    margin: 30px auto;
+}
+
+.tabellen{
+    width: 950px;
+    order: 1;
+    flex-shrink: 5;
+    margin: 1vw 4vw;
+}
+
+.rest{
+    flex: 0 0 auto;
+    order: 2;
+    flex-shrink: 5;
+    margin: 1vw 4vw;
+}
+
+table {
+    width: 100%;
+    border-radius: 10px;
+    border-collapse: collapse;
+    overflow: hidden;
+    background: #00B1AC;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+}
+
+th, td {
+    padding: 15px;
+    background-color: rgba(255,255,255,0.2);
+    color: #fff;
+}
+
+th {
+    text-align: center;
+}
+
+thead th {
+    background-color: #55608f;
+}
+
+tbody tr:hover {
+    background-color: rgba(255,255,255,0.3);
+}
+
+tbody td {
+    position: relative;
+    text-align: center;
+}
+
+tbody button {
+    padding: 10px;
+    font-size: 14px;
+    background: white;
+    color: #080710;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.47);
+}
+
+h1 {
+    text-align: center;
+}
+
+body {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background: linear-gradient(#00B1AC, #ffffff);
+}
+
+.login-box {
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 10px 20px rgba(0,0,0,.6);
+    border-radius: 10px;
+}
+
+.login-box legend {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+}
+.login-box .user-box {
+    position: relative;
+}
+.user-box{
+    padding: 5px;
+}
+.login-box .user-box input {
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+.login-box .user-box label {
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #03e9f4;
+    font-size: 12px;
+}
+
+.login-box form a {
+    position: relative;
+    display: inline-block;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px
+}
+#create{
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 2px 1px;
+    cursor: pointer;
+    border-radius: 11px;
+}
+
+.login-box a:hover {
+    background: #03e9f4;
+    color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 5px #03e9f4,
+    0 0 10px #03e9f4,
+    0 0 25px #03e9f4,
+    0 0 50px #03e9f4;
+}
+
+fieldset {
+    font: 1em Verdana, Geneva, sans-serif;
+    text-transform: none;
+    color: #000;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    border: thin solid #333;
+    border-radius: 9px;
+}
