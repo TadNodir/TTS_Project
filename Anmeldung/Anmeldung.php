@@ -1,5 +1,6 @@
 <?php
 #Überprüfung ob Logindaten korrekt, dann Weiterleitung
+#test
 include("../database/db_functions.php");
 session_start();
 #email oder benutzername
