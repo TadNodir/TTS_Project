@@ -170,7 +170,7 @@ if(isset($_POST['submit'])){
 
 
             <input type="submit" name="submit" value="Login" class="login">
-            <div class="forgotPassword"><a href="../reset.php">Passwort vergessen?</a></div>
+            <div class="forgotPassword"><a href="reset.php">Passwort vergessen?</a></div>
             <hr>
         </form>
         <div class="registration">
