@@ -31,10 +31,10 @@ Selector, which controls behaviour of the logo above formular
     flex-grow: 3;
     max-width: 100%;
     position: relative;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    /*border-radius: 10px;*/
+    /*backdrop-filter: blur(10px);*/
+    /*border: 2px solid rgba(255, 255, 255, 0.1);*/
+    /*box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);*/
 }
 
 /*
@@ -45,10 +45,10 @@ Login formular, which represents behaviour of the formular block
     max-width: 100%;
     background-color: rgba(255, 255, 255, 0.13);
     position: relative;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    /*border-radius: 10px;*/
+    /*backdrop-filter: blur(10px);*/
+    /*border: 2px solid rgba(255, 255, 255, 0.1);*/
+    /*box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);*/
     padding: 50px 35px;
 }
 
@@ -79,7 +79,7 @@ input {
     height: 35px;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.07);
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     padding: 0 10px;
     margin-top: 5px;
     font-size: 14px;
@@ -89,13 +89,13 @@ input {
 .formular button {
     color: #080710;
     font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
+    /*border-radius: 5px;*/
+    /*cursor: pointer;*/
 }
 
-button:hover {
-    background-color: rgba(255, 255, 255, 0.47);
-}
+/*button:hover {*/
+/*    background-color: rgba(255, 255, 255, 0.47);*/
+/*}*/
 
 .register {
     margin-top: 35px;

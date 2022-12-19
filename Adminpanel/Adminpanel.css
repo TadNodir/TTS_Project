@@ -15,7 +15,7 @@ body *{
     background-color: #00B1AC;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    /*box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);*/
 }
 
 .navigation .nav-links {
@@ -32,9 +32,9 @@ body *{
     color: white;
 }
 
-.navigation a:hover{
-    background-color: rgba(255, 255, 255, 0.47);
-}
+/*.navigation a:hover{*/
+/*    background-color: rgba(255, 255, 255, 0.47);*/
+/*}*/
 
 .background{
     display: flex;
@@ -64,8 +64,8 @@ table {
     border-collapse: collapse;
     overflow: hidden;
     background: #00B1AC;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    /*backdrop-filter: blur(10px);*/
+    /*box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);*/
 }
 
 th, td {
@@ -82,9 +82,9 @@ thead th {
     background-color: #55608f;
 }
 
-tbody tr:hover {
-    background-color: rgba(255,255,255,0.3);
-}
+/*tbody tr:hover {*/
+/*    background-color: rgba(255,255,255,0.3);*/
+/*}*/
 
 tbody td {
     position: relative;
@@ -101,9 +101,9 @@ tbody button {
     cursor: pointer;
 }
 
-button:hover {
-    background-color: rgba(255, 255, 255, 0.47);
-}
+/*button:hover {*/
+/*    background-color: rgba(255, 255, 255, 0.47);*/
+/*}*/
 
 h1 {
     text-align: center;
@@ -113,14 +113,15 @@ body {
     margin:0;
     padding:0;
     font-family: sans-serif;
-    background: linear-gradient(#00B1AC, #ffffff);
+    /*background: linear-gradient(#00B1AC, #ffffff);*/
+    background: #00B1AC;
 }
 
 .login-box {
     background: rgba(0,0,0,.5);
     box-sizing: border-box;
-    box-shadow: 0 10px 20px rgba(0,0,0,.6);
-    border-radius: 10px;
+    /*box-shadow: 0 10px 20px rgba(0,0,0,.6);*/
+    /*border-radius: 10px;*/
 }
 
 .login-box legend {
@@ -151,7 +152,7 @@ body {
     font-size: 16px;
     color: #fff;
     pointer-events: none;
-    transition: .5s;
+    /*transition: .5s;*/
 }
 
 .login-box .user-box input:focus ~ label,
@@ -185,18 +186,18 @@ body {
     font-size: 13px;
     margin: 2px 1px;
     cursor: pointer;
-    border-radius: 11px;
+    /*border-radius: 11px;*/
 }
 
-.login-box a:hover {
-    background: #03e9f4;
-    color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 0 5px #03e9f4,
-    0 0 10px #03e9f4,
-    0 0 25px #03e9f4,
-    0 0 50px #03e9f4;
-}
+/*.login-box a:hover {*/
+/*    background: #03e9f4;*/
+/*    color: #fff;*/
+/*    border-radius: 15px;*/
+/*    box-shadow: 0 0 5px #03e9f4,*/
+/*    0 0 10px #03e9f4,*/
+/*    0 0 25px #03e9f4,*/
+/*    0 0 50px #03e9f4;*/
+/*}*/
 
 fieldset {
     font: 1em Verdana, Geneva, sans-serif;

@@ -8,10 +8,10 @@ img {
     flex-grow: 3;
     max-width: 100%;
     position: relative;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    /*border: 2px solid rgba(255, 255, 255, 0.1);*/
+    /*box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);*/
 }
 
 .flex-container{
@@ -46,10 +46,10 @@ label {
 
 table {
     max-width: 500px;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    /*box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);*/
 }
 
 th, td {
@@ -87,26 +87,26 @@ button, .logout {
     color: #080710;
     font-weight: 600;
     border-radius: 5px;
-    cursor: pointer;
+    /*cursor: pointer;*/
     margin: 10px;
 }
 
-button:hover, .logout:hover {
-    background-color: rgba(255, 255, 255, 0.47);
-}
+/*button:hover, .logout:hover {*/
+/*    background-color: rgba(255, 255, 255, 0.47);*/
+/*}*/
 
-.form-popup{
-    display: none;
-    flex-grow: 3;
-    max-width: 100%;
-    background-color: rgba(255, 255, 255, 0.13);
-    position: relative;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-    padding: 50px 35px;
-}
+/*.form-popup{*/
+/*    display: none;*/
+/*    flex-grow: 3;*/
+/*    max-width: 100%;*/
+/*    background-color: rgba(255, 255, 255, 0.13);*/
+/*    position: relative;*/
+/*    border-radius: 10px;*/
+/*    backdrop-filter: blur(10px);*/
+/*    border: 2px solid rgba(255, 255, 255, 0.1);*/
+/*    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);*/
+/*    padding: 50px 35px;*/
+/*}*/
 
 .delete-popup{
     display: none;
