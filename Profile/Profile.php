@@ -1,4 +1,40 @@
+<?php
 
+session_start();
+
+include '../database/db_functions.php';
+$conn = createLink();
+
+function Trashmail($e){
+
+    $BList = ['rcpt.at',
+        'damnthespan.at',
+        'wegwerfmail.de',
+        'trashmail'
+    ];
+
+    $parts = explode('@', $e);
+    $domain = array_pop($parts);
+
+    if (in_array($domain, $BList))
+    {
+        return true;
+    }
+    else
+    {
+        $parts2 = explode('.', $domain);
+
+        if (in_array($parts2[0], $BList))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="de">
@@ -55,10 +91,35 @@
         <table id="infoTable">
             <tr>
                 <th class="tbl">
+                    <?php
+                    //echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT nickname FROM swe_tts.benutzer where id=1"))["nickname"];
 
+                    if (isset($_SESSION['nickname']))
+                    {
+                        echo $_SESSION['nickname'];
+                    }
+                    else
+                    {
+                        echo "Fehler";
+                    }
+                    ?>
                 </th>
                 <th class="tbl">
+                    <?php
+                    //echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT punktestand FROM swe_tts.benutzer where id=1"))["punktestand"];
 
+                    if (isset($_SESSION['rolle']))
+                    {
+                        if ($_SESSION['rolle'] == 0)
+                        {
+                            echo $_SESSION['punktestand'];
+                        }
+                    }
+                    else
+                    {
+                        echo "Fehler";
+                    }
+                    ?>
                 </th>
             </tr>
             <tr>
@@ -67,10 +128,33 @@
             </tr>
             <tr>
                 <td class="tbl">
+                    <?php
+                    //echo mysqli_fetch_assoc(getQueryResult($conn, "SELECT vorname FROM swe_tts.benutzer where id=1"))["vorname"];
 
+                    if (isset($_SESSION['vorname']))
+                    {
+                        echo $_SESSION['vorname'];
+                    }
+                    else
+                    {
+                        echo "Fehler";
+                    }
+                    ?>
                 </td>
                 <td class="tbl">
+                    <?php
+                    //echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT nachname FROM swe_tts.benutzer where id=1"))["nachname"];
 
+                    if (isset($_SESSION['nachname']))
+                    {
+                        echo $_SESSION['nachname'];
+                    }
+                    else
+                    {
+                        echo "Fehler";
+                    }
+
+                    ?>
                 </td>
             </tr>
             <tr>
@@ -78,13 +162,35 @@
             </tr>
             <tr>
                 <td colspan="2" class="tbl">
-
+                    <?php
+                    //$emaol = getQueryResult($conn,"SELECT email FROM swe_tts.benutzer");
+                    //echo mysqli_fetch_assoc($emaol)["email"];
+                    if (isset($_SESSION['email']))
+                    {
+                        echo $_SESSION['email'];
+                    }
+                    else
+                    {
+                        echo "Fehler";
+                    }
+                    ?>
                 </td>
             </tr>
             <tr>
                 <td> Password: </td>
                 <td class="tbl">
+                    <?php
+                    //echo mysqli_fetch_assoc(mysqli_query($conn, "SELECT passwort FROM swe_tts.benutzer where id=1"))["passwort"];
 
+                    if (isset($_SESSION['passwort']))
+                    {
+                        echo $_SESSION['passwort'];
+                    }
+                    else
+                    {
+                        echo "Fehler";
+                    }
+                    ?>
                 </td>
             </tr>
             <tr>
@@ -119,7 +225,77 @@
             </form>
         </div>
 
+        <?php //Daten ändern
 
+        if (isset($_POST["benutzer"]))
+        {
+            if ($_POST["benutzer"] != "")
+            {
+                $g = "SELECT id FROM swe_tts.benutzer WHERE nickname = '".$_POST["benutzer"]."';";
+
+                if (mysqli_fetch_assoc(mysqli_query($conn, $g)) === NULL)
+                {
+                    $sql = "UPDATE swe_tts.benutzer SET nickname = '".$_POST["benutzer"]."' WHERE id = 1";
+                    mysqli_query($conn, $sql);
+
+                    echo "<label class='erfolg'> Erfolgreiche änderung des Benutzernamens </label>";
+                    echo "<br>";
+                    echo "<meta http-equiv='refresh' content='3'>";
+                }
+                else
+                {
+                    echo "<label class='fehlermeldung'> Der gewünschte Benutzername existiert bereits! </label>";
+                }
+            }
+        }
+
+        if (isset($_POST["email"]))
+        {
+            if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL))
+            {
+                if (!Trashmail($_POST["email"]))
+                {
+                    $sql = "UPDATE swe_tts.benutzer SET email = '".$_POST["email"]."' WHERE id = 1";
+                    mysqli_query($conn, $sql);
+
+                    echo "<label class='erfolg'> Erfolgreiche änderung der E-mail adresse </label>";
+                    echo "<br>";
+                    echo "<meta http-equiv='refresh' content='3'>";
+                }
+                else
+                {
+                    echo "<label class='fehlermeldung'> Die eingegebene E-mail wird nicht akzeptiert! </label>";
+                }
+            }
+            elseif($_POST["email"] == "")
+            {
+            }
+            else
+            {
+                echo "<label class='fehlermeldung'> Bitte geben Sie eine existierende E-mail ein! </label>";
+            }
+        }
+
+        if (isset($_POST["password"]) && isset($_POST["passwordRe"]))
+        {
+            if ($_POST["password"] != "" && $_POST["passwordRe"] != "")
+            {
+                if ($_POST["password"] == $_POST["passwordRe"])
+                {
+                    $sql = "UPDATE swe_tts.benutzer SET passwort = '".$_POST["password"]."' WHERE id = 1";
+                    mysqli_query($conn, $sql);
+
+                    echo "<label class='erfolg'> Erfolgreiche änderung des Passwortes </label>";
+
+                    echo "<meta http-equiv='refresh' content='3'>";
+                }
+                else
+                {
+                    echo "<label class='fehlermeldung'> Passwörter stimmen nicht überein </label>";
+                }
+            }
+        }
+        ?>
 
     </div>
     <div class="flex-item-right">
@@ -143,11 +319,22 @@
 
         </div>
 
+        <?php //Konto löschen
+        /*  Muss in Anmeldung.php
+        if (isset($_GET["del"]))
+        {
+            mysqli_query($conn, "DELETE FROM swe_tts.benutzer WHERE id = 1");
 
+            mysqli_query($conn, "SET @num := 0");
+            mysqli_query($conn, "UPDATE swe_tts.benutzer SET id = @num := (@num + 1)");
+            mysqli_query($conn, "ALTER TABLE swe_tts.benutzer AUTO_INCREMENT = 1");
+        }
+        */
+        ?>
     </div>
 </div>
 
-
+<?php closeLink($conn,null); ?>
 
 </body>
 </html>
