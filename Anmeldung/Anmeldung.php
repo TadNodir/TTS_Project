@@ -2,6 +2,7 @@
 #Überprüfung ob Logindaten korrekt, dann Weiterleitung
 #test
 include("../database/db_functions.php");
+session_destroy();
 session_start();
 #email oder benutzername
 function checkAccount($user,$password): int
@@ -38,7 +39,7 @@ function checkAccount($user,$password): int
 
         $_SESSION['gesperrt'] = "Der Benutzer".$resultRow['nickname']." wurde gesperrt. Bitte setzen Sie ihr Passwort zurück.";
         closeLink($link);
-        header( "Location: http://localhost:63342/tts/reset.php");
+        header( "Location: http://localhost:63342/tts/Anmeldung/reset.php");
         exit;
 
     }
@@ -60,7 +61,16 @@ function checkAccount($user,$password): int
         return 1;
     }
 }
+if (isset($_POST["del"]))
+{
+    $link=createLink();
+    mysqli_query($link,"DELETE FROM swe_tts.benutzer WHERE id = ".$_SESSION['id']);
+    mysqli_query($link, "SET @num := 0");
+    mysqli_query($link, "UPDATE swe_tts.benutzer SET id = @num := (@num + 1)");
+    mysqli_query($link, "ALTER TABLE swe_tts.benutzer AUTO_INCREMENT = 1");
+    closeLink($link);
 
+}
 
 
 $nutzer = array(
@@ -87,11 +97,12 @@ if(isset($_POST['submit'])){
                    WHERE nickname ='".$nutzer['benutzer']."';";
             mysqli_query($link, $sql);
 
-            $sql ="SELECT rolle,id,vorname,nachname,punktestand,email FROM benutzer WHERE nickname ='".$nutzer['benutzer']."';";
+            $sql ="SELECT rolle,id,vorname,nachname,punktestand,email,salt FROM benutzer WHERE nickname ='".$nutzer['benutzer']."';";
 
             $result = mysqli_query($link, $sql);
             $resultArray = mysqli_fetch_assoc($result);
 
+            $_SESSION['salt']= $resultArray['salt'];
             $_SESSION['id']= $resultArray['id'];
             $_SESSION['nickname']= $nutzer['benutzer'];
             $_SESSION['vorname']= $resultArray['vorname'];
