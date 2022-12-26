@@ -2,10 +2,11 @@
 include("../database/db_functions.php");
 session_start();
 var_dump($_SESSION['id']);
+var_dump($_SESSION['rolle']);
 $link = createLink();
 if(isset($_SESSION['id'])) $eingellogt = $_SESSION['id'];
 
-$num_per_page = 2;
+$num_per_page = 5;
 
 if(isset($_GET['pagescr'])){
     $pagescr = $_GET['pagescr'];
@@ -125,19 +126,26 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 </tr>
                 </thead>
                 <tbody>
-
                     <?php
                     $result_ans_spiele = db_select_anst_spiele($link, $eingellogt, $start_from_anst, $num_per_page);
                     while ($row = mysqli_fetch_assoc($result_ans_spiele))
                     {
+                        $spiel = $row['SPIEL'];
 
                         echo "<tr>".
                             "<td>".$row['LAND1']."</td>".
                             "<td>".$row['uhrzeit']."</td>".
                             "<td>".$row['LAND2']."</td>";
-                        if($row['TIPP1'] || $row['TIPP2']) echo "<td>" . "Bearbeiten" . "<td>";
-                        else echo "<td>" . "Tippen" . "<td>";
-                        echo    "</tr>";
+                        if($_SESSION['rolle'] == '0')
+                        {
+                            if($row['TIPP1'] || $row['TIPP2']) echo "<td>" . "Bearbeiten" . "<td>";
+                            else  echo "<td>" . "<form method='post'>
+                                                    <input placeholder='Spiel1' name='spiel1' id='spiel1'>
+                                                    <input placeholder='Spiel2' name='spiel2' id='spiel2'>
+                                                    <input type='submit', name='submit' value='Tipp'>
+                                                </form>" . "<td>";
+                            echo    "</tr>";
+                        }
                     }
                     ?>
                 </tbody>

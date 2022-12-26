@@ -84,3 +84,8 @@ function db_scoreboard_ergebniss($link, $userid){
     $query = "SELECT punktestand FROM benutzer WHERE id = '$userid'";
     return mysqli_query($link, $query);
 }
+
+function db_tippen($link, $userid, $spiel, $tipp1, $tipp2){
+    $query = "INSERT INTO tipps (tipper,spiel,tipp_team1,tipp_team2) VALUES ('$userid', '$spiel','$tipp1','$tipp2')";
+
+}
