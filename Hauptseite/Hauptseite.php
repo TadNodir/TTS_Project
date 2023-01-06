@@ -61,6 +61,11 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
         </div>
     </nav>
 </header>
+<br>
+<label class="switch">
+    <input type="checkbox" onclick="darkL()">
+    <span class="slider round"></span>
+</label>
 <div class="background">
     <div class="main_page">
         <section class="scoreboard">

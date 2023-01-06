@@ -102,8 +102,18 @@ if(isset($_POST['submit'])){
     <title>Login</title>
     <!-- Link to the styling css file-->
     <link rel="stylesheet" href="Login.css" type="text/css" media="screen"/>
+    <script>
+        function darkL(){
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+        }
+    </script>
 </head>
 <body>
+<label class="switch">
+    <input type="checkbox" onclick="darkL()">
+    <span class="slider round"></span>
+</label>
 <div class="background">
     <img src="../logo.png" alt="logo">
     <div class="formular">

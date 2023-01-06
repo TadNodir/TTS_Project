@@ -45,3 +45,8 @@ function runtest(){
     window.location.href="../Profile/Profile.php";
 
 }
+
+function darkL(){
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+}

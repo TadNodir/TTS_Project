@@ -40,51 +40,26 @@ function Trashmail($e){
 <html lang="de">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="Profile.css" rel="stylesheet" type="text/css" media="screen">
     <title>Profile</title>
-    <script>
-        function openForm() {
-            document.getElementById("myForm").style.display = "block";
-            document.getElementById("infoTable").style.display = "none";
-        }
-
-        function closeForm(){
-            document.getElementById("myForm").style.display = "none";
-            document.getElementById("infoTable").style.display = "block";
-        }
-
-        function openDelete() {
-            document.getElementById("myDelete").style.display = "block";
-        }
-
-        function closeDelete() {
-            document.getElementById("myDelete").style.display = "none";
-        }
-
-        function myPassword(){
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
-
-        function myPasswordRe(){
-            var x = document.getElementById("passwordRe");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
-    </script>
+    <link href="Profile.css" rel="stylesheet" type="text/css" media="screen">
+    <script src="Profile.js" defer> </script>
 </head>
 <body>
 
 <div class="flex-container">
 
-    <div class="flex-item-left">  <a href="../Hauptseite/Hauptseite.php"> <img src="../logo_200x200.png" alt="TTS-Logo"> </a> </div>
+    <div class="flex-item-left">
+        <a href="../Hauptseite/Hauptseite.php"> <img src="../logo_200x200.png" alt="TTS-Logo"> </a>
+        <br>
+        <label class="switch">
+            <input type="checkbox" onclick="darkL()">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+
+
+
 
     <div class="flex-item-middle">
         <h2>Benutzerinfo</h2>

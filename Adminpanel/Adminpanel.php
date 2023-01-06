@@ -121,6 +121,11 @@ function create_adminlist($post, $link){
     </nav>
 </header>
 <body>
+<br>
+<label class="switch">
+    <input type="checkbox" onclick="darkL()">
+    <span class="slider round"></span>
+</label>
 <div class = "background">
     <div class = "tabellen">
         <section class = "user-liste">
