@@ -1,7 +1,17 @@
 <?php
 session_start();
-if (isset($_SESSION['gesperrt']))
+$errorMessage = "Die Passwörter stimmen nicht überein";
+if (isset($_SESSION['gesperrt'])) {
     echo $_SESSION['gesperrt'];
+}
+if (isset($_POST['reset'])) {
+    if ($_POST['passwortReset'] == $_POST['passwortReset2']) {
+        unset($_SESSION['gesperrt']);
+    }
+}
+
+
+
 # Reset hat bisher nur die Form aufgebaut
 # Es findet kein Reset und keine Weiterleitung statt
 ?>
@@ -18,6 +28,13 @@ if (isset($_SESSION['gesperrt']))
 <div class="background">
     <h2>Passwort vergessen? <br> Kein Problem! Hier zurücksetzen.</h2>
     <div class="formular">
+        <?php
+        if (isset($_POST['reset'])) {
+            if ($_POST['passwortReset'] != $_POST['passwortReset2']) {
+                echo $errorMessage;
+            }
+        }
+        ?>
         <form method="post">
             <label for="benutzerReset">Benutzername:</label>
             <input type="text" name="benutzerReset" id="benutzerReset" required>
@@ -31,7 +48,7 @@ if (isset($_SESSION['gesperrt']))
             <label for="passwortReset2">Passwort bestätigen:</label>
             <input type="password" name="passwortReset2" id="passwortReset2" required><br>
 
-            <input class="reset" type="submit" value="Zurücksetzen">
+            <input class="reset" type="submit" name="reset" value="Zurücksetzen">
         </form>
     </div>
 </div>

@@ -74,7 +74,8 @@ label {
     font-weight: 500;
 }
 
-input {
+#username, #password {
+    justify-content: center;
     display: block;
     height: 50px;
     width: 100%;
@@ -87,17 +88,29 @@ input {
 }
 
 .formular button {
+    padding: 10px;
+    font-size: 14px;
+    background: white;
+    margin: 10px;
     color: #080710;
     font-weight: 600;
     border-radius: 5px;
     cursor: pointer;
 }
 
-button:hover {
+button:hover, .login:hover {
     background-color: rgba(255, 255, 255, 0.47);
 }
 
 .login {
+    justify-content: center;
+    display: block;
+    height: 50px;
+    border-radius: 3px;
+    cursor: pointer;
+    background: white;
+    color: black;
+    font-weight: 600;
     margin-top: 50px;
     width: 100%;
     padding: 15px 0;
