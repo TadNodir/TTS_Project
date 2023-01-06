@@ -20,7 +20,7 @@
 <input type="submit" value="Zur Anmeldung"> </br></br>
 </form>
 
-<form action="reset.php">
+<form action="Anmeldung/reset.php">
     <input type="submit" value="Zum Reset"> </br></br>
 </form>
 
