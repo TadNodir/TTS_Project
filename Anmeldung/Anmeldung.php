@@ -2,7 +2,9 @@
 #Überprüfung ob Logindaten korrekt, dann Weiterleitung
 #test
 include("../database/db_functions.php");
-session_destroy();
+if (isset($_SESSION)) {
+    session_destroy();
+}
 session_start();
 #email oder benutzername
 function checkAccount($user,$password): int
@@ -88,7 +90,7 @@ if(isset($_POST['submit'])){
     $nutzer['passwort'] =  trim($_POST['password'] ?? "");
 
     $fehlerCode = checkAccount($nutzer['benutzer'],$nutzer['passwort']);
-    echo $fehlerCode;
+//    echo $fehlerCode;
     $link = createLink();
     if($fehlerCode == 1){
 
@@ -155,6 +157,16 @@ if(isset($_POST['submit'])){
     how to control the page's dimensions and scaling.-->
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <script>
+        function myPassword(){
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
     <!-- Link to the styling css file-->
     <link rel="stylesheet" href="Login.css" type="text/css" media="screen"/>
 </head>
@@ -175,6 +187,7 @@ if(isset($_POST['submit'])){
 
             <label for="password">Passwort</label>
             <input type="password" placeholder="********" name="password" id="password" required>
+            <label> <input type="checkbox" onclick="myPassword()"> Show Password </label>
             <?php
             if($fehlerCode===2)
                 echo"<p style='color:lightcoral;'>Passwort falsch eingegeben.</p>";?>

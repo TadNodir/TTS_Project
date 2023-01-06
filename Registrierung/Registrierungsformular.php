@@ -131,7 +131,7 @@ if(isset($_POST['submit'])){
     <!-- This line will set the viewport of your page, which will give the browser instructions on
     how to control the page's dimensions and scaling.-->
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register</title>
     <!-- Link to the styling css file-->
     <link rel="stylesheet" href="Register.css" type="text/css" media="screen"/>
 </head>
@@ -176,7 +176,7 @@ if(isset($_POST['submit'])){
             <label for="password">Passwort</label>
             <input type="password" placeholder="********" id="password" name="password" required minlength="8">
 
-            <label for="password2">Passwort</label>
+            <label for="password2">Passwort bestätigen</label>
             <input type="password" placeholder="********" id="password2" name="password2" required minlength="8">
             <?php
             if($errors['passwortFalsch'])
