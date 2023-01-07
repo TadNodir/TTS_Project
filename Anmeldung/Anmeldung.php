@@ -2,6 +2,24 @@
 #Überprüfung ob Logindaten korrekt, dann Weiterleitung
 include("../database/db_functions.php");
 session_start();
+
+
+//Konto löschen
+$conn = createLink();
+
+if (isset($_GET["del"]))
+{
+    mysqli_query($conn, "DELETE FROM swe_tts.benutzer WHERE nickname = '".$_SESSION['nickname']."'");
+
+    unset($_SESSION);
+
+    //ressetet den AUTO INCREMENT der id
+    mysqli_query($conn, "SET @num := 0");
+    mysqli_query($conn, "UPDATE swe_tts.benutzer SET id = @num := (@num + 1)");
+    mysqli_query($conn, "ALTER TABLE swe_tts.benutzer AUTO_INCREMENT = 1");
+}
+
+
 #email oder benutzername
 function checkAccount($user,$password): bool
 {

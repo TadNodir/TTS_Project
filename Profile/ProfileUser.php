@@ -13,7 +13,7 @@ if (!empty($_POST['nickname']))
 $n = $_SESSION['nick'];
 
 
-
+$_SESSION['del'] = $n;
 
 function Trashmail($e){
 
@@ -67,7 +67,7 @@ function Trashmail($e){
     </div>
 
     <div class="flex-item-middle">
-        <table>
+        <table id="infoTable" class="infoT">
             <tr>
                 <th>
                     <?php
@@ -205,7 +205,13 @@ function Trashmail($e){
             {
                 if (!Trashmail($_POST["email"]))
                 {
-                    $sql = "UPDATE swe_tts.benutzer SET email = '".$_POST["email"]."' WHERE nickname = '".$n."'";
+                    $salt ="";
+                    for( $i = 0; $i <=5;$i++){
+                        $salt = $salt.chr(rand(65,90));
+                    }
+                    $hash =sha1($salt.$_POST["password"]);
+
+                    $sql = "UPDATE swe_tts.benutzer SET email = '".$hash."' WHERE nickname = '".$n."'";
                     mysqli_query($conn, $sql);
 
                     echo "<label class='erfolg'> Erfolgreiche änderung der E-mail adresse </label>";
@@ -279,14 +285,14 @@ function Trashmail($e){
 
         <div class="delete-popup" id="myDelete">
 
-            <form method="get" class="delete-conatainer" action="../Anmeldung/Anmeldung.php">
+            <form method="get" class="delete-conatainer" action="../Adminpanel/Adminpanel.php">
                 <h3> Konto löschen </h3>
 
                 <label> Wollen Sie ihr </label> <br>
                 <label> Konto wirklich </label> <br>
                 <label> löschen ? </label> <br>
                 <button type="Button" class="btn-del cancel" onclick="closeDelete()"> Abbrechen </button>
-                <button type="submit" name="del" class="btn-del"> OK </button>
+                <button type="submit" name="del" class="btn-del"     > OK </button>
             </form>
 
         </div>
