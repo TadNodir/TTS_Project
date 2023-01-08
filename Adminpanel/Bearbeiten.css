@@ -1,0 +1,120 @@
+body {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background: linear-gradient(#00B1AC, #ffffff);
+}
+
+form {
+    text-align: center;
+}
+
+.login-box {
+    justify-content: center;
+    width: 70%;
+    margin: 0 auto;
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 10px 20px rgba(0,0,0,.6);
+    border-radius: 10px;
+}
+
+.login-box legend {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+}
+.login-box .user-box {
+    position: relative;
+}
+.user-box{
+    padding: 5px;
+}
+.login-box .user-box input {
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+.login-box .user-box label {
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #03e9f4;
+    font-size: 12px;
+}
+
+.login-box form a {
+    position: relative;
+    display: inline-block;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px
+}
+#create{
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 2px 1px;
+    cursor: pointer;
+    border-radius: 11px;
+}
+
+.login-box a:hover {
+    background: #03e9f4;
+    color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 5px #03e9f4,
+    0 0 10px #03e9f4,
+    0 0 25px #03e9f4,
+    0 0 50px #03e9f4;
+}
+
+fieldset {
+    margin: 10% auto 10%;
+    text-align: center;
+    font: 1em Verdana, Geneva, sans-serif;
+    text-transform: none;
+    color: #000;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    border: thin solid #333;
+    border-radius: 9px;
+}
+
+.form-popup{
+    display: none;
+    flex-grow: 3;
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.13);
+    position: relative;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 50px 35px;
+}
