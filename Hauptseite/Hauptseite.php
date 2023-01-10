@@ -56,7 +56,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
             <a href="#Anstehende">Anstehende</a>
             <a href="#Vergangene">Vergangene</a>
             <a href="../Profile/Profile.php">Profil</a>
-            <a href="../Anmeldung/Anmeldung.php">Abmelden</a>
+            <a href="">Abmelden</a>
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
         </div>
     </nav>
@@ -231,6 +231,14 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
             <p>
             <ul>
                 <?php
+                //holen der Daten aus der Datenbank
+                $link = mysqli_connect("localhost", // Host der Datenbank
+                    "dev_tts",                 // Benutzername zur Anmeldung
+                    "QN7ZAqgGY9wZ",    // Passwort
+                    "swe_tts"    // Auswahl der Datenbanken (bzw. des Schemas)
+                // optional port der Datenbank
+                );
+
                 if (!$link) {
                     echo "Verbindung fehlgeschlagen: ", mysqli_connect_error();
                     exit();

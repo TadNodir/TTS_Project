@@ -24,7 +24,6 @@ function checkAccount($user,$password): int
         /** @noinspection SqlResolve */
         $sql ="SELECT id,gesperrt,nickname,salt FROM benutzer 
                    WHERE email ='".$user."';";
-
         $result = mysqli_query($link, $sql);
         $resultRow = mysqli_fetch_assoc($result);
     }
@@ -52,6 +51,7 @@ function checkAccount($user,$password): int
                    WHERE id ='".$idName."' AND passwort = '".$hash."';";
 
     $result = mysqli_query($link, $sql);
+
     closeLink($link);
     #Sollte das Passwort mit der ID nicht übereinstimmen gib Fehlercode 2 zurück
     if(mysqli_fetch_assoc($result)=== NULL){
@@ -195,7 +195,6 @@ if(isset($_POST['submit'])){
 
             <label for="password">Passwort</label>
             <input type="password" placeholder="********" name="password" id="password" required>
-            <label> <input type="checkbox" onclick="myPassword()"> Show Password </label>
             <?php
             if($fehlerCode===2)
                 echo"<p style='color:lightcoral;'>Passwort falsch eingegeben.</p>";?>

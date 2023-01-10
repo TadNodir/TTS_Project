@@ -2,9 +2,13 @@
 
 session_start();
 
+//kleiner speicher der gebraucht wird
+$d = $_SESSION['nickname'];
+
 include '../database/db_functions.php';
 $conn = createLink();
 
+//function, die die eingegeben email auf trash überprüft
 function Trashmail($e){
 
     $BList = ['rcpt.at',
@@ -58,12 +62,9 @@ function Trashmail($e){
     </div>
 
 
-
-
-
     <div class="flex-item-middle">
         <h2>Benutzerinfo</h2>
-        <table id="infoTable">
+        <table id="infoTable" class="infoT">
             <tr>
                 <th class="tbl">
                     <?php
@@ -138,11 +139,11 @@ function Trashmail($e){
             <tr>
                 <td colspan="2" class="tbl">
                     <?php
-                    //$emaol = getQueryResult($conn,"SELECT email FROM swe_tts.benutzer");
-                    //echo mysqli_fetch_assoc($emaol)["email"];
-                    if (isset($_SESSION['email']))
+                    $emaol = getQueryResult($conn,"SELECT email FROM swe_tts.benutzer WHERE nickname = '".$_SESSION['nickname']."';");
+
+                    if (isset($d))
                     {
-                        echo $_SESSION['email'];
+                        echo mysqli_fetch_assoc($emaol)["email"];
                     }
                     else
                     {
@@ -202,36 +203,16 @@ function Trashmail($e){
 
         <?php //Daten ändern
 
-        if (isset($_POST["benutzer"]))
-        {
-            if ($_POST["benutzer"] != "")
-            {
-                $g = "SELECT id FROM swe_tts.benutzer WHERE nickname = '".$_POST["benutzer"]."';";
-
-                if (mysqli_fetch_assoc(mysqli_query($conn, $g)) === NULL)
-                {
-                    $sql = "UPDATE swe_tts.benutzer SET nickname = '".$_POST["benutzer"]."' WHERE id = ".$_SESSION['id'];
-                    mysqli_query($conn, $sql);
-
-                    echo "<label class='erfolg'> Erfolgreiche änderung des Benutzernamens </label>";
-                    echo "<br>";
-                    echo "<meta http-equiv='refresh' content='3'>";
-                }
-                else
-                {
-                    echo "<label class='fehlermeldung'> Der gewünschte Benutzername existiert bereits! </label>";
-                }
-            }
-        }
-
         if (isset($_POST["email"]))
         {
             if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL))
             {
                 if (!Trashmail($_POST["email"]))
                 {
-                    $sql = "UPDATE swe_tts.benutzer SET email = '".$_POST["email"]."' WHERE id = ".$_SESSION['id'];
+                    $sql = "UPDATE swe_tts.benutzer SET email = '".$_POST["email"]."' WHERE nickname = '".$d."';";
                     mysqli_query($conn, $sql);
+
+                    $_SESSION['email'] = $_POST["email"];
 
                     echo "<label class='erfolg'> Erfolgreiche änderung der E-mail adresse </label>";
                     echo "<br>";
@@ -271,6 +252,30 @@ function Trashmail($e){
                 }
             }
         }
+
+        if (isset($_POST["benutzer"]))
+        {
+            if ($_POST["benutzer"] != "")
+            {
+                $g = "SELECT id FROM swe_tts.benutzer WHERE nickname = '".$_POST["benutzer"]."';";
+
+                if (mysqli_fetch_assoc(mysqli_query($conn, $g)) === NULL)
+                {
+                    $sql = "UPDATE swe_tts.benutzer SET nickname = '".$_POST["benutzer"]."' WHERE nickname = '".$d."';";
+                    mysqli_query($conn, $sql);
+
+                    $_SESSION['nickname'] = $_POST["benutzer"];
+
+                    echo "<label class='erfolg'> Erfolgreiche änderung des Benutzernamens </label>";
+                    echo "<br>";
+                    echo "<meta http-equiv='refresh' content='3'>";
+                }
+                else
+                {
+                    echo "<label class='fehlermeldung'> Der gewünschte Benutzername existiert bereits! </label>";
+                }
+            }
+        }
         ?>
 
     </div>
@@ -283,32 +288,29 @@ function Trashmail($e){
 
         <div class="delete-popup" id="myDelete">
 
-
-            <form method="POST" class="delete-conatainer" action ="../Anmeldung/Anmeldung.php">
+            <form method="get" class="delete-conatainer" action="../Anmeldung/Anmeldung.php">
                 <h3> Konto löschen </h3>
 
                 <label> Wollen Sie ihr </label> <br>
                 <label> Konto wirklich </label> <br>
                 <label> löschen ? </label> <br>
                 <button type="Button" class="btn-del cancel" onclick="closeDelete()"> Abbrechen </button>
-                <input type="submit" name="del" class="btn-del" value="Ok">
+                <button type="submit" name="del" class="btn-del"> OK </button>
             </form>
 
         </div>
 
         <?php //Konto löschen
-          //Muss in Anmeldung.php
-
-        if (isset($_POST["del"]))
+        /*  Muss in Anmeldung.php
+        if (isset($_GET["del"]))
         {
-            mysqli_query($conn, "DELETE FROM swe_tts.benutzer WHERE id = ".$_SESSION['id']);
+            mysqli_query($conn, "DELETE FROM swe_tts.benutzer WHERE id = 1");
 
             mysqli_query($conn, "SET @num := 0");
             mysqli_query($conn, "UPDATE swe_tts.benutzer SET id = @num := (@num + 1)");
             mysqli_query($conn, "ALTER TABLE swe_tts.benutzer AUTO_INCREMENT = 1");
-
         }
-
+        */
         ?>
     </div>
 </div>

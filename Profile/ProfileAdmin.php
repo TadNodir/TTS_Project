@@ -12,7 +12,7 @@ if (!empty($_POST['nickname']))
 }
 $n = $_SESSION['nick'];
 
-
+$_SESSION['del'] = $n;
 
 function Trashmail($e){
 
@@ -65,7 +65,7 @@ function Trashmail($e){
     </div>
 
     <div class="flex-item-middle">
-        <table>
+        <table id="infoTable" class="infoT">
             <tr>
                 <th colspan="2">
                     <?php
@@ -228,7 +228,8 @@ function Trashmail($e){
             {
                 if ($_POST["password"] == $_POST["passwordRe"])
                 {
-                    $sql = "UPDATE swe_tts.benutzer SET passwort = '".$_POST["password"]."' WHERE nickname = '".$n."'";
+                    $saltedPassword = sha1($_SESSION['salt'].$_POST["password"]);
+                    $sql = "UPDATE swe_tts.benutzer SET passwort = '".$saltedPassword."' WHERE id = ".$_SESSION['id'];
                     mysqli_query($conn, $sql);
 
                     echo "<label class='erfolg'> Erfolgreiche änderung des Passwortes </label>";
@@ -276,7 +277,7 @@ function Trashmail($e){
 
         <div class="delete-popup" id="myDelete">
 
-            <form method="get" class="delete-conatainer" action="../Anmeldung/Anmeldung.php">
+            <form method="get" class="delete-conatainer" action="../Adminpanel/Adminpanel.php">
                 <h3> Konto löschen </h3>
 
                 <label> Wollen Sie ihr </label> <br>
