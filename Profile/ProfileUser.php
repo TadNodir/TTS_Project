@@ -238,7 +238,8 @@ function Trashmail($e){
             {
                 if ($_POST["password"] == $_POST["passwordRe"])
                 {
-                    $sql = "UPDATE swe_tts.benutzer SET passwort = '".$_POST["password"]."' WHERE nickname = '".$n."'";
+                    $saltedPassword = sha1($_SESSION['salt'].$_POST["password"]);
+                    $sql = "UPDATE swe_tts.benutzer SET passwort = '".$saltedPassword."' WHERE id = ".$_SESSION['id'];
                     mysqli_query($conn, $sql);
                     echo "<label class='erfolg'> Erfolgreiche änderung des Passwortes </label>";
                     echo "<br>";
