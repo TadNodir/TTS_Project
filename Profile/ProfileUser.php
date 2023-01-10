@@ -13,7 +13,7 @@ if (!empty($_POST['nickname']))
 $n = $_SESSION['nick'];
 
 
-
+$_SESSION['del'] = $n;
 
 function Trashmail($e){
 
@@ -51,92 +51,23 @@ function Trashmail($e){
 <head>
     <meta charset="UTF-8" />
     <title>Profile</title>
-    <style>
-        .flex-container{
-            display: flex;
-            height: 500px;
-            flex-direction: row;
-            justify-content: space-between;
-            margin-inline: 5rem;
-        }
+    <link href="Profile.css" rel="stylesheet" type="text/css" media="screen">
+    <script src="Profile.js"></script>
 
-        .flex-item-middle{
-            align-self: center;
-        }
-
-        .form-popup{
-            display: none;
-        }
-
-        .delete-popup{
-            display: none;
-        }
-
-        .erfolg{
-            color: lawngreen;
-        }
-
-        .fehlermeldung{
-            color: red;
-        }
-
-        @media (max-width: 800px) {
-            .flex-container{
-                flex-direction: column;
-            }
-
-            .flex-item-right{
-                align-self: center;
-            }
-
-            .flex-item-left{
-                align-self: center;
-            }
-        }
-    </style>
-
-    <script>
-        function openForm() {
-            document.getElementById("myForm").style.display = "block";
-        }
-
-        function closeForm(){
-            document.getElementById("myForm").style.display = "none";
-        }
-
-        function openDelete() {
-            document.getElementById("myDelete").style.display = "block";
-        }
-
-        function closeDelete() {
-            document.getElementById("myDelete").style.display = "none";
-        }
-
-        function myPassword(){
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
-
-        function myPasswordRe(){
-            var x = document.getElementById("passwordRe");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
-    </script>
 </head>
 <body>
 <div class="flex-container">
-    <div class="flex-item-left">  <a href="../Adminpanel/Adminpanel.php"> <img src="../logo_200x200.png" alt="TTS-Logo"> </a> </div>
+    <div class="flex-item-left">
+        <a href="../Adminpanel/Adminpanel.php"> <img src="../logo_200x200.png" alt="TTS-Logo"> </a>
+        <br>
+        <label class="switch">
+            <input type="checkbox" onclick="darkL()">
+            <span class="slider round"></span>
+        </label>
+    </div>
 
     <div class="flex-item-middle">
-        <table>
+        <table id="infoTable" class="infoT">
             <tr>
                 <th>
                     <?php
@@ -274,7 +205,13 @@ function Trashmail($e){
             {
                 if (!Trashmail($_POST["email"]))
                 {
-                    $sql = "UPDATE swe_tts.benutzer SET email = '".$_POST["email"]."' WHERE nickname = '".$n."'";
+                    $salt ="";
+                    for( $i = 0; $i <=5;$i++){
+                        $salt = $salt.chr(rand(65,90));
+                    }
+                    $hash =sha1($salt.$_POST["password"]);
+
+                    $sql = "UPDATE swe_tts.benutzer SET email = '".$hash."' WHERE nickname = '".$n."'";
                     mysqli_query($conn, $sql);
 
                     echo "<label class='erfolg'> Erfolgreiche änderung der E-mail adresse </label>";
@@ -341,21 +278,21 @@ function Trashmail($e){
     <br> <br>
     <div class="flex-item-right">
         <form name="Abmelden" action="../Anmeldung/Anmeldung.php">
-            <input type="submit" value="Abmelden">
+            <input type="submit" class="logout" value="Abmelden">
         </form>
         <br>
         <button class="delete-button" onclick="openDelete()"> Konto löschen </button>
 
         <div class="delete-popup" id="myDelete">
 
-            <form method="get" class="delete-conatainer" action="../Anmeldung/Anmeldung.php">
+            <form method="get" class="delete-conatainer" action="../Adminpanel/Adminpanel.php">
                 <h3> Konto löschen </h3>
 
                 <label> Wollen Sie ihr </label> <br>
                 <label> Konto wirklich </label> <br>
                 <label> löschen ? </label> <br>
                 <button type="Button" class="btn-del cancel" onclick="closeDelete()"> Abbrechen </button>
-                <button type="submit" name="del" class="btn-del"> OK </button>
+                <button type="submit" name="del" class="btn-del"     > OK </button>
             </form>
 
         </div>
