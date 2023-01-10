@@ -1,5 +1,40 @@
 <?php
+include("../database/db_functions.php");
+session_start();
+var_dump($_SESSION['id']);
+var_dump($_SESSION['rolle']);
+$link = createLink();
+if(isset($_SESSION['id'])) $eingellogt = $_SESSION['id'];
 
+$num_per_page = 5;
+
+if(isset($_GET['pagescr'])){
+    $pagescr = $_GET['pagescr'];
+}
+else{
+    $pagescr = 1;
+}
+$start_from_scr = ($pagescr-1)*$num_per_page;
+
+
+if(isset($_GET['pageanst'])){
+    $pageanst = $_GET['pageanst'];
+}
+else{
+    $pageanst = 1;
+}
+$start_from_anst = ($pageanst-1)*$num_per_page;
+
+
+if(isset($_GET['pagevrg'])){
+    $pagevrg = $_GET['pagevrg'];
+}
+else{
+    $pagevrg = 1;
+}
+$start_from_verg = ($pagevrg-1)*$num_per_page;
+
+$result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +61,11 @@
         </div>
     </nav>
 </header>
+<br>
+<label class="switch">
+    <input type="checkbox" onclick="darkL()">
+    <span class="slider round"></span>
+</label>
 <div class="background">
     <div class="main_page">
         <section class="scoreboard">
@@ -39,36 +79,43 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Max82</td>
-                    <td>99</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>4lice</td>
-                    <td>97</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>BobbyChad</td>
-                    <td>96</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Dr.Cheng77</td>
-                    <td>94</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Harambe99</td>
-                    <td>90</td>
-                </tr>
+                <?php
+                $result_scoreboard_punkte = db_scoreboard_punkte($link,  $start_from_scr, $num_per_page);
+                $rowcount = 1 * $start_from_scr + 1;
+                while ($row = mysqli_fetch_assoc($result_scoreboard_punkte)) {
+                    echo "<tr>" .
+                        "<td> $rowcount </td>" .
+                        "<td>".$row['nickname'] ."</td>".
+                        "<td>".$row['punktestand'] ."</td>".
+                    "</tr>";
+                    $rowcount++;
+                }
+                ?>
                 </tbody>
-                <td style="border-top: 2px solid">Mein Ergebnis: 50</td>
+                <?php
+                    echo "<td>". "Mein Ergebnis: " . mysqli_fetch_assoc($result_scoreboard_ergebniss)['punktestand'] ."</td>"
+                ?>
+               <!-- <td style="border-top: 2px solid">Mein Ergebnis: 50</td>-->
                 <td style="border-top: 2px solid"></td>
                 <td style="border-top: 2px solid"></td>
             </table>
+            <?php
+            $pr_query_scr = "SELECT * FROM benutzer WHERE rolle = 0";
+            $pr_result_scr = mysqli_query($link, $pr_query_scr);
+            $total_record_scr = mysqli_num_rows($pr_result_scr);
+            $total_pages_scr = ceil($total_record_scr/$num_per_page);
+
+            if($pagescr > 1)
+            {
+                echo "<a href =  'Hauptseite.php?pagescr=".($pagescr-1)." #Scoreboard ' > Perv </a>" ;
+
+            }
+            if($pagescr < $total_pages_scr)
+            {
+                echo "<a href = 'Hauptseite.php?pagescr=".($pagescr+1)." #Scoreboard'> Next </a>" ;
+
+            }
+            ?>
         </section>
 
         <section class="a_spiele">
@@ -77,32 +124,53 @@
                 <thead>
                 <tr>
                     <th>Team 1</th>
+                    <td>Uhrzeit</td>
                     <th>Team 2</th>
                     <th>Tipp</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>&#127465&#127466 Deutschland</td>
-                    <td>&#127471&#127477 Japan</td>
-                    <td>2 : 1</td>
-                    <td><button>Bearbeiten</button></td>
-                </tr>
-                <tr>
-                    <td>&#127466&#127480 Spanien</td>
-                    <td>&#127464&#127479 Costa Rica</td>
-                    <td>7 : 0</td>
-                    <td><button>Bearbeiten</button></td>
-                </tr>
-                <tr>
-                    <td>&#127463&#127466 Belgien</td>
-                    <td>&#127474&#127462 Morocco</td>
-                    <td></td>
-                    <td><button>Tippen</button></td>
-                </tr>
+                    <?php
+                    $result_ans_spiele = db_select_anst_spiele($link, $eingellogt, $start_from_anst, $num_per_page);
+                    while ($row = mysqli_fetch_assoc($result_ans_spiele))
+                    {
+                        $spiel = $row['SPIEL'];
+
+                        echo "<tr>".
+                            "<td>".$row['LAND1']."</td>".
+                            "<td>".$row['uhrzeit']."</td>".
+                            "<td>".$row['LAND2']."</td>";
+                        if($_SESSION['rolle'] == '0')
+                        {
+                            if($row['TIPP1'] || $row['TIPP2']) echo "<td>" . "Bearbeiten" . "<td>";
+                            else  echo "<td>" . "<form method='post'>
+                                                    <input placeholder='Spiel1' name='spiel1' id='spiel1'>
+                                                    <input placeholder='Spiel2' name='spiel2' id='spiel2'>
+                                                    <input type='submit', name='submit' value='Tipp'>
+                                                </form>" . "<td>";
+                            echo    "</tr>";
+                        }
+                    }
+                    ?>
                 </tbody>
             </table>
+            <?php
+            $pr_query_anst = "SELECT * FROM spiele WHERE beendet = 0";
+            $pr_result_anst = mysqli_query($link, $pr_query_anst);
+            $total_record_anst = mysqli_num_rows($pr_result_anst);
+            $total_pages_anst = ceil($total_record_anst/$num_per_page);
+
+            if($pageanst > 1)
+            {
+                echo "<a href =  'Hauptseite.php?pageanst=".($pageanst-1)." .#Anstehende ' > Perv </a>" ;
+
+            }
+            if($pageanst < $total_pages_anst)
+            {
+                echo "<a href = 'Hauptseite.php?pageanst=".($pageanst+1)." #Anstehende'> Next </a>" ;
+            }
+            ?>
         </section>
 
         <section class="v_spiele">
@@ -118,29 +186,42 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>&#127467&#127479 Frankreich</td>
-                    <td>2 : 1</td>
-                    <td>&#127465&#127472 Dänemark</td>
-                    <td>3 : 1</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>&#127481&#127475 Tunesien</td>
-                    <td>0 : 1</td>
-                    <td>&#127462&#127482 Australien</td>
-                    <td>0 : 1</td>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <td>&#127463&#127479 Brasilien</td>
-                    <td>2 : 0</td>
-                    <td>&#127479&#127480 Serbien</td>
-                    <td>3 : 0</td>
-                    <td>1</td>
-                </tr>
+
+                <?php
+
+                $result_verg_spiele = db_select_verg_spiele($link, $eingellogt, $start_from_verg ,$num_per_page);
+                    while ($row = mysqli_fetch_assoc($result_verg_spiele)) {
+                    echo "<tr>" .
+                        "<td>" . $row['LAND1'] . "</td>" .
+                        "<td>" . $row['tore_team1'] . ":" . $row['tore_team2'] . "</td>" .
+                        "<td>" . $row['LAND2'] . "</td>";
+                    if($row['TIPP1']) echo "<td>"  . $row['TIPP1'] .":". $row['TIPP2'] . "</td>".
+                        "<td>"  . $row['VERDIENT'] . "</td>";
+                    else echo "<td>"  . "Nicht Gettipt" . "</td>" .
+                    "<td>" . "Keine Punkte" ." </td>";
+                    echo    "</tr>";
+                }
+
+                ?>
                 </tbody>
             </table>
+            <?php
+                $pr_query_verg = "SELECT * FROM spiele WHERE beendet = 1";
+                $pr_result_verg = mysqli_query($link, $pr_query_verg);
+                $total_record_verg = mysqli_num_rows($pr_result_verg);
+                $total_pages_verg = ceil($total_record_verg/$num_per_page);
+
+                if($pagevrg > 1)
+                {
+                    echo "<a href =  'Hauptseite.php?pagevrg=".($pagevrg-1)." #Vergangene ' > Perv </a>" ;
+
+                }
+                if($pagevrg < $total_pages_verg)
+                {
+                    echo "<a href = 'Hauptseite.php?pagevrg=".($pagevrg+1)." #Vergangene'> Next </a>" ;
+
+                }
+            ?>
         </section>
     </div>
     <div class="rest">
@@ -150,14 +231,6 @@
             <p>
             <ul>
                 <?php
-                //holen der Daten aus der Datenbank
-                $link = mysqli_connect("localhost", // Host der Datenbank
-                    "dev_tts",                 // Benutzername zur Anmeldung
-                    "QN7ZAqgGY9wZ",    // Passwort
-                    "swe_tts"    // Auswahl der Datenbanken (bzw. des Schemas)
-                // optional port der Datenbank
-                );
-
                 if (!$link) {
                     echo "Verbindung fehlgeschlagen: ", mysqli_connect_error();
                     exit();

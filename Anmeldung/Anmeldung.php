@@ -1,6 +1,5 @@
 <?php
 #Überprüfung ob Logindaten korrekt, dann Weiterleitung
-#test
 include("../database/db_functions.php");
 if (isset($_SESSION)) {
     session_destroy();
@@ -25,6 +24,7 @@ function checkAccount($user,$password): int
         /** @noinspection SqlResolve */
         $sql ="SELECT id,gesperrt,nickname,salt FROM benutzer 
                    WHERE email ='".$user."';";
+
         $result = mysqli_query($link, $sql);
         $resultRow = mysqli_fetch_assoc($result);
     }
@@ -52,7 +52,6 @@ function checkAccount($user,$password): int
                    WHERE id ='".$idName."' AND passwort = '".$hash."';";
 
     $result = mysqli_query($link, $sql);
-
     closeLink($link);
     #Sollte das Passwort mit der ID nicht übereinstimmen gib Fehlercode 2 zurück
     if(mysqli_fetch_assoc($result)=== NULL){
@@ -166,15 +165,24 @@ if(isset($_POST['submit'])){
                 x.type = "password";
             }
         }
+
+        function darkL(){
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+        }
     </script>
     <!-- Link to the styling css file-->
     <link rel="stylesheet" href="Login.css" type="text/css" media="screen"/>
 </head>
 <body>
+<label class="switch">
+    <input type="checkbox" onclick="darkL()">
+    <span class="slider round"></span>
+</label>
 <div class="background">
     <img src="../logo.png" alt="logo">
     <div class="formular">
-        <form method="post"  >
+        <form method="post"  action="../Hauptseite/Hauptseite.php" >
             <h3>Login</h3>
 
             <label for="username">Benutzername</label>

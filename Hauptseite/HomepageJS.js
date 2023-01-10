@@ -14,3 +14,8 @@ function myFunction() {
         x.className = "navigation";
     }
 }
+
+function darkL(){
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+}
