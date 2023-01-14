@@ -74,13 +74,16 @@ if (isset($_POST["create111"])) {
 $existiert = 0;
 $gleiche_teams = 0;
 $spiel_erstellt = 0;
+$spiel_vergangen = 0;
 if(!isset($_POST['create'])){//Kein Spiel muss hinzugefügt werden
     relax();    //chill
 }else {
     //check if game already exists
     if($_POST['team1'] === $_POST['team2']){
         $gleiche_teams = 1;
-    }else{
+    }else if($_POST['date'] < date("Y/m/d")){
+        $spiel_vergangen = 1;
+    } else {
         $time = $_POST['time'];
         $check_existence = "SELECT team_1, team_2, uhrzeit FROM spiele WHERE (uhrzeit >= '$time' - 1 and uhrzeit <= '$time' + 1) and team_1 = ".$_POST['team1']." and team_2 = ".$_POST['team2'].";";
         //if not null game exists already in a 1 day timeframe
@@ -376,6 +379,9 @@ function create_adminlist($post, $link){
                         }
                         if($gleiche_teams == 1){
                             echo "Die Teams sind identisch";
+                        }
+                        if($spiel_vergangen == 1){
+                            echo "Das Spiel hat schon Stattgefunden";
                         }
                         else{
                             relax();
