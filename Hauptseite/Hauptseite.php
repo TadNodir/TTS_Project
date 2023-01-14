@@ -175,7 +175,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
             if($pageanst > 1)
             {
-                echo "<a href =  'Hauptseite.php?pageanst=".($pageanst-1)." .#Anstehende ' > Prev </a>" ;
+                echo "<a href =  'Hauptseite.php?pageanst=".($pageanst-1)." #Anstehende ' > Prev </a>" ;
 
             }
             if($pageanst < $total_pages_anst)
