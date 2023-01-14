@@ -80,7 +80,6 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 <tbody>
                 <?php
 
-
                 $result_scoreboard_punkte = db_scoreboard_punkte($link,  $start_from_scr, $num_per_page);
                 $rowcount = 1 * $start_from_scr + 1;
                 while ($row = mysqli_fetch_assoc($result_scoreboard_punkte)) {
@@ -96,16 +95,36 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 <?php
 //                style="border-top: 2px solid"
 //                style="text-decoration: none; color: black"
-                $i = 0;
-//                $row_arr = db_scoreboard_punkte($link,
-//                for ($p = 1; $p <= $total_pages_scr; $p++) {
-//
-//                }
 
-                    echo "<td>" . "Mein Ergebnis: " . mysqli_fetch_assoc($result_scoreboard_ergebniss)['punktestand'] ."</td>".
-                         "<td>" . "</td>".
-                         "<td>"."<button>" . "<a href='Hauptseite.php?pagescr=' . >Eigener Score</a>" . "</button>"."</td>";
+                $pr_query_scr = "SELECT * FROM swe_tts.benutzer WHERE rolle = 0";
+                $pr_result_scr = mysqli_query($link, $pr_query_scr);
+                $total_record_scr = mysqli_num_rows($pr_result_scr);
+                $total_pages_scr = ceil($total_record_scr/$num_per_page);
+                $i = 1;
+                $continue = 0;
+                //                $row_arr = db_scoreboard_punkte($link,
+
+                for ($p = 0; $p <= $total_pages_scr; $p = $p + 5) {
+                    $result = db_scoreboard_punkte($link, $p, 5);
+                    $data = mysqli_fetch_all($result, MYSQLI_BOTH);
+                    foreach($data as $list){
+                        if($list['nickname'] == $_SESSION['nickname']){
+                            $continue = 1;
+                            break;
+                        }
+                    }
+                    if($continue == 1){
+                        break;
+                    }
+                    $i++;
+                }
+
+                echo "<td>" . "Mein Ergebnis: " . mysqli_fetch_assoc($result_scoreboard_ergebniss)['punktestand'] ."</td>".
+                    "<td>" . "</td>".
+                    "<td>"."<button>" . "<a href='Hauptseite.php?pagescr=".($i)."#Scoreboard' . >Eigener Score</a>" . "</button>"."</td>";
                 ?>
+
+
 
             </table>
             <?php
@@ -116,12 +135,12 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
             if($pagescr > 1)
             {
-                echo "<a href =  'Hauptseite.php?pagescr=".($pagescr-1)." #Scoreboard ' > Prev </a>" ;
+                echo "<p class='prevNext'><a href =  'Hauptseite.php?pagescr=".($pagescr-1)." #Scoreboard ' > Prev </a></p>" ;
 
             }
             if($pagescr < $total_pages_scr)
             {
-                echo "<a href = 'Hauptseite.php?pagescr=".($pagescr+1)." #Scoreboard'> Next </a>" ;
+                echo "<p class='prevNext'><a href = 'Hauptseite.php?pagescr=".($pagescr+1)." #Scoreboard'> Next </a></p>" ;
 
             }
             ?>
@@ -185,12 +204,12 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
             if($pageanst > 1)
             {
-                echo "<a href =  'Hauptseite.php?pageanst=".($pageanst-1)." #Anstehende ' > Prev </a>" ;
+                echo "<p class='prevNext'><a class='prevNext' href =  'Hauptseite.php?pageanst=".($pageanst-1)." #Anstehende ' > Prev </a></p>" ;
 
             }
             if($pageanst < $total_pages_anst)
             {
-                echo "<a href = 'Hauptseite.php?pageanst=".($pageanst+1)." #Anstehende'> Next </a>" ;
+                echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pageanst=".($pageanst+1)." #Anstehende'> Next </a></p>" ;
             }
             ?>
         </section>
@@ -235,12 +254,12 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
                 if($pagevrg > 1)
                 {
-                    echo "<a href =  'Hauptseite.php?pagevrg=".($pagevrg-1)." #Vergangene ' > Prev </a>" ;
+                    echo "<p class='prevNext'><a href =  'Hauptseite.php?pagevrg=".($pagevrg-1)." #Vergangene ' > Prev </a></p>" ;
 
                 }
                 if($pagevrg < $total_pages_verg)
                 {
-                    echo "<a href = 'Hauptseite.php?pagevrg=".($pagevrg+1)." #Vergangene'> Next </a>" ;
+                    echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pagevrg=".($pagevrg+1)." #Vergangene'> Next </a></p>" ;
 
                 }
             ?>
@@ -279,8 +298,8 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 }
                 $data = mysqli_fetch_all($result, MYSQLI_BOTH);
 
-                $pagecounteranst = 0;
-                $pagecountervrg = 0;
+                //$pagecounteranst = 0;
+                //$pagecountervrg = 0;
                 //gibt alle spiele der eben sortierten Spiele aus
                 foreach ($data as $spiele){
 
@@ -310,20 +329,24 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                         }
                         else{
                             if($spiele['beendet'] == 1) {
+                                /*
                                 if($pagevrg != $pagecountervrg/5){
                                     $newPage = $pagecountervrg/5;
                                     header("Hauptseite.php?pagevrg="."$newPage");
                                 }
+                                */
                                 $text = $text . $namen['0'] . " ist vorbei" . '</a>' .'</li>'.'<br>';
-                                $pagecountervrg++;
+//                                $pagecountervrg++;
                             }
                             else if ($spiele['beendet'] == 0){
+                                /*
                                 if($pageanst != $pagecounteranst/5){
                                     $newPage = $pagecounteranst/5;
                                     header("Hauptseite.php?pageanst="."$newPage");
                                 }
+                                */
                                 $text = $text . $namen['0'] . " wurde hinzugefügt" . '</a>' .'</li>'. '<br>';
-                                $pagecounteranst++;
+//                                $pagecounteranst++;
                             }
                             else {
                                 echo 'Spiel wurde nicht gefunden!';
@@ -332,6 +355,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                         }
                     }
                     echo $text;
+                    //Ivan Pageverlinkung
                     /*
                     if($pageanst > 1)
                     {
