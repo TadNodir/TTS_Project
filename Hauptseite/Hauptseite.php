@@ -165,9 +165,9 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                                         "<br>" . "<br>" .
                                         "<div class= 'tipp-popup' id='$divID'>" .
                                         " <form method='post'>" .
-                                        " <input type='number'  name='spiel1' id='spiel1' required>" .
+                                        " <input type='number' placeholder='$row[TIPP1]'  name='spiel1' id='spiel1' required>" .
                                         " <br>" . "<br>" .
-                                        " <input type='number' name='spiel2' id='spiel2' required>" .
+                                        " <input type='number' placeholder='$row[TIPP2]' name='spiel2' id='spiel2' required>" .
                                         "<br>" . "<br>" .
                                         "<Button type='submit' name='$divID' value='Tipp' > Speichern </Button>" .
                                         "<Button type='button' id='$closeBtn' onclick='closeTipp()' > Abbrechen </Button>" .
