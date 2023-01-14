@@ -1,6 +1,7 @@
 <?php
 include("../database/db_functions.php");
 session_start();
+var_dump($_SESSION['id']);
 
 $link = createLink();
 if(isset($_SESSION['id'])) $eingellogt = $_SESSION['id'];
@@ -149,9 +150,9 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                                     "<br>" . "<br>" .
                                     "<div class= 'tipp-popup' id='$divID'>" .
                                     " <form method='post'>" .
-                                    " <input placeholder='Team 1' name='spiel1' id='spiel1'>" .
+                                    " <input placeholder='Team 1' name='spiel1' id='spiel1' required>" .
                                     " <br>" . "<br>" .
-                                    " <input placeholder='Team 2' name='spiel2' id='spiel2'>" .
+                                    " <input placeholder='Team 2' name='spiel2' id='spiel2' required>" .
                                     "<br>" . "<br>" .
                                     "<Button type='submit' name='$divID' value='Tipp' > Speichern </Button>" .
                                     "<Button type='button' id='$closeBtn' onclick='closeTipp()' > Abbrechen </Button>" .
@@ -164,9 +165,9 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                                     "<br>" . "<br>" .
                                     "<div class= 'tipp-popup' id='$divID'>" .
                                     " <form method='post'>" .
-                                    " <input placeholder='Team 1' name='spiel1' id='spiel1'>" .
+                                    " <input placeholder='Team 1' name='spiel1' id='spiel1' required>" .
                                     " <br>" . "<br>" .
-                                    " <input placeholder='Team 2' name='spiel2' id='spiel2'>" .
+                                    " <input placeholder='Team 2' name='spiel2' id='spiel2' required>" .
                                     "<br>" . "<br>" .
                                     "<Button type='submit' name='$divID' value='Tipp' > Tipp </Button>" .
                                     "<Button type='button' id='$closeBtn' onclick='closeTipp()' > Abbrechen </Button>" .
