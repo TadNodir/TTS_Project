@@ -75,7 +75,10 @@ if(!isset($_POST['create'])){//Kein Spiel muss hinzugefügt werden
     //check if game already exists
     if($_POST['team1'] === $_POST['team2']){
         $gleiche_teams = 1;
-    }else if($_POST['date'] < date("Y/m/d")){
+    }else if($_POST['time'] < date("H:i:s") && $_POST['date'] <= date("Y-m-d")){
+        $spiel_vergangen = 1;
+    }
+    else if($_POST['date'] < date("Y-m-d")){
         $spiel_vergangen = 1;
     } else {
         $time = $_POST['time'];
