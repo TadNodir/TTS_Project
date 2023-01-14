@@ -3,7 +3,7 @@ function createLink($user = "dev_tts")
 {
     $servername = "localhost";
     $username = 'root';
-    $password = "dbwt";
+    $password = "root";
     $database = "swe_tts";
     $link = mysqli_connect($servername, $username, $password, $database);
     if (!$link) {
