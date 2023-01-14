@@ -1,12 +1,16 @@
 <?php
 #Überprüfung ob Logindaten korrekt, dann Weiterleitung
 include("../database/db_functions.php");
-
+session_start();
 #Konto löschen von Profilseite
-if (isset($_POST["del"]))
+if (isset($_POST["del"]) && isset($_SESSION['id']))
 {
+    //var_dump($_SESSION['id']);
+
+    $s = "DELETE FROM benutzer WHERE id = '".$_SESSION['id']."';";
+
     $link=createLink();
-    mysqli_query($link,"DELETE FROM swe_tts.benutzer WHERE id = ".$_SESSION['id']);
+    mysqli_query($link,$s);
     mysqli_query($link, "SET @num := 0");
     mysqli_query($link, "UPDATE swe_tts.benutzer SET id = @num := (@num + 1)");
     mysqli_query($link, "ALTER TABLE swe_tts.benutzer AUTO_INCREMENT = 1");
@@ -15,6 +19,7 @@ if (isset($_POST["del"]))
 }
 
 #Reset der Session Variablen
+
 session_destroy();
 session_start();
 
