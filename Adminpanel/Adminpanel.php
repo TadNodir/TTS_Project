@@ -33,7 +33,7 @@ const const_filter_admin = array(  "aufsteigend" => "SELECT punktestand, nicknam
 $link = mysqli_connect(
     "localhost",
     "root",
-    "dbwt",
+    "root",
     "swe_tts"
 );
 
@@ -60,7 +60,7 @@ if (isset($_POST["create111"])) {
 
         echo "<label class='erfolg'> Erfolgreiche änderung des Spiels </label>";
         echo "<br>";
-        //echo "<meta http-equiv='refresh' content='3'>";
+        echo "<meta http-equiv='refresh' content='3'>";
     }
 
     if($_POST['date'] != "" && $_POST['time'] != ""){

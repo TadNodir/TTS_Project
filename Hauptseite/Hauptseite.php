@@ -171,6 +171,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
             $pr_result_anst = mysqli_query($link, $pr_query_anst);
             $total_record_anst = mysqli_num_rows($pr_result_anst);
             $total_pages_anst = ceil($total_record_anst/$num_per_page);
+            echo var_dump($total_record_anst);
 
             if($pageanst > 1)
             {
@@ -224,7 +225,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
                 if($pagevrg > 1)
                 {
-                    echo "<a href =  'Hauptseite.php?pagevrg=".($pagevrg-1)." #Vergangene ' > Perv </a>" ;
+                    echo "<a href =  'Hauptseite.php?pagevrg=".($pagevrg-1)." #Vergangene ' > Prev </a>" ;
 
                 }
                 if($pagevrg < $total_pages_verg)
