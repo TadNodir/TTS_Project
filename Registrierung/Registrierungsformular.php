@@ -1,6 +1,7 @@
 <?php
 include("../database/db_functions.php");
 
+
 $link = createLink();
 
 # Guckt in Datenbank ob es ein Ergebnis zum User gibt
@@ -36,7 +37,36 @@ function checkEmail($email,$link): bool
         return false;
     else
         return true;
+}
+//function, die die eingegeben email auf trash überprüft
+function Trashmail($e){
 
+    $BList = ['rcpt.at',
+        'damnthespan.at',
+        'wegwerfmail.de',
+        'trashmail'
+    ];
+
+    $parts = explode('@', $e);
+    $domain = array_pop($parts);
+
+    if (in_array($domain, $BList))
+    {
+        return true;
+    }
+    else
+    {
+        $parts2 = explode('.', $domain);
+
+        if (in_array($parts2[0], $BList))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
 # Array um Nutzerdaten zwischenzuspeichern.
@@ -91,6 +121,11 @@ if(isset($_POST['submit'])){
         $errors['emailFormat']=true;
     else
         $errors['emailFormat']=false;
+
+    if(Trashmail($nutzer['email']))
+        $errors['trashMail']=true;
+    else
+        $errors['trashMail']=false;
 
     if(checkUser($nutzer['benutzer'],$link))
         $errors['nicknameExistiert']= true;
@@ -181,7 +216,10 @@ if(isset($_POST['submit'])){
                 echo"<p style='color:lightcoral;'>Kein gültiges E-Mail Format.</p>";
 
             if($errors['emailExistiert'])
-                echo"<p style='color:lightcoral;'>E-Mail existiert bereits.</p>";?>
+                echo"<p style='color:lightcoral;'>E-Mail existiert bereits.</p>";
+
+            if($errors['trashMail'])
+                echo"<p style='color:lightcoral;'>E-Mails von diesen Anbietern werden nicht akzeptiert</p>";?>
 
             <label for="password">Passwort</label>
             <input type="password" placeholder="********" id="password" name="password" required minlength="8">

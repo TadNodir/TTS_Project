@@ -1,10 +1,25 @@
 <?php
 #Überprüfung ob Logindaten korrekt, dann Weiterleitung
 include("../database/db_functions.php");
-if (isset($_SESSION)) {
-    session_destroy();
+
+#Konto löschen von Profilseite
+if (isset($_POST["del"]))
+{
+    $link=createLink();
+    mysqli_query($link,"DELETE FROM swe_tts.benutzer WHERE id = ".$_SESSION['id']);
+    mysqli_query($link, "SET @num := 0");
+    mysqli_query($link, "UPDATE swe_tts.benutzer SET id = @num := (@num + 1)");
+    mysqli_query($link, "ALTER TABLE swe_tts.benutzer AUTO_INCREMENT = 1");
+    closeLink($link);
+
 }
+
+#Reset der Session Variablen
+session_destroy();
 session_start();
+
+$_SESSION=array();
+
 #email oder benutzername
 function checkAccount($user,$password): int
 {
@@ -38,7 +53,7 @@ function checkAccount($user,$password): int
 
     if($resultRow['gesperrt']>=5){
 
-        $_SESSION['gesperrt'] = "Der Benutzer".$resultRow['nickname']." wurde gesperrt. Bitte setzen Sie ihr Passwort zurück.";
+        $_SESSION['gesperrt'] = $resultRow['nickname'];
         closeLink($link);
         header( "Location: http://localhost:63342/tts/Anmeldung/reset.php");
         exit;
@@ -62,16 +77,7 @@ function checkAccount($user,$password): int
         return 1;
     }
 }
-if (isset($_POST["del"]))
-{
-    $link=createLink();
-    mysqli_query($link,"DELETE FROM swe_tts.benutzer WHERE id = ".$_SESSION['id']);
-    mysqli_query($link, "SET @num := 0");
-    mysqli_query($link, "UPDATE swe_tts.benutzer SET id = @num := (@num + 1)");
-    mysqli_query($link, "ALTER TABLE swe_tts.benutzer AUTO_INCREMENT = 1");
-    closeLink($link);
 
-}
 
 
 $nutzer = array(
@@ -113,7 +119,10 @@ if(isset($_POST['submit'])){
             $_SESSION['rolle']= $resultArray['rolle'];
 
             closeLink($link);
-            header("Location: http://localhost:63342/tts/Hauptseite/Hauptseite.php");
+            if($_SESSION['rolle']==0)
+                 header("Location: http://localhost:63342/tts/Hauptseite/Hauptseite.php");
+            if($_SESSION['rolle']==1|| $_SESSION['rolle']==2)
+                header("Location: http://localhost:63342/tts/Adminpanel/Adminpanel.php");
             exit();
 
 
@@ -133,7 +142,7 @@ if(isset($_POST['submit'])){
 
        if($resultArray['gesperrt']>=5){
            $_SESSION['gesperrt'] = "Der Benutzer ".$nutzer['benutzer']." wurde gesperrt. Bitte setzen Sie ihr Passwort zurück.";
-           header( "Location: http://localhost:63342/tts/reset.php");
+           header( "Location: http://localhost:63342/tts/Anmeldung/reset.php");
            exit;
        }
 
