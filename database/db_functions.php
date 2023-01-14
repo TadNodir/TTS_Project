@@ -34,8 +34,8 @@ function closeLink($link, $result = null)
 function db_select_anst_spiele($link, $userid, $page_anst, $num){
     $query = "SELECT
     spiele.id AS SPIEL,
-    t.id, t.land AS LAND1,
-    t2.id, t2.land AS LAND2,
+    t.id, t.land AS LAND1, t.flag AS FLAG1,
+    t2.id, t2.land AS LAND2, t2.flag AS FLAG2,
     tore_team1, tore_team2,
     uhrzeit,
 
@@ -56,8 +56,8 @@ LIMIT $page_anst, $num";
 function db_select_verg_spiele($link ,$userid, $page_verg,$num){
     $query = "SELECT
     spiele.id AS SPIEL,
-    t.id, t.land AS LAND1,
-    t2.id, t2.land AS LAND2,
+    t.id, t.land AS LAND1, t.flag AS FLAG1,
+    t2.id, t2.land AS LAND2, t2.flag AS FLAG2,
     tore_team1, tore_team2,
     
 
