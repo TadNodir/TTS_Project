@@ -316,10 +316,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
             <ul>
                 <?php
                 //holen der Daten aus der Datenbank
-                $link = mysqli_connect("localhost", // Host der Datenbank
-                    "root",                 // Benutzername zur Anmeldung
-                    "root",    // Passwort
-                    "swe_tts"    // Auswahl der Datenbanken (bzw. des Schemas)
+                $link = createLink();
                 // optional port der Datenbank
                 );
 
