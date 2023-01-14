@@ -1,8 +1,7 @@
 <?php
 include("../database/db_functions.php");
 session_start();
-var_dump($_SESSION['id']);
-var_dump($_SESSION['rolle']);
+
 $link = createLink();
 if(isset($_SESSION['id'])) $eingellogt = $_SESSION['id'];
 
@@ -56,7 +55,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
             <a href="#Anstehende">Anstehende</a>
             <a href="#Vergangene">Vergangene</a>
             <a href="../Profile/Profile.php">Profil</a>
-            <a href="">Abmelden</a>
+            <a href="../Anmeldung/Anmeldung.php">Abmelden</a>
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
         </div>
     </nav>
@@ -100,7 +99,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 <td style="border-top: 2px solid"></td>
             </table>
             <?php
-            $pr_query_scr = "SELECT * FROM benutzer WHERE rolle = 0";
+            $pr_query_scr = "SELECT * FROM swe_tts.benutzer WHERE rolle = 0";
             $pr_result_scr = mysqli_query($link, $pr_query_scr);
             $total_record_scr = mysqli_num_rows($pr_result_scr);
             $total_pages_scr = ceil($total_record_scr/$num_per_page);
@@ -124,7 +123,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 <thead>
                 <tr>
                     <th>Team 1</th>
-                    <td>Uhrzeit</td>
+                    <th>Uhrzeit</th>
                     <th>Team 2</th>
                     <th>Tipp</th>
                 </tr>
@@ -140,13 +139,13 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                         $closeBtn = "cls-" . $spiel;
 
                         echo "<tr>".
-                            "<td>".$row['LAND1']."</td>".
+                            "<td>".$row['FLAG1'].$row['LAND1']."</td>".
                             "<td>".$row['uhrzeit']."</td>".
-                            "<td>".$row['LAND2']."</td>".
-//                        if($_SESSION['rolle'] == '0')
-//                        {
+                            "<td>".$row['FLAG2'].$row['LAND2']."</td>";
+                        if($_SESSION['rolle'] == '0')
+                        {
 
-                         "<td>".
+                         echo "<td>".
                                "<button type='button' class='tipp-but' name='tip-b' id='$spiel'> Tippen </button>" .
                                 "<br>" . "<br>".
                                 "<div class= 'tipp-popup' id='$divID'>".
@@ -162,7 +161,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
                             "</td>";
 
-//                        }
+                        }
                     }
                     ?>
                 </tbody>
@@ -204,9 +203,9 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 $result_verg_spiele = db_select_verg_spiele($link, $eingellogt, $start_from_verg ,$num_per_page);
                     while ($row = mysqli_fetch_assoc($result_verg_spiele)) {
                     echo "<tr>" .
-                        "<td>" . $row['LAND1'] . "</td>" .
+                        "<td>" .$row['FLAG1'] . $row['LAND1'] . "</td>" .
                         "<td>" . $row['tore_team1'] . ":" . $row['tore_team2'] . "</td>" .
-                        "<td>" . $row['LAND2'] . "</td>";
+                        "<td>" .$row['FLAG2'] . $row['LAND2'] . "</td>";
                     if($row['TIPP1']) echo "<td>"  . $row['TIPP1'] .":". $row['TIPP2'] . "</td>".
                         "<td>"  . $row['VERDIENT'] . "</td>";
                     else echo "<td>"  . "Nicht Gettipt" . "</td>" .
@@ -257,8 +256,10 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 }
 
                 //fragt alle Spiele Ab die entweder noch ausstehen oder vor weniger als 2 Tagen beendet wurden
+                $test = date("Y/m/d");
+                $vergleich = $test;
                 $sql = "SELECT team_1, team_2 , beendet, uhrzeit FROM spiele
-                        WHERE beendet = 0 OR uhrzeit <= NOW() - 2";
+                        WHERE beendet = 0 OR $vergleich=substring(uhrzeit, 0, 10) <= $test";
 
                 $result = mysqli_query($link, $sql);
                 if (!$result) {

@@ -24,7 +24,7 @@
     <input type="submit" value="Zum Reset"> </br></br>
 </form>
 
-<form action="hauptseite.php">
+<form action="Hauptseite/Hauptseite.php">
     <input type="submit" value="Zur Hauptseite"> </br></br>
 </form>
 </body>

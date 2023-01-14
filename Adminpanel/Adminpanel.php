@@ -2,6 +2,8 @@
 session_start();
 include '../database/db_functions.php';
 
+$_SESSION['rolle'] = 2;
+var_dump([$_POST]);
 //Konto löschen
 $conn = createLink();
 if (isset($_GET["del"]))
@@ -14,8 +16,6 @@ if (isset($_GET["del"]))
     mysqli_query($conn, "UPDATE swe_tts.benutzer SET id = @num := (@num + 1)");
     mysqli_query($conn, "ALTER TABLE swe_tts.benutzer AUTO_INCREMENT = 1");
 }
-
-
 
 const const_filter_user = array(  "aufsteigend" => "SELECT punktestand, nickname FROM benutzer WHERE rolle = 0 ORDER BY nickname ASC",
     "absteigend" => "SELECT punktestand, nickname FROM benutzer WHERE rolle = 0 ORDER BY nickname DESC",
@@ -40,6 +40,7 @@ $link = mysqli_connect(
 function relax(){ //Diese Funktion macht genau so wenig wie ich.
     ;
 }
+
 
 
 if($link->connect_error){
@@ -108,6 +109,7 @@ if(!isset($_POST['create'])){//Kein Spiel muss hinzugefügt werden
             $spiel_hinzufuegen_sql = "INSERT INTO spiele(team_1, team_2, tore_team1, tore_team2, uhrzeit, beendet) VALUES ('$team1', '$team2', 0, 0, '$uhrzeit', 0 )";
             mysqli_query($link, $spiel_hinzufuegen_sql);
             $spiel_erstellt = 1;
+            echo "<meta http-equiv='refresh' content='0'>";
         } else {
             $existiert = 1;
             //spiel existiert schon
@@ -212,8 +214,8 @@ function create_adminlist($post, $link){
             if(!isset($_POST['filter']) || $_POST['filter'] === "n"){       //Kein filter gesetzt
                 relax();
             } else {
-                !empty($_POST['search']) ? $name = $_POST['search'] : $filter = const_filter_user[$_POST['filter']];        //Abfrage ob filter oder search gesetzt
-                $userlist_sql = (!empty($name)) ? "SELECT punktestand, nickname FROM benutzer WHERE nickname like '%$name%' and rolle = 0"  //sql für USER
+                !empty($_POST['search']) ? $name = $_POST['search'] : $filter = const_filter_user[$_POST['filter']];    //Abfrage ob filter oder search gesetzt
+                $userlist_sql = (!empty($name)) ? "SELECT nickname, punktestand FROM benutzer WHERE nickname like '%$name%' and rolle = 0"  //sql für USER
                     : $filter;
                 $result = mysqli_query($link, $userlist_sql);
                 echo "<tbody>";
@@ -420,10 +422,10 @@ function create_adminlist($post, $link){
                         $array = mysqli_fetch_all($result2);
                         echo "<td> " . $array[0][0] . " VS ";
                         echo $array[1][0] . "</td>";
-                        echo "<td><button type = 'submit' name = 'Ergebnis' value = ".$row['id']."> Ergebnis </button></td>";
+                        echo "<td><button type = 'submit' name = 'Ergebnis' value = ".$row['id']."> Ergebnis eingeben </button></td>";
                         echo "</form>";
                         echo "<form action = 'Bearbeiten.php' method = 'post'>";
-                        echo "<td><button type = 'submit' name = 'Bearbeiten' value = ".$row['id']." onclick=openForm()> Spiel </button></td>";
+                        echo "<td><button type = 'submit' name = 'Bearbeiten' value = ".$row['id']." onclick = openForm()> Bearbeiten </button></td>";
                         echo "</tr>";
                         echo "</form>";
                     } ?>
