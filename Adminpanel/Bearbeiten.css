@@ -1,8 +1,8 @@
 body {
     margin:0;
     padding:0;
+    background-color: #00B1AC;
     font-family: sans-serif;
-    background: linear-gradient(#00B1AC, #ffffff);
 }
 
 form {
@@ -117,4 +117,49 @@ fieldset {
     border: 2px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
     padding: 50px 35px;
+}
+
+@media screen and (max-width: 700px) {
+    .tabellen, .rest {
+        width: 350px;
+        align-self: center;
+    }
+
+    .background {
+        width: 365px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-direction: column;
+
+    }
+
+    /*.navigation a {*/
+    /*    display: none;*/
+    /*}*/
+
+    /*.navigation a.icon {*/
+    /*    float: right;*/
+    /*    display: block;*/
+    /*}*/
+
+    table td, table th, table button {
+        padding: 3px;
+        text-align: center;
+        margin: 3px;
+    }
+
+    /*.rest img {*/
+    /*    display: none;*/
+    /*}*/
+
+    .background * {
+        letter-spacing: 0.3px;
+        font-size: 3.5vw;
+    }
+
+    .background h1 {
+        font-size: 4.5vw;
+    }
+
 }
