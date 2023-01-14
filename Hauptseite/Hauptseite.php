@@ -144,8 +144,24 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                         if($_SESSION['rolle'] == '0')
                         {
 
-                            ?>
-                            <td>
+                         echo   "<td>".
+                               " <Button type='button' class='tipp-but' onclick='openTipp()' name='tip-b' id=$spiel> Tippen </Button>" .
+                                "<br>" . "<br>".
+                                "<div class= 'tipp-popup'  id='$spiel'>".
+                                   " <form method='post'>" .
+                                       " <input placeholder='Team 1' name='spiel1' id='spiel1'>" .
+                                       " <br>" . "<br>".
+                                       " <input placeholder='Team 2' name='spiel2' id='spiel2'>" .
+                                        "<br>"  . "<br>" .
+                                        "<Button type='submit' name='submit' value='Tipp'> Tipp </Button>" .
+                                        "<Button type='button' onclick='closeTipp()' > Abbrechen </Button>" .
+                                    "</form>" .
+                                "</div>" .
+
+                            "</td>";
+
+                            /*if($row['TIPP1'] || $row['TIPP2']) echo "<td>" . "Bearbeiten" . "<td>";
+                            else  echo  <td>
                                 <Button type="button" class='tipp-but' onclick='openTipp()' id="tip-b"> Tippen </Button>
                                 <br> <br>
                                 <div class= 'tipp-popup' id='myTipp'>
@@ -160,14 +176,6 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                                 </div>
 
                             </td>
-                            <?php
-
-                            /*if($row['TIPP1'] || $row['TIPP2']) echo "<td>" . "Bearbeiten" . "<td>";
-                            else  echo "<td>" . "<form method='post'>
-                                                    <input placeholder='Spiel1' name='spiel1' id='spiel1'>
-                                                    <input placeholder='Spiel2' name='spiel2' id='spiel2'>
-                                                    <input type='submit', name='submit' value='Tipp'>
-                                                </form>" . "<td>";
                             echo    "</tr>";*/
                         }
                     }

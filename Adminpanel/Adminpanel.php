@@ -33,7 +33,7 @@ const const_filter_admin = array(  "aufsteigend" => "SELECT punktestand, nicknam
 $link = mysqli_connect(
     "localhost",
     "root",
-    "root",
+    "dbwt",
     "swe_tts"
 );
 

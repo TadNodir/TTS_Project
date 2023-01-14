@@ -18,14 +18,27 @@ function myFunction() {
 function darkL(){
     var element = document.body;
     element.classList.toggle("dark-mode");
+
 }
 
 function openTipp() {
-    document.getElementById("myTipp").style.display = "block";
-    document.getElementById("tip-b").style.display = "none";
+    var buttons = document.querySelectorAll('button');
+    for (var i=0; i<buttons.length; ++i) {
+        buttons[i].addEventListener('click', clickFunc);
+    }
+    function clickFunc() {
+        document.getElementById(this.id).style.display = "block";
+        document.getElementById('tip-b').style.display = "none";
+    }
 }
 
 function closeTipp() {
-    document.getElementById("myTipp").style.display = "none";
-    document.getElementById("tip-b").style.display = "block";
+    var buttons = document.querySelectorAll('button');
+    for (var i=0; i<buttons.length; ++i) {
+        buttons[i].addEventListener('click', clickFunc);
+    }
+    function clickFunc(){
+        document.getElementById(this.id).style.display = "none";
+        document.getElementById(this.id).style.display = "block";
+    }
 }
