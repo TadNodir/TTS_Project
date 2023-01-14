@@ -10,10 +10,12 @@ function closeForm(){
 
 function openDelete() {
     document.getElementById("myDelete").style.display = "block";
+    document.getElementById("delButton").style.display = "none";
 }
 
 function closeDelete() {
     document.getElementById("myDelete").style.display = "none";
+    document.getElementById("delButton").style.display = "block";
 }
 
 function myPassword(){
