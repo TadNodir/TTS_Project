@@ -18,19 +18,23 @@ function myFunction() {
 function darkL(){
     var element = document.body;
     element.classList.toggle("dark-mode");
-
 }
 
 function openTipp() {
     var buttons = document.querySelectorAll('button');
+    var popups = document.querySelectorAll('div');
     for (var i=0; i<buttons.length; ++i) {
+
         buttons[i].addEventListener('click', clickFunc);
     }
     function clickFunc() {
-        document.getElementById(this.id).style.display = "block";
-        document.getElementById('tip-b').style.display = "none";
+        alert(id);
+        document.getElementById(id).style.display = "block";
+        document.getElementById(id).style.display = "none";
+
     }
 }
+
 
 function closeTipp() {
     var buttons = document.querySelectorAll('button');

@@ -279,5 +279,5 @@ input:checked + .slider:before {
 }
 
 .tipp-popup{
-    display: none;
+    display: block;
 }
