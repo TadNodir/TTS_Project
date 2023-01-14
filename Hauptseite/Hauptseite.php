@@ -63,15 +63,15 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 <body>
 <header>
     <nav class="navigation" id="navi">
-        <div class="nav-links">
-            <a href="../Hauptseite/Hauptseite.php">Hauptseite</a>
-            <a href="#Scoreboard">Scoreboard</a>
-            <a href="#News">News</a>
-            <a href="#Anstehende">Anstehende</a>
-            <a href="#Vergangene">Vergangene</a>
+        <div class="nav-links" id="navLinks">
+            <a href="../Hauptseite/Hauptseite.php" onclick="closeIcon()">Hauptseite</a>
+            <a href="#Scoreboard" onclick="closeIcon()">Scoreboard</a>
+            <a href="#News" onclick="closeIcon()">News</a>
+            <a href="#Anstehende" onclick="closeIcon()">Anstehende</a>
+            <a href="#Vergangene" onclick="closeIcon()">Vergangene</a>
             <a href="../Profile/Profile.php">Profil</a>
-            <a href="../Anmeldung/Anmeldung.php">Abmelden</a>
-            <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+            <a href="../Anmeldung/Anmeldung.php" onclick="closeIcon()">Abmelden</a>
+            <a href="javascript:void(0);" style="font-size:15px;" class="icon" id="icon" onclick="myFunction()">&#9776;</a>
         </div>
     </nav>
 </header>
