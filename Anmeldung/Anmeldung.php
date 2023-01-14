@@ -1,5 +1,6 @@
 <?php
 #Überprüfung ob Logindaten korrekt, dann Weiterleitung
+#Nur Test für Git
 include("../database/db_functions.php");
 if (isset($_SESSION)) {
     session_destroy();
