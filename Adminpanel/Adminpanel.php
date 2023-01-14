@@ -4,11 +4,10 @@ include '../database/db_functions.php';
 
 //Konto löschen
 $conn = createLink();
-if (isset($_GET["del"]))
+if (isset($_POST["del"]))
 {
-    mysqli_query($conn, "DELETE FROM swe_tts.benutzer WHERE nickname = '".$_SESSION['del']."'");
+    mysqli_query($conn, "DELETE FROM swe_tts.benutzer WHERE nickname = '".$_SESSION['del']."';");
 
-    unset($_SESSION);
 
     mysqli_query($conn, "SET @num := 0");
     mysqli_query($conn, "UPDATE swe_tts.benutzer SET id = @num := (@num + 1)");
@@ -234,7 +233,7 @@ function create_adminlist($post, $link){
             echo "</table>";
             ?>
         </section>
-        <?php if($_SESSION['rolle'] === 2){     //nur anzeigen wenn Superadmin
+        <?php if($_SESSION['rolle'] == 2){     //nur anzeigen wenn Superadmin
             echo "<section class = 'admin-liste'>";
             echo "<h1 id = 'Adminliste'> Adminliste</h1>";
             echo "<table id = 'admin'>";
@@ -271,7 +270,7 @@ function create_adminlist($post, $link){
                 echo "<tbody>";
                 while($row = mysqli_fetch_array($result)){
                     echo "<tr>";
-                    echo "<form action = '../Profile/ProfileAdmin.php' method = 'post'>";
+                    echo "<form action = '../Profile/ProfileUser.php' method = 'post'>";
                     echo "<td> " . $row['nickname'] . "</td>";
                     echo "<td>  " . $row['punktestand'] . "</td>";
                     echo "<td><button type = 'submit' name='nickname' value = ".$row['nickname']."> Bearbeiten </button> </td>";
