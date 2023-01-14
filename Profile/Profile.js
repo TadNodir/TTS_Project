@@ -1,7 +1,3 @@
-
-
-
-
 function openForm() {
     document.getElementById("myForm").style.display = "block";
     document.getElementById("infoTable").style.display = "none";
@@ -39,26 +35,6 @@ function myPasswordRe(){
         x.type = "password";
     }
 }
-
-function darkL(){
-    var element = document.body;
-    element.classList.toggle("dark-mode");
-}
-
-
-
-
-
-
-
-
-
-function con(){
-    console.log("test");
-}
-
-
-
 
 // check for saved 'darkMode' in localStorage
 let darkMode = localStorage.getItem('darkMode');

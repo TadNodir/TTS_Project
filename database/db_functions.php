@@ -2,8 +2,8 @@
 function createLink()
 {
     $servername = "localhost";
-    $username = "root";
-    $password = "dbwt";
+    $username = 'root';
+    $password = "root";
     $database = "swe_tts";
     $link = mysqli_connect($servername, $username, $password, $database);
     if (!$link) {
@@ -100,5 +100,4 @@ function db_tippen($link, $userid, $spiel, $tipp1, $tipp2){
         header("Location: http://localhost:63342/tts/Hauptseite/Hauptseite.php");
     }
 }
-
 

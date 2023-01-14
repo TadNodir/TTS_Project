@@ -187,12 +187,6 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-
-.dark-mode{
-    background: #121212;
-    color: white;
-}
-
 .dark-mode-toggle {
     position: absolute;
     z-index: 100;
