@@ -8,6 +8,29 @@ $link = mysqli_connect(
     "swe_tts"
 );
 
+function setScores($link, $spiel_id, $tore_1, $tore_2){
+    $sql = "SELECT tipper, tipp_team1, tipp_team2 from tipps WHERE spiel = '$spiel_id' ";
+    $result = mysqli_query($link, $sql);
+    //ist tipp vollständig korrekt
+    $row = mysqli_fetch_all($result, MYSQLI_BOTH);
+    foreach($row as $list){
+        if ($list['tipp_team1'] === $tore_1 && $list['tipp_team2'] === $tore_2) {
+            $sql = "UPDATE swe_tts.benutzer SET punktestand = punktestand + 3 WHERE id = '".$list['tipper']."'";
+            $sql2 = "UPDATE swe_tts.tipps SET verdient = 3 WHERE tipper = '".$list['tipper']."'";
+            mysqli_query($link, $sql);
+            mysqli_query($link, $sql2);
+        } //ist das ergebniss richtig
+        else if ($list['tipp_team1'] === $tore_1 || $list['tipp_team2'] === $tore_2) {
+            $sql3 = "UPDATE swe_tts.benutzer SET punktestand = punktestand + 1 WHERE id = '".$list['tipper']."'";
+            $sql4 = "UPDATE swe_tts.tipps SET verdient = 1 WHERE tipper = '".$list['tipper']."'";
+            mysqli_query($link, $sql3);
+            mysqli_query($link, $sql4);
+        }
+    }
+    //ist das ergebnis falsch
+
+}
+
 if (isset($_POST['create'])) { //Spiel kann überprüft werden
 
     $sql = "SELECT team_1, team_2 FROM spiele WHERE id = '".$_POST['create']."'";
@@ -24,8 +47,12 @@ if (isset($_POST['create'])) { //Spiel kann überprüft werden
 
     mysqli_query($link, $sql3);
     $_SESSION['ergebnis_ok'] = true;
-    header("Location: Adminpanel.php");
-    exit;
+
+    setScores($link, $_POST['create'], $_POST['team1'], $_POST['team2']);
+
+
+    //header("Location: Adminpanel.php");
+    //exit;
 }
 ?>
 

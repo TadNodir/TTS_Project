@@ -43,7 +43,6 @@ function runPop(el){
 
 function runtest(){
     window.location.href="../Profile/Profile.php";
-
 }
 
 function darkL(){
