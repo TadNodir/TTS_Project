@@ -48,19 +48,17 @@ function Trashmail($e){
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link href="Profile.css" rel="stylesheet" type="text/css" media="screen">
-    <script src="Profile.js" defer> </script>
 </head>
 <body>
+
+<button id="dark-mode-toggle" class="dark-mode-toggle">
+    <svg width="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 496"><path fill="currentColor" d="M8,256C8,393,119,504,256,504S504,393,504,256,393,8,256,8,8,119,8,256ZM256,440V72a184,184,0,0,1,0,368Z" transform="translate(-8 -8)"/></svg>
+</button>
 
 <div class="flex-container">
 
     <div class="flex-item-left">
         <a href="../Hauptseite/Hauptseite.php"> <img src="../img/logo.png" alt="TTS-Logo"> </a>
-        <br>
-        <label class="switch">
-            <input type="checkbox" onclick="darkL()">
-            <span class="slider round"></span>
-        </label>
     </div>
 
     <div class="flex-item-middle">
@@ -310,4 +308,6 @@ function Trashmail($e){
 <?php closeLink($conn,null); ?>
 
 </body>
+<script src="Profile.js"> </script>
+
 </html>
