@@ -176,11 +176,11 @@ function Trashmail($e){
                 <input type="email" name="email" id="email">
 
                 <label for="password"> Password: </label>
-                <input type="password" name="password" id="password">
+                <input type="password" name="password" id="password" minlength="8">
                 <label> <input type="checkbox" onclick="myPassword()"> Show Password </label>
 
                 <label for="passwordRe"> Password bestätigen: </label>
-                <input type="password" name="passwordRe" id="passwordRe">
+                <input type="password" name="passwordRe" id="passwordRe" minlength="8">
                 <label> <input type="checkbox" onclick="myPasswordRe()"> Show Password </label>
 
                 <button type="submit" class="btn"> Daten ändern </button>
