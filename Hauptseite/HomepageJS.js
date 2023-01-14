@@ -19,3 +19,13 @@ function darkL(){
     var element = document.body;
     element.classList.toggle("dark-mode");
 }
+
+function openTipp() {
+    document.getElementById("myTipp").style.display = "block";
+    document.getElementById("tip-b").style.display = "none";
+}
+
+function closeTipp() {
+    document.getElementById("myTipp").style.display = "none";
+    document.getElementById("tip-b").style.display = "block";
+}

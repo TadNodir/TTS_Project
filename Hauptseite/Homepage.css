@@ -277,3 +277,7 @@ input:checked + .slider:before {
         text-align: left;
     }
 }
+
+.tipp-popup{
+    display: none;
+}
