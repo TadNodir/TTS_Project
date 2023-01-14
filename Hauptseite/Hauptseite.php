@@ -1,7 +1,6 @@
 <?php
 include("../database/db_functions.php");
 session_start();
-var_dump($_SESSION['id']);
 
 $link = createLink();
 if(isset($_SESSION['id'])) $eingellogt = $_SESSION['id'];

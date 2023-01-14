@@ -1,9 +1,9 @@
 <?php
-function createLink($user = "dev_tts")
+function createLink()
 {
     $servername = "localhost";
-    $username = $user;
-    $password = "QN7ZAqgGY9wZ";
+    $username = "root";
+    $password = "dbwt";
     $database = "swe_tts";
     $link = mysqli_connect($servername, $username, $password, $database);
     if (!$link) {
@@ -50,13 +50,12 @@ FROM spiele
          JOIN teams t2 on spiele.team_2 = t2.id
 WHERE beendet = 0 
 ORDER BY uhrzeit ASC 
-LIMIT $page_anst, $num
-";
+LIMIT $page_anst, $num;";
     return mysqli_query($link, $query);
 }
 
 function db_select_verg_spiele($link ,$userid, $page_verg,$num){
-    $var =
+
     $query = "SELECT
     spiele.id AS SPIEL,
     t.id, t.land AS LAND1, t.flag AS FLAG1,
@@ -88,6 +87,18 @@ function db_scoreboard_ergebniss($link, $userid){
 }
 
 function db_tippen($link, $userid, $spiel, $tipp1, $tipp2){
-    $query = "INSERT INTO tipps (tipper,spiel,tipp_team1,tipp_team2,verdient) VALUES ('$userid', '$spiel','$tipp1','$tipp2','0')";
-    return mysqli_query($link, $query);
+    $query_check = ("SELECT * FROM tipps WHERE tipper LIKE '$userid' AND spiel LIKE '$spiel'");
+    $exists = mysqli_fetch_assoc(mysqli_query($link, $query_check));
+    if(!$exists){
+        $query = "INSERT INTO tipps (tipper,spiel,tipp_team1,tipp_team2,verdient) VALUES ('$userid', '$spiel','$tipp1','$tipp2','0')";
+        mysqli_query($link, $query);
+        header("Location: http://localhost:63342/tts/Hauptseite/Hauptseite.php");
+    }
+    else{
+        $query = "UPDATE tipps SET tipp_team1 = '$tipp1', tipp_team2 = '$tipp2' WHERE spiel = $spiel AND tipper = $userid";
+        mysqli_query($link, $query);
+        header("Location: http://localhost:63342/tts/Hauptseite/Hauptseite.php");
+    }
 }
+
+
