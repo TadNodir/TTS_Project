@@ -81,7 +81,10 @@ if(!isset($_POST['create'])){//Kein Spiel muss hinzugefügt werden
     //check if game already exists
     if($_POST['team1'] === $_POST['team2']){
         $gleiche_teams = 1;
-    }else if($_POST['date'] < date("Y/m/d")){
+    }else if($_POST['time'] < date("H:i:s") && $_POST['date'] <= date("Y-m-d")){
+        $spiel_vergangen = 1;
+    }
+    else if($_POST['date'] < date("Y-m-d")){
         $spiel_vergangen = 1;
     } else {
         $time = $_POST['time'];
@@ -234,7 +237,7 @@ function create_adminlist($post, $link){
             echo "</table>";
             ?>
         </section>
-        <?php if($_SESSION['rolle'] === 2){     //nur anzeigen wenn Superadmin
+        <?php if($_SESSION['rolle'] == 2){     //nur anzeigen wenn Superadmin
             echo "<section class = 'admin-liste'>";
             echo "<h1 id = 'Adminliste'> Adminliste</h1>";
             echo "<table id = 'admin'>";
@@ -271,7 +274,7 @@ function create_adminlist($post, $link){
                 echo "<tbody>";
                 while($row = mysqli_fetch_array($result)){
                     echo "<tr>";
-                    echo "<form action = '../Profile/ProfileAdmin.php' method = 'post'>";
+                    echo "<form action = '../Profile/ProfileUser.php' method = 'post'>";
                     echo "<td> " . $row['nickname'] . "</td>";
                     echo "<td>  " . $row['punktestand'] . "</td>";
                     echo "<td><button type = 'submit' name='nickname' value = ".$row['nickname']."> Bearbeiten </button> </td>";
