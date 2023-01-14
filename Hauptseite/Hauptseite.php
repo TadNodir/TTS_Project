@@ -318,7 +318,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 //holen der Daten aus der Datenbank
                 $link = mysqli_connect("localhost", // Host der Datenbank
                     "root",                 // Benutzername zur Anmeldung
-                    "dbwt",    // Passwort
+                    "root",    // Passwort
                     "swe_tts"    // Auswahl der Datenbanken (bzw. des Schemas)
                 // optional port der Datenbank
                 );
@@ -362,9 +362,11 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                     foreach ($teamdata as $namen) {
                         if($hilf == 0){
                             if ($spiele['beendet'] == 1) {
-                                $text = $text . '<li>'.'<a href="#Vergangene">' . "Spiel " . $namen['0'] . " gegen ";
+                                #$text = $text . '<li>'.'<a href="#Vergangene">' . "Spiel " . $namen['0'] . " gegen ";
+                                $text = $text . '<li>' . "Spiel " . $namen['0'] . " gegen ";
                             } else if ($spiele['beendet'] == 0) {
-                                $text = $text . '<li>'.'<a href="#Anstehende">' . "Spiel " . $namen['0'] . " gegen ";
+                                #$text = $text . '<li>'.'<a href="#Anstehende">' . "Spiel " . $namen['0'] . " gegen ";
+                                $text = $text . '<li>'. "Spiel " . $namen['0'] . " gegen ";
                             } else {
                                 echo 'Spiel wurde nicht gefunden!';
                             }
