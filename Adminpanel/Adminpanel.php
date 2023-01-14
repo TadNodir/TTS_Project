@@ -3,7 +3,6 @@ session_start();
 include '../database/db_functions.php';
 
 $_SESSION['rolle'] = 2;
-var_dump([$_POST]);
 //Konto löschen
 $conn = createLink();
 if (isset($_GET["del"]))
