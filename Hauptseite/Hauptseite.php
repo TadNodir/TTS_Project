@@ -106,7 +106,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
             if($pagescr > 1)
             {
-                echo "<a href =  'Hauptseite.php?pagescr=".($pagescr-1)." #Scoreboard ' > Perv </a>" ;
+                echo "<a href =  'Hauptseite.php?pagescr=".($pagescr-1)." #Scoreboard ' > Prev </a>" ;
 
             }
             if($pagescr < $total_pages_scr)
@@ -175,7 +175,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
             if($pageanst > 1)
             {
-                echo "<a href =  'Hauptseite.php?pageanst=".($pageanst-1)." .#Anstehende ' > Perv </a>" ;
+                echo "<a href =  'Hauptseite.php?pageanst=".($pageanst-1)." .#Anstehende ' > Prev </a>" ;
 
             }
             if($pageanst < $total_pages_anst)
