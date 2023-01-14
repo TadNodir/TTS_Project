@@ -318,7 +318,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 //holen der Daten aus der Datenbank
                 $link = createLink();
                 // optional port der Datenbank
-                );
+
 
                 if (!$link) {
                     echo "Verbindung fehlgeschlagen: ", mysqli_connect_error();
