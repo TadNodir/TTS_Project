@@ -27,12 +27,7 @@ const const_filter_admin = array(  "aufsteigend" => "SELECT punktestand, nicknam
     "punktestand_absteigend" => "SELECT punktestand, nickname FROM benutzer WHERE rolle = 1 or rolle = 2 ORDER BY punktestand DESC"
 );
 
-$link = mysqli_connect(
-    "localhost",
-    "root",
-    "root",
-    "swe_tts"
-);
+$link = createLink();
 
 function relax(){ //Diese Funktion macht genau so wenig wie ich.
     ;

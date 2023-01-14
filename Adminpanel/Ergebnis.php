@@ -1,12 +1,7 @@
 <?php
 session_start();
 
-$link = mysqli_connect(
-    "localhost",
-    "root",
-    "root",
-    "swe_tts"
-);
+$link = createLink();
 
 function setScores($link, $spiel_id, $tore_1, $tore_2){
     $sql = "SELECT tipper, tipp_team1, tipp_team2 from tipps WHERE spiel = '$spiel_id' ";

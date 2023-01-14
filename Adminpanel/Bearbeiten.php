@@ -1,12 +1,7 @@
 <?php
 session_start();
 
-$link = mysqli_connect(
-    "localhost",
-    "root",
-    "root",
-    "swe_tts"
-);
+$link = createLink();
 
 if (isset($_POST['create'])) { //Spiel kann überprüft werden
     if ($_POST['team1'] === $_POST['team2']) { //Überprüfe ob Teams gleich sind
