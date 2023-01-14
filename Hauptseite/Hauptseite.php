@@ -144,6 +144,23 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                         if($_SESSION['rolle'] == '0')
                         {
 
+                            ?>
+                            <td>
+                                <Button type="button" class='tipp-but' onclick='openTipp()' id="tip-b"> Tippen </Button>
+                                <br> <br>
+                                <div class= 'tipp-popup' id='myTipp'>
+                                    <form method='post'>
+                                        <input placeholder='Team 1' name='spiel1' id='spiel1'>
+                                        <br> <br>
+                                        <input placeholder='Team 2' name='spiel2' id='spiel2'>
+                                        <br> <br>
+                                        <Button type='submit' name='submit' value='Tipp'> Tipp </Button>
+                                        <Button type="button" onclick="closeTipp()" > Abbrechen </Button>
+                                    </form>
+                                </div>
+
+                            </td>
+                            <?php
 
                             /*if($row['TIPP1'] || $row['TIPP2']) echo "<td>" . "Bearbeiten" . "<td>";
                             else  echo "<td>" . "<form method='post'>
