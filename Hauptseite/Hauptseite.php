@@ -143,13 +143,15 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                             "<td>".$row['LAND2']."</td>";
                         if($_SESSION['rolle'] == '0')
                         {
-                            if($row['TIPP1'] || $row['TIPP2']) echo "<td>" . "Bearbeiten" . "<td>";
+
+
+                            /*if($row['TIPP1'] || $row['TIPP2']) echo "<td>" . "Bearbeiten" . "<td>";
                             else  echo "<td>" . "<form method='post'>
                                                     <input placeholder='Spiel1' name='spiel1' id='spiel1'>
                                                     <input placeholder='Spiel2' name='spiel2' id='spiel2'>
                                                     <input type='submit', name='submit' value='Tipp'>
                                                 </form>" . "<td>";
-                            echo    "</tr>";
+                            echo    "</tr>";*/
                         }
                     }
                     ?>

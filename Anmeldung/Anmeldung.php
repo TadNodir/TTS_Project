@@ -182,7 +182,7 @@ if(isset($_POST['submit'])){
 <div class="background">
     <img src="../logo.png" alt="logo">
     <div class="formular">
-        <form method="post"  action="../Hauptseite/Hauptseite.php" >
+        <form method="post">
             <h3>Login</h3>
 
             <label for="username">Benutzername</label>
