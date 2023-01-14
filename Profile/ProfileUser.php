@@ -11,6 +11,7 @@ if (!empty($_POST['nickname']))
 }
 $n = $_SESSION['nick'];
 
+$_SESSION['del'] = $n;
 //function, die die eingegeben email auf trash überprüft
 function Trashmail($e){
 
