@@ -206,6 +206,10 @@ input:checked + .slider:before {
     color: white;
 }
 
+.prevNext {
+    padding-right: 10px;
+}
+
 /*
  Fragment of the code, which arranges responsiveness of the
  Login site, which is under 500px takes following conditions
@@ -216,6 +220,15 @@ input:checked + .slider:before {
         align-self: center;
     }
 
+    .navigation {
+        margin: 0;
+    }
+
+    .icon {
+        background-color: #00B1AC;
+        border-radius: 5px;
+        margin: 0;
+    }
 
     .background {
         width: 365px;
@@ -223,7 +236,6 @@ input:checked + .slider:before {
         justify-content: center;
         gap: 10px;
         flex-direction: column;
-
     }
 
     .navigation a {
@@ -239,6 +251,7 @@ input:checked + .slider:before {
         padding: 3px;
         text-align: center;
         margin: 3px;
+        font-size: 5px;
     }
 
     .rest img {
@@ -247,15 +260,15 @@ input:checked + .slider:before {
 
     .background * {
         letter-spacing: 0.3px;
-        font-size: 3.5vw;
+        font-size: 3vw;
     }
 
     .background h1 {
         font-size: 4.5vw;
     }
 
-    .prevNext {
-        padding: 10px;
+    input {
+        max-width: 30px;
     }
 
 }
