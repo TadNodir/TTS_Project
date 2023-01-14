@@ -154,7 +154,7 @@ if(isset($_POST['submit'])){
 
         mysqli_query($link, $sql);
         closeLink($link);
-        header("Location: http://localhost:63342/tts/Anmeldung/Anmeldung.php");
+        header("Location: ../Anmeldung/Anmeldung.php");
         exit;
     }
     closeLink($link);

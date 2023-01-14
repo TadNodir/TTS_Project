@@ -247,12 +247,12 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
             if($pageanst > 1)
             {
-                echo "<p class='prevNext'><a class='prevNext' href =  'Hauptseite.php?pageanst=".($pageanst-1)." #Anstehende ' > Prev </a></p>" ;
+                echo "<p class='prevNext'><a class='prevNext' href =  'Hauptseite.php?pageanst=".($pageanst-1)."&pagevrg=".$pagevrg." #Anstehende ' > Prev </a></p>" ;
 
             }
             if($pageanst < $total_pages_anst)
             {
-                echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pageanst=".($pageanst+1)." #Anstehende'> Next </a></p>" ;
+                echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pageanst=".($pageanst+1)."&pagevrg=".$pagevrg." #Anstehende'> Next </a></p>" ;
             }
             ?>
         </section>
@@ -297,12 +297,12 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
                 if($pagevrg > 1)
                 {
-                    echo "<p class='prevNext'><a href =  'Hauptseite.php?pagevrg=".($pagevrg-1)." #Vergangene ' > Prev </a></p>" ;
+                    echo "<p class='prevNext'><a href =  'Hauptseite.php?pagevrg=".($pagevrg-1)."&pageanst=".$pageanst." #Vergangene ' > Prev </a></p>" ;
 
                 }
                 if($pagevrg < $total_pages_verg)
                 {
-                    echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pagevrg=".($pagevrg+1)." #Vergangene'> Next </a></p>" ;
+                    echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pagevrg=".($pagevrg+1)."&pageanst=".$pageanst." #Vergangene'> Next </a></p>" ;
 
                 }
             ?>
@@ -316,12 +316,9 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
             <ul>
                 <?php
                 //holen der Daten aus der Datenbank
-                $link = mysqli_connect("localhost", // Host der Datenbank
-                    "root",                 // Benutzername zur Anmeldung
-                    "root",    // Passwort
-                    "swe_tts"    // Auswahl der Datenbanken (bzw. des Schemas)
+                $link = createLink();
                 // optional port der Datenbank
-                );
+
 
                 if (!$link) {
                     echo "Verbindung fehlgeschlagen: ", mysqli_connect_error();
@@ -362,10 +359,11 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                     foreach ($teamdata as $namen) {
                         if($hilf == 0){
                             if ($spiele['beendet'] == 1) {
-
-                                $text = $text . '<li>'.'<a href="#Vergangene">' . "Spiel " . $namen['0'] . " gegen ";
+                                #$text = $text . '<li>'.'<a href="#Vergangene">' . "Spiel " . $namen['0'] . " gegen ";
+                                $text = $text . '<li>' . "Spiel " . $namen['0'] . " gegen ";
                             } else if ($spiele['beendet'] == 0) {
-                                $text = $text . '<li>'.'<a href="#Anstehende">' . "Spiel " . $namen['0'] . " gegen ";
+                                #$text = $text . '<li>'.'<a href="#Anstehende">' . "Spiel " . $namen['0'] . " gegen ";
+                                $text = $text . '<li>'. "Spiel " . $namen['0'] . " gegen ";
                             } else {
                                 echo 'Spiel wurde nicht gefunden!';
                             }

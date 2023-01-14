@@ -60,7 +60,7 @@ function checkAccount($user,$password): int
 
         $_SESSION['gesperrt'] = $resultRow['nickname'];
         closeLink($link);
-        header( "Location: http://localhost:63342/tts/Anmeldung/reset.php");
+        header( "Location: ../Anmeldung/reset.php");
         exit;
 
     }
@@ -125,9 +125,9 @@ if(isset($_POST['submit'])){
 
             closeLink($link);
             if($_SESSION['rolle']==0)
-                 header("Location: http://localhost:63342/tts/Hauptseite/Hauptseite.php");
+                 header("Location: ../Hauptseite/Hauptseite.php");
             if($_SESSION['rolle']==1|| $_SESSION['rolle']==2)
-                header("Location: http://localhost:63342/tts/Adminpanel/Adminpanel.php");
+                header("Location: ../Adminpanel/Adminpanel.php");
             exit();
 
 
@@ -147,7 +147,7 @@ if(isset($_POST['submit'])){
 
        if($resultArray['gesperrt']>=5){
            $_SESSION['gesperrt'] = "Der Benutzer ".$nutzer['benutzer']." wurde gesperrt. Bitte setzen Sie ihr Passwort zurück.";
-           header( "Location: http://localhost:63342/tts/Anmeldung/reset.php");
+           header( "Location: ../Anmeldung/reset.php");
            exit;
        }
 
