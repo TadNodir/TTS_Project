@@ -49,7 +49,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 <header>
     <nav class="navigation" id="navi">
         <div class="nav-links">
-            <span>Hauptseite</span>
+            <a href="../Hauptseite/Hauptseite.php">Hauptseite</a>
             <a href="#Scoreboard">Scoreboard</a>
             <a href="#News">News</a>
             <a href="#Anstehende">Anstehende</a>
@@ -142,25 +142,41 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                             "<td>".$row['FLAG1'].$row['LAND1']."</td>".
                             "<td>".$row['uhrzeit']."</td>".
                             "<td>".$row['FLAG2'].$row['LAND2']."</td>";
-                        if($_SESSION['rolle'] == '0')
-                        {
-
-                         echo "<td>".
-                               "<button type='button' class='tipp-but' name='tip-b' id='$spiel'> Tippen </button>" .
-                                "<br>" . "<br>".
-                                "<div class= 'tipp-popup' id='$divID'>".
-                                   " <form method='post'>" .
-                                       " <input placeholder='Team 1' name='spiel1' id='spiel1'>" .
-                                       " <br>" . "<br>".
-                                       " <input placeholder='Team 2' name='spiel2' id='spiel2'>" .
-                                        "<br>"  . "<br>" .
-                                        "<Button type='submit' name='submit' value='Tipp'> Tipp </Button>" .
-                                        "<Button type='button' id='$closeBtn' onclick='closeTipp()' > Abbrechen </Button>" .
+                        if($_SESSION['rolle'] == '0') {
+                            if ($row['TIPP1']) {
+                                echo "<td>" .
+                                    "<button type='button' class='tipp-but' name='tip-b' id='$spiel'> Bearbeiten </button>" .
+                                    "<br>" . "<br>" .
+                                    "<div class= 'tipp-popup' id='$divID'>" .
+                                    " <form method='post'>" .
+                                    " <input placeholder='Team 1' name='spiel1' id='spiel1'>" .
+                                    " <br>" . "<br>" .
+                                    " <input placeholder='Team 2' name='spiel2' id='spiel2'>" .
+                                    "<br>" . "<br>" .
+                                    "<Button type='submit' name='$divID' value='Tipp' > Speichern </Button>" .
+                                    "<Button type='button' id='$closeBtn' onclick='closeTipp()' > Abbrechen </Button>" .
                                     "</form>" .
-                                "</div>" .
-
-                            "</td>";
-
+                                    "</div>" .
+                                    "</td>";
+                            } else {
+                                echo "<td>" .
+                                    "<button type='button' class='tipp-but' name='tip-b' id='$spiel'> Tippen </button>" .
+                                    "<br>" . "<br>" .
+                                    "<div class= 'tipp-popup' id='$divID'>" .
+                                    " <form method='post'>" .
+                                    " <input placeholder='Team 1' name='spiel1' id='spiel1'>" .
+                                    " <br>" . "<br>" .
+                                    " <input placeholder='Team 2' name='spiel2' id='spiel2'>" .
+                                    "<br>" . "<br>" .
+                                    "<Button type='submit' name='$divID' value='Tipp' > Tipp </Button>" .
+                                    "<Button type='button' id='$closeBtn' onclick='closeTipp()' > Abbrechen </Button>" .
+                                    "</form>" .
+                                    "</div>" .
+                                    "</td>";
+                            }
+                        }
+                        if(isset($_POST[$divID])){
+                            db_tippen($link, $_SESSION['id'],$spiel,$_POST['spiel1'],$_POST['spiel2']);
                         }
                     }
                     ?>
@@ -208,7 +224,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                         "<td>" .$row['FLAG2'] . $row['LAND2'] . "</td>";
                     if($row['TIPP1']) echo "<td>"  . $row['TIPP1'] .":". $row['TIPP2'] . "</td>".
                         "<td>"  . $row['VERDIENT'] . "</td>";
-                    else echo "<td>"  . "Nicht Gettipt" . "</td>" .
+                   else echo "<td>"  . "Nicht Gettipt" . "</td>" .
                     "<td>" . "Keine Punkte" ." </td>";
                     echo    "</tr>";
                 }
@@ -244,8 +260,8 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 <?php
                 //holen der Daten aus der Datenbank
                 $link = mysqli_connect("localhost", // Host der Datenbank
-                    "dev_tts",                 // Benutzername zur Anmeldung
-                    "QN7ZAqgGY9wZ",    // Passwort
+                    "root",                 // Benutzername zur Anmeldung
+                    "dbwt",    // Passwort
                     "swe_tts"    // Auswahl der Datenbanken (bzw. des Schemas)
                 // optional port der Datenbank
                 );
