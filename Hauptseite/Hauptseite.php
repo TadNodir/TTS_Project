@@ -140,6 +140,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                     <th>Team 1</th>
                     <th>Uhrzeit</th>
                     <th>Team 2</th>
+                    <th></th>
                     <th>Tipp</th>
                 </tr>
                 </thead>
@@ -160,6 +161,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                         if($_SESSION['rolle'] == '0') {
                             if(timestampVergleich($row['uhrzeit'])){
                                 if ($row['TIPP1']) {
+                                    echo "<td>" . $row['TIPP1'] . ":" . $row['TIPP2'] . "</td>";
                                     echo "<td>" .
                                         "<button type='button' class='tipp-but' name='tip-b' id='$spiel'> Bearbeiten </button>" .
                                         "<br>" . "<br>" .
@@ -175,6 +177,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                                         "</div>" .
                                         "</td>";
                                 } else {
+                                    echo "<td>" . "/:/" . "</td>";
                                     echo "<td>" .
                                         "<button type='button' class='tipp-but' name='tip-b' id='$spiel'> Tippen </button>" .
                                         "<br>" . "<br>" .
@@ -191,7 +194,13 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                                         "</td>";
                                 }
                             }
-                           else {echo "<td> <p style='color:lightcoral;'>Tipp zu spät</p></td>";}
+                           else {
+                               if ($row['TIPP1']) {
+                                   echo "<td>" . $row['TIPP1'] . ":" . $row['TIPP2'] . "</td>";}
+                               else{
+                                   echo "<td>" . "/:/" . "</td>";
+                               }
+                               echo "<td> <p style='color:lightcoral;'>Tipp zu spät</p></td>";}
                         }
                         if(isset($_POST[$divID])){
                             db_tippen($link, $_SESSION['id'],$spiel,$_POST['spiel1'],$_POST['spiel2']);
