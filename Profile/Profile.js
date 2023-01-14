@@ -41,8 +41,6 @@ let darkMode = localStorage.getItem('darkMode');
 
 const darkModeToggle = document.querySelector('#dark-mode-toggle');
 
-darkModeToggle.addEventListener('click', con);
-
 const enableDarkMode = () => {
     // 1. Add the class to the body
     document.body.classList.add('darkmode');

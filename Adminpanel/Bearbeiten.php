@@ -1,5 +1,6 @@
 <?php
 session_start();
+include '../database/db_functions.php';
 
 $link = createLink();
 
