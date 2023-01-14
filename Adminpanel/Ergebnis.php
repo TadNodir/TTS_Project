@@ -51,8 +51,8 @@ if (isset($_POST['create'])) { //Spiel kann überprüft werden
     setScores($link, $_POST['create'], $_POST['team1'], $_POST['team2']);
 
 
-    //header("Location: Adminpanel.php");
-    //exit;
+    header("Location: Adminpanel.php");
+    exit;
 }
 ?>
 
@@ -86,7 +86,6 @@ if (isset($_POST['create'])) { //Spiel kann überprüft werden
                         <input type = "number" min = "0" id = "team2" name = "team2" required> <br>
                     </div>
                     <a href= "#"><?php
-                        var_dump($_POST);
                         echo "<label for = 'create'>";
                         $test = $_POST['Ergebnis'] ?? $_POST['create'];
                         echo "<button type = 'submit' name = 'create' value = '$test'> Bearbeiten</button>"

@@ -87,6 +87,7 @@ $errors = array(
     "nicknameExistiert"=>false,
     "emailExistiert"=>false,
     "emailFormat"=>false,
+    "trashMail"=>false
 );
 
 

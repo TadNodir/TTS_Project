@@ -2,7 +2,6 @@
 session_start();
 include '../database/db_functions.php';
 
-$_SESSION['rolle'] = 2;
 //Konto löschen
 $conn = createLink();
 if (isset($_GET["del"]))
@@ -412,7 +411,6 @@ function create_adminlist($post, $link){
                     <?php
                     $spiele_sql = "SELECT id, team_1, team_2 FROM spiele WHERE beendet = 0";
                     $result = mysqli_query($link, $spiele_sql);
-                    $row = mysqli_fetch_array($result);
                     while($row = mysqli_fetch_array($result)){
                         echo "<tr>";
                         echo "<form action = 'Ergebnis.php' method = 'post'>";
