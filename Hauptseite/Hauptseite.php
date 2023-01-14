@@ -1,8 +1,7 @@
 <?php
 include("../database/db_functions.php");
 session_start();
-//var_dump($_SESSION['id']);
-//var_dump($_SESSION['rolle']);
+
 $link = createLink();
 if(isset($_SESSION['id'])) $eingellogt = $_SESSION['id'];
 
@@ -136,6 +135,9 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                     {
                         $spiel = $row['SPIEL'];
 
+                        $divID = "pop-" . $spiel;
+                        $closeBtn = "cls-" . $spiel;
+
                         echo "<tr>".
                             "<td>".$row['FLAG1'].$row['LAND1']."</td>".
                             "<td>".$row['uhrzeit']."</td>".
@@ -143,31 +145,22 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                         if($_SESSION['rolle'] == '0')
                         {
 
-                            ?>
-                            <td>
-                                <Button type="button" class='tipp-but' onclick='openTipp()' id="tip-b"> Tippen </Button>
-                                <br> <br>
-                                <div class= 'tipp-popup' id='myTipp'>
-                                    <form method='post'>
-                                        <input placeholder='Team 1' name='spiel1' id='spiel1'>
-                                        <br> <br>
-                                        <input placeholder='Team 2' name='spiel2' id='spiel2'>
-                                        <br> <br>
-                                        <Button type='submit' name='submit' value='Tipp'> Tipp </Button>
-                                        <Button type="button" onclick="closeTipp()" > Abbrechen </Button>
-                                    </form>
-                                </div>
+                         echo "<td>".
+                               "<button type='button' class='tipp-but' name='tip-b' id='$spiel'> Tippen </button>" .
+                                "<br>" . "<br>".
+                                "<div class= 'tipp-popup' id='$divID'>".
+                                   " <form method='post'>" .
+                                       " <input placeholder='Team 1' name='spiel1' id='spiel1'>" .
+                                       " <br>" . "<br>".
+                                       " <input placeholder='Team 2' name='spiel2' id='spiel2'>" .
+                                        "<br>"  . "<br>" .
+                                        "<Button type='submit' name='submit' value='Tipp'> Tipp </Button>" .
+                                        "<Button type='button' id='$closeBtn' onclick='closeTipp()' > Abbrechen </Button>" .
+                                    "</form>" .
+                                "</div>" .
 
-                            </td>
-                            <?php
+                            "</td>";
 
-                            /*if($row['TIPP1'] || $row['TIPP2']) echo "<td>" . "Bearbeiten" . "<td>";
-                            else  echo "<td>" . "<form method='post'>
-                                                    <input placeholder='Spiel1' name='spiel1' id='spiel1'>
-                                                    <input placeholder='Spiel2' name='spiel2' id='spiel2'>
-                                                    <input type='submit', name='submit' value='Tipp'>
-                                                </form>" . "<td>";
-                            echo    "</tr>";*/
                         }
                     }
                     ?>
