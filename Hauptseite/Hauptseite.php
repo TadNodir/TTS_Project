@@ -247,12 +247,12 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
             if($pageanst > 1)
             {
-                echo "<p class='prevNext'><a class='prevNext' href =  'Hauptseite.php?pageanst=".($pageanst-1)." #Anstehende ' > Prev </a></p>" ;
+                echo "<p class='prevNext'><a class='prevNext' href =  'Hauptseite.php?pageanst=".($pageanst-1)."&pagevrg=".$pagevrg." #Anstehende ' > Prev </a></p>" ;
 
             }
             if($pageanst < $total_pages_anst)
             {
-                echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pageanst=".($pageanst+1)." #Anstehende'> Next </a></p>" ;
+                echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pageanst=".($pageanst+1)."&pagevrg=".$pagevrg." #Anstehende'> Next </a></p>" ;
             }
             ?>
         </section>
@@ -297,12 +297,12 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
                 if($pagevrg > 1)
                 {
-                    echo "<p class='prevNext'><a href =  'Hauptseite.php?pagevrg=".($pagevrg-1)." #Vergangene ' > Prev </a></p>" ;
+                    echo "<p class='prevNext'><a href =  'Hauptseite.php?pagevrg=".($pagevrg-1)."&pageanst=".$pageanst." #Vergangene ' > Prev </a></p>" ;
 
                 }
                 if($pagevrg < $total_pages_verg)
                 {
-                    echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pagevrg=".($pagevrg+1)." #Vergangene'> Next </a></p>" ;
+                    echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pagevrg=".($pagevrg+1)."&pageanst=".$pageanst." #Vergangene'> Next </a></p>" ;
 
                 }
             ?>
