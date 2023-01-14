@@ -37,7 +37,7 @@ if(isset($_POST['reset'])){
         $sql = "UPDATE swe_tts.benutzer SET passwort = '".$hash."' WHERE nickname = '".$nutzer['nickname']."';";
         mysqli_query($link, $sql);
         closeLink($link);
-        header( "Location: http://localhost:63342/tts/Anmeldung/Anmeldung.php");
+        header( "Location: ../Anmeldung/Anmeldung.php");
     }
     else
         $pwGleich=true;
