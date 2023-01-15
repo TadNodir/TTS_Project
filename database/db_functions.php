@@ -97,12 +97,11 @@ function db_tippen($link, $userid, $spiel, $tipp1, $tipp2){
     if(!$exists){
         $query = "INSERT INTO tipps (tipper,spiel,tipp_team1,tipp_team2,verdient) VALUES ('$userid', '$spiel','$tipp1','$tipp2','0')";
         mysqli_query($link, $query);
-        header("Location: http://localhost:63342/tts/Hauptseite/Hauptseite.php");
+        header("Location: ../Hauptseite/Hauptseite.php");
     }
     else{
         $query = "UPDATE tipps SET tipp_team1 = '$tipp1', tipp_team2 = '$tipp2' WHERE spiel = $spiel AND tipper = $userid";
         mysqli_query($link, $query);
-        header("Location: http://localhost:63342/tts/Hauptseite/Hauptseite.php");
     }
 }
 

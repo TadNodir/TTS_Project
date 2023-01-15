@@ -94,17 +94,17 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 </thead>
                 <tbody>
                 <?php
-                var_dump($_SESSION); echo "<br>";
-                var_dump($start_from_scr); echo "start from scr<br>";
-                var_dump($num_per_page); echo "num per page<br>";
+                //var_dump($_SESSION); echo "<br>";
+                //var_dump($start_from_scr); echo "start from scr<br>";
+                //var_dump($num_per_page); echo "num per page<br>";
                 $result_scoreboard_punkte = db_scoreboard_punkte2($link); //,  $start_from_scr, $num_per_page
                 $rowcount = 1 * $start_from_scr + 1;
                 $it = $start_from_scr;
                 $start = 0;
                 while ($row = mysqli_fetch_assoc($result_scoreboard_punkte)) {
-                    var_dump($it); echo "it <br>";
-                    var_dump($start); echo "start <br>";
-                    var_dump($row);
+                    //var_dump($it); echo "it <br>";
+                    //var_dump($start); echo "start <br>";
+                    //var_dump($row);
                     if($start >= $start_from_scr) {
                         echo "<tr>" .
                             "<td> $rowcount </td>" .
@@ -129,32 +129,24 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 $pr_result_scr = mysqli_query($link, $pr_query_scr);
                 $total_record_scr = mysqli_num_rows($pr_result_scr);
                 $total_pages_scr = ceil($total_record_scr/$num_per_page);
-                $i = 1;
-                $continue = 0;
-                //                $row_arr = db_scoreboard_punkte($link,
-                $result_scoreboard_punkte2 = db_scoreboard_punkte2($link);
-                while($row = mysqli_fetch_assoc($result_scoreboard_punkte2)){
-                    
-                }
 
-                for ($p = 0; $p <= $total_pages_scr; $p = $p + 5) {
-                    $result = db_scoreboard_punkte($link, $p, 5);
-                    $data = mysqli_fetch_all($result, MYSQLI_BOTH);
-                    foreach($data as $list){
-                        if($list['nickname'] == $_SESSION['nickname']){
-                            $continue = 1;
-                            break;
-                        }
-                    }
-                    if($continue == 1){
+
+                $result_scoreboard_punkte2 = db_scoreboard_punkte2($link);
+                $page_counter = 1;
+                $curr_it = 0;
+                while($row = mysqli_fetch_assoc($result_scoreboard_punkte2)){
+                    $curr_it++;
+                    if($row['nickname'] == $_SESSION['nickname']){
                         break;
                     }
-                    $i++;
+                    if($curr_it % $num_per_page == 0){ // new page
+                        $page_counter++;
+                    }
                 }
 
                 echo "<td>" . "Mein Ergebnis: " . mysqli_fetch_assoc($result_scoreboard_ergebniss)['punktestand'] ."</td>".
                     "<td>" . "</td>".
-                    "<td>"."<button>" . "<a href='Hauptseite.php?pagescr=".($i)."#Scoreboard' . >Eigener Score</a>" . "</button>"."</td>";
+                    "<td>"."<button>" . "<a href='Hauptseite.php?pagescr=".($page_counter)."#Scoreboard' . >Eigener Score</a>" . "</button>"."</td>";
                 ?>
 
 
@@ -200,23 +192,22 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
                         $divID = "pop-" . $spiel;
                         $closeBtn = "cls-" . $spiel;
-
                         echo "<tr>".
                             "<td>".$row['FLAG1'].$row['LAND1']."</td>".
                             "<td>".$row['uhrzeit']."</td>".
                             "<td>".$row['FLAG2'].$row['LAND2']."</td>";
                         if($_SESSION['rolle'] == '0') {
                             if(timestampVergleich($row['uhrzeit'])){
-                                if ($row['TIPP1']) {
+                                if (isset($row['TIPP1'])) {
                                     echo "<td>" . $row['TIPP1'] . ":" . $row['TIPP2'] . "</td>";
                                     echo "<td>" .
                                         "<button type='button' class='tipp-but' name='tip-b' id='$spiel'> Bearbeiten </button>" .
                                         "<br>" . "<br>" .
                                         "<div class= 'tipp-popup' id='$divID'>" .
                                         " <form method='post'>" .
-                                        " <input type='number' placeholder='$row[TIPP1]'  name='spiel1' id='spiel1' required>" .
+                                        " <input type='number' min = '0' placeholder='$row[TIPP1]'  name='spiel1' id='spiel1' required>" .
                                         " <br>" . "<br>" .
-                                        " <input type='number' placeholder='$row[TIPP2]' name='spiel2' id='spiel2' required>" .
+                                        " <input type='number' min = '0' placeholder='$row[TIPP2]' name='spiel2' id='spiel2' required>" .
                                         "<br>" . "<br>" .
                                         "<Button type='submit' name='$divID' value='Tipp' > Speichern </Button>" .
                                         "<Button type='button' id='$closeBtn' onclick='closeTipp()' > Abbrechen </Button>" .
@@ -230,9 +221,9 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                                         "<br>" . "<br>" .
                                         "<div class= 'tipp-popup' id='$divID'>" .
                                         " <form method='post'>" .
-                                        " <input type='number' name='spiel1' id='spiel1' required>" .
+                                        " <input type='number' min = '0' name='spiel1' id='spiel1' required>" .
                                         " <br>" . "<br>" .
-                                        " <input type='number' name='spiel2' id='spiel2' required>" .
+                                        " <input type='number' min = '0' name='spiel2' id='spiel2' required>" .
                                         "<br>" . "<br>" .
                                         "<Button type='submit' name='$divID' value='Tipp' > Tipp </Button>" .
                                         "<Button type='button' id='$closeBtn' onclick='closeTipp()' > Abbrechen </Button>" .
@@ -251,6 +242,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                         }
                         if(isset($_POST[$divID])){
                             db_tippen($link, $_SESSION['id'],$spiel,$_POST['spiel1'],$_POST['spiel2']);
+                            echo "<meta http-equiv='refresh' content='1088'>";
                         }
                     }
                     ?>
@@ -262,14 +254,11 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
             $total_record_anst = mysqli_num_rows($pr_result_anst);
             $total_pages_anst = ceil($total_record_anst/$num_per_page);
 
-
-            if($pageanst > 1)
-            {
+            if($pageanst > 1) {
                 echo "<p class='prevNext'><a class='prevNext' href =  'Hauptseite.php?pageanst=".($pageanst-1)."&pagevrg=".$pagevrg." #Anstehende ' > Prev </a></p>" ;
 
             }
-            if($pageanst < $total_pages_anst)
-            {
+            if($pageanst < $total_pages_anst) {
                 echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pageanst=".($pageanst+1)."&pagevrg=".$pagevrg." #Anstehende'> Next </a></p>" ;
             }
             ?>
@@ -288,7 +277,6 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 </tr>
                 </thead>
                 <tbody>
-
                 <?php
 
                 $result_verg_spiele = db_select_verg_spiele($link, $eingellogt, $start_from_verg ,$num_per_page);
@@ -377,11 +365,11 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                     foreach ($teamdata as $namen) {
                         if($hilf == 0){
                             if ($spiele['beendet'] == 1) {
-                                #$text = $text . '<li>'.'<a href="#Vergangene">' . "Spiel " . $namen['0'] . " gegen ";
-                                $text = $text . '<li>' . "Spiel " . $namen['0'] . " gegen ";
+                                $text = $text . '<li>'.'<a href="#Vergangene">' . "Spiel " . $namen['0'] . " gegen ";
+                                //$text = $text . '<li>' . "Spiel " . $namen['0'] . " gegen ";
                             } else if ($spiele['beendet'] == 0) {
-                                #$text = $text . '<li>'.'<a href="#Anstehende">' . "Spiel " . $namen['0'] . " gegen ";
-                                $text = $text . '<li>'. "Spiel " . $namen['0'] . " gegen ";
+                                $text = $text . '<li>'.'<a href="#Anstehende">' . "Spiel " . $namen['0'] . " gegen ";
+                                //$text = $text . '<li>'. "Spiel " . $namen['0'] . " gegen ";
                             } else {
                                 echo 'Spiel wurde nicht gefunden!';
                             }
