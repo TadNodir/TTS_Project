@@ -5,7 +5,6 @@ include '../database/db_functions.php';
 session_start();
 
 $link = createLink();
-var_dump($_POST);
 
 function setScores($link, $spiel_id, $tore_1, $tore_2){
     $sql = "SELECT tipper, tipp_team1, tipp_team2 from tipps WHERE spiel = '$spiel_id' ";
