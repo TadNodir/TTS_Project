@@ -21,10 +21,10 @@ const const_filter_user = array(  "aufsteigend" => "SELECT punktestand, nickname
 );
 
 
-const const_filter_admin = array(  "aufsteigend" => "SELECT punktestand, nickname FROM benutzer WHERE rolle = 1 or rolle = 2 ORDER BY nickname ASC",
-    "absteigend" => "SELECT punktestand, nickname FROM benutzer WHERE rolle = 1 or rolle = 2 ORDER BY nickname DESC",
-    "punktestand_aufsteigend" => "SELECT punktestand, nickname FROM benutzer WHERE rolle = 1 or rolle = 2 ORDER BY punktestand ASC",
-    "punktestand_absteigend" => "SELECT punktestand, nickname FROM benutzer WHERE rolle = 1 or rolle = 2 ORDER BY punktestand DESC"
+const const_filter_admin = array(  "aufsteigend" => "SELECT punktestand, nickname FROM benutzer WHERE rolle = 1 ORDER BY nickname ASC",
+    "absteigend" => "SELECT punktestand, nickname FROM benutzer WHERE rolle = 1 ORDER BY nickname DESC",
+    "punktestand_aufsteigend" => "SELECT punktestand, nickname FROM benutzer WHERE rolle = 1 ORDER BY punktestand ASC",
+    "punktestand_absteigend" => "SELECT punktestand, nickname FROM benutzer WHERE rolle = 1ORDER BY punktestand DESC"
 );
 
 $link = createLink();
