@@ -86,7 +86,7 @@ if(!isset($_POST['create'])){//Kein Spiel muss hinzugefügt werden
         //if not null game exists already in a 1 day timeframe
         $result2 = mysqli_query($link, $check_existence);
         $data2 = mysqli_fetch_assoc($result2);
-        var_dump($data2);
+        //var_dump($data2);
         if (empty($data2)) {
             $once = 0;
             $team1 = $_POST['team1'];

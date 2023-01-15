@@ -290,7 +290,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                         "<td>" .$row['FLAG1'] . " ". $row['LAND1'] . "</td>" .
                         "<td>" . $row['tore_team1'] . ":" . $row['tore_team2'] . "</td>" .
                         "<td>" .$row['FLAG2'] . " " . $row['LAND2'] . "</td>";
-                    if($row['TIPP1']) echo "<td>"  . $row['TIPP1'] .":". $row['TIPP2'] . "</td>".
+                    if(isset($row['TIPP1'])) echo "<td>"  . $row['TIPP1'] .":". $row['TIPP2'] . "</td>".
                         "<td>"  . $row['VERDIENT'] . "</td>";
                    else echo "<td>"  . "Nicht Gettipt" . "</td>" .
                     "<td>" . "Keine Punkte" ." </td>";
