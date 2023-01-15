@@ -193,11 +193,11 @@ function create_adminlist($post, $link){
             echo "<table id = 'user'>";
             echo "<thead><tr>";
             echo "<form method = 'post' id = 'userlist'>";
-            echo "<th colspan = '2'>
+            echo "<th class='filterSearch' colspan = '2'>
                         <label for = 'search' ></label>
                         <input type = 'text' id = 'search' name = 'search' value = '' placeholder = 'suchen'></th>";
             $test = isset($_POST['filter2']) ? $_POST['filter2'] : "n";
-            echo "<th><label for = 'filter'></label>
+            echo "<th class='filterSearch'><label for = 'filter'></label>
                       <input type = 'hidden' id = 'filter2' name = 'filter2' value = '$test'>
                         <select id = 'filter' name = 'filter' form = 'userlist'>
                         <option value = 'aufsteigend'> Namen aufsteigend </option>

@@ -82,6 +82,15 @@ td {
     color: #fff;
 }
 
+button a {
+    text-decoration: none;
+    color: black;
+}
+
+footer li {
+    text-align: center;
+}
+
 th {
     text-align: left;
 }
@@ -207,7 +216,20 @@ input:checked + .slider:before {
 }
 
 .prevNext {
-    padding-right: 10px;
+    background-color: white;
+
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+.prevNext a {
+    text-decoration: none;
+    padding: 0;
+    color: black;
+    font-weight: bold;
 }
 
 /*

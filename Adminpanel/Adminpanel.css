@@ -100,6 +100,15 @@ tbody button {
     cursor: pointer;
 }
 
+select, table .filterSearch input {
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.filterSearch {
+    width: 50%;
+}
+
 button:hover {
     background-color: rgba(255, 255, 255, 0.47);
 }
@@ -311,6 +320,13 @@ input:checked + .slider:before {
         padding: 3px;
         text-align: center;
         margin: 3px;
+    }
+
+    table .filterSearch input, select {
+        font-size: 2.8vw;
+        max-width: 100px;
+        margin: 0;
+        padding: 0;
     }
 
     /*.rest img {*/
