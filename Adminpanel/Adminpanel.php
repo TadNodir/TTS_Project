@@ -402,30 +402,34 @@ function create_adminlist($post, $link){
                     }
                 }
                 ?></h1>
-
+            <?php
+            //var_dump(mysqli_fetch_all(db_select_anst_spiele2($link), MYSQLI_BOTH)[0]);
+            ?>
             <table class = "verwaltung">
                 <thead>
                 <tr>
-                    <th colspan = "3"> Anstehende Spiele </th>
+                    <th colspan = "4"> Anstehende Spiele </th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <?php
-                    $spiele_sql = "SELECT id, team_1, team_2 FROM spiele WHERE beendet = 0";
-                    $result = mysqli_query($link, $spiele_sql);
-                    while($row = mysqli_fetch_array($result)){
+                    //$spiele_sql = "SELECT id, team_1, team_2 FROM spiele WHERE beendet = 0";
+                    //$result = mysqli_query($link, $spiele_sql);
+                    $result_ans_spiele = db_select_anst_spiele2($link);
+                    while($row = mysqli_fetch_array($result_ans_spiele)){
                         echo "<tr>";
                         echo "<form action = 'Ergebnis.php' method = 'post'>";
-                        $land = "SELECT land FROM teams WHERE id = ".$row['team_1']." or id = ".$row['team_2']." ";
-                        $result2 = mysqli_query($link, $land);
-                        $array = mysqli_fetch_all($result2);
-                        echo "<td> " . $array[0][0] . " VS ";
-                        echo $array[1][0] . "</td>";
-                        echo "<td><button type = 'submit' name = 'Ergebnis' value = ".$row['id']."> Ergebnis eingeben </button></td>";
+                        //$land = "SELECT land FROM teams WHERE id = ".$row['team_1']." or id = ".$row['team_2']." ";
+                        //$result2 = mysqli_query($link, $land);
+                        //$array = mysqli_fetch_all($result2);
+                        echo "<td> " . $row['LAND1'] . " VS" . " <BR> ";
+                        echo $row['LAND2'] . " </td>";
+                        echo "<td>" . $row['uhrzeit'] . "</td>";
+                        echo "<td><button type = 'submit' name = 'Ergebnis' value = ".$row['SPIEL']."> Ergebnis eingeben </button></td>";
                         echo "</form>";
                         echo "<form action = 'Bearbeiten.php' method = 'post'>";
-                        echo "<td><button type = 'submit' name = 'Bearbeiten' value = ".$row['id']." onclick = openForm()> Bearbeiten </button></td>";
+                        echo "<td><button type = 'submit' name = 'Bearbeiten' value = ".$row['SPIEL']." onclick = openForm()> Bearbeiten </button></td>";
                         echo "</tr>";
                         echo "</form>";
                     } ?>
