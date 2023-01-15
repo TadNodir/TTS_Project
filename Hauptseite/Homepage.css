@@ -82,6 +82,15 @@ td {
     color: #fff;
 }
 
+button a {
+    text-decoration: none;
+    color: black;
+}
+
+footer li {
+    text-align: center;
+}
+
 th {
     text-align: left;
 }
@@ -176,10 +185,6 @@ h1 {
     --background: var(--clr-dark);
 }
 
-.prevNext {
-    padding-right: 10px;
-}
-
 :root {
     --clr-light: #fdffc4;
     --clr-dark: #00332a;
@@ -189,7 +194,6 @@ h1 {
 
     --foreground: var(--clr-dark);
     --background: var(--clr-light);
-
     --ff-title: "Playfair Display", serif;
     --ff-body: "Assistant", sans-serif;
 }
@@ -197,6 +201,23 @@ h1 {
 .rest img {
     border-radius: 10px;
 }
+
+.prevNext {
+    background-color: white;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+.prevNext a {
+    text-decoration: none;
+    padding: 0;
+    color: black;
+    font-weight: bold;
+}
+
 
 /*
  Fragment of the code, which arranges responsiveness of the

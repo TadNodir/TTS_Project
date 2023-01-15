@@ -77,7 +77,12 @@ LIMIT $page_verg,$num";
 }
 
 function db_scoreboard_punkte($link, $page_scr, $num){
-    $query = "SELECT nickname, punktestand FROM benutzer WHERE rolle = 0 ORDER BY punktestand DESC LIMIT $page_scr,$num";
+    $query = "SELECT id, nickname, punktestand FROM benutzer WHERE rolle = 0 ORDER BY punktestand DESC LIMIT $page_scr,$num";
+    return mysqli_query($link, $query);
+}
+
+function db_scoreboard_punkte2($link){
+    $query = "SELECT id, nickname, punktestand FROM benutzer WHERE rolle = 0 ORDER BY punktestand DESC";
     return mysqli_query($link, $query);
 }
 
@@ -92,12 +97,26 @@ function db_tippen($link, $userid, $spiel, $tipp1, $tipp2){
     if(!$exists){
         $query = "INSERT INTO tipps (tipper,spiel,tipp_team1,tipp_team2,verdient) VALUES ('$userid', '$spiel','$tipp1','$tipp2','0')";
         mysqli_query($link, $query);
-        header("Location: http://localhost:63342/tts/Hauptseite/Hauptseite.php");
+        header("Location: ../Hauptseite/Hauptseite.php");
     }
     else{
         $query = "UPDATE tipps SET tipp_team1 = '$tipp1', tipp_team2 = '$tipp2' WHERE spiel = $spiel AND tipper = $userid";
         mysqli_query($link, $query);
-        header("Location: http://localhost:63342/tts/Hauptseite/Hauptseite.php");
     }
+}
+
+function db_select_anst_spiele2($link){
+    $query = "SELECT
+    spiele.id AS SPIEL,
+    t.id, t.land AS LAND1, t.flag AS FLAG1,
+    t2.id, t2.land AS LAND2, t2.flag AS FLAG2,
+    tore_team1, tore_team2,
+    uhrzeit
+FROM spiele
+         JOIN teams t on spiele.team_1 = t.id
+         JOIN teams t2 on spiele.team_2 = t2.id
+WHERE beendet = 0 
+ORDER BY uhrzeit ASC;";
+return mysqli_query($link, $query);
 }
 
