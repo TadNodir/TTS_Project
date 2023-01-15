@@ -77,7 +77,12 @@ LIMIT $page_verg,$num";
 }
 
 function db_scoreboard_punkte($link, $page_scr, $num){
-    $query = "SELECT nickname, punktestand FROM benutzer WHERE rolle = 0 ORDER BY punktestand DESC LIMIT $page_scr,$num";
+    $query = "SELECT id, nickname, punktestand FROM benutzer WHERE rolle = 0 ORDER BY punktestand DESC LIMIT $page_scr,$num";
+    return mysqli_query($link, $query);
+}
+
+function db_scoreboard_punkte2($link){
+    $query = "SELECT id, nickname, punktestand FROM benutzer WHERE rolle = 0 ORDER BY punktestand DESC";
     return mysqli_query($link, $query);
 }
 

@@ -28,7 +28,7 @@ if(isset($_GET['pagescr'])){
 else{
     $pagescr = 1;
 }
-$start_from_scr = ($pagescr-1)*$num_per_page;
+$start_from_scr = ($pagescr-1) * $num_per_page;
 
 
 if(isset($_GET['pageanst'])){
@@ -94,16 +94,30 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 </thead>
                 <tbody>
                 <?php
-
-                $result_scoreboard_punkte = db_scoreboard_punkte($link,  $start_from_scr, $num_per_page);
+                var_dump($_SESSION); echo "<br>";
+                var_dump($start_from_scr); echo "start from scr<br>";
+                var_dump($num_per_page); echo "num per page<br>";
+                $result_scoreboard_punkte = db_scoreboard_punkte2($link); //,  $start_from_scr, $num_per_page
                 $rowcount = 1 * $start_from_scr + 1;
+                $it = $start_from_scr;
+                $start = 0;
                 while ($row = mysqli_fetch_assoc($result_scoreboard_punkte)) {
-                    echo "<tr>" .
-                        "<td> $rowcount </td>".
-                        "<td>".$row['nickname'] ."</td>".
-                        "<td>".$row['punktestand'] ."</td>".
-                    "</tr>";
-                    $rowcount++;
+                    var_dump($it); echo "it <br>";
+                    var_dump($start); echo "start <br>";
+                    var_dump($row);
+                    if($start >= $start_from_scr) {
+                        echo "<tr>" .
+                            "<td> $rowcount </td>" .
+                            "<td>" . $row['nickname'] . "</td>" .
+                            "<td>" . $row['punktestand'] . "</td>" .
+                            "</tr>";
+                        $rowcount++;
+                    }
+                    if($start == ($start_from_scr + $num_per_page) - 1){
+                        break;
+                    }
+                    $it++;
+                    $start++;
                 }
                 ?>
                 </tbody>
@@ -118,6 +132,10 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 $i = 1;
                 $continue = 0;
                 //                $row_arr = db_scoreboard_punkte($link,
+                $result_scoreboard_punkte2 = db_scoreboard_punkte2($link);
+                while($row = mysqli_fetch_assoc($result_scoreboard_punkte2)){
+                    
+                }
 
                 for ($p = 0; $p <= $total_pages_scr; $p = $p + 5) {
                     $result = db_scoreboard_punkte($link, $p, 5);
