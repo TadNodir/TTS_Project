@@ -196,9 +196,9 @@ function Trashmail($e){
                 {
                     if (!Trashmail($_POST["email"]))
                     {
-                        $check_email = $conn->query("SELECT email FROM benutzer WHERE email='".$_POST["email"]."';");
-
-                        if (!$check_email)
+                        $check_email = $conn->query("SELECT * FROM benutzer WHERE email='".$_POST["email"]."';");
+                        $test = mysqli_fetch_assoc($check_email);
+                        if ($test === NULL)
                         {
                             $sql = "UPDATE swe_tts.benutzer SET email = '".$_POST["email"]."' WHERE nickname = '".$_SESSION['nickname']."';";
                             mysqli_query($conn, $sql);

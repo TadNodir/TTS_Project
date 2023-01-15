@@ -14,7 +14,7 @@ function setScores($link, $spiel_id, $tore_1, $tore_2){
     foreach($row as $list){
         if ($list['tipp_team1'] === $tore_1 && $list['tipp_team2'] === $tore_2) {
             $sql = "UPDATE swe_tts.benutzer SET punktestand = punktestand + 3 WHERE id = '".$list['tipper']."'";
-            $sql2 = "UPDATE swe_tts.tipps SET verdient = 3 WHERE tipper = '".$list['tipper']."'";
+            $sql2 = "UPDATE swe_tts.tipps SET verdient = 3 WHERE tipper = '".$list['tipper']."' and spiel = '$spiel_id'";
             mysqli_query($link, $sql);
             mysqli_query($link, $sql2);
         } //ist das ergebniss richtig

@@ -146,7 +146,7 @@ if(isset($_POST['submit'])){
         $resultArray = mysqli_fetch_assoc($result);
 
        if($resultArray['gesperrt']>=5){
-           $_SESSION['gesperrt'] = "Der Benutzer ".$nutzer['benutzer']." wurde gesperrt. Bitte setzen Sie ihr Passwort zurück.";
+           $_SESSION['gesperrt'] = $nutzer['benutzer'];
            header( "Location: ../Anmeldung/reset.php");
            exit;
        }

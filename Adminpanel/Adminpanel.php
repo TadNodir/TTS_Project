@@ -86,7 +86,7 @@ if(!isset($_POST['create'])){//Kein Spiel muss hinzugefügt werden
         //if not null game exists already in a 1 day timeframe
         $result2 = mysqli_query($link, $check_existence);
         $data2 = mysqli_fetch_assoc($result2);
-        var_dump($data2);
+        //var_dump($data2);
         if (empty($data2)) {
             $once = 0;
             $team1 = $_POST['team1'];
@@ -237,11 +237,11 @@ function create_adminlist($post, $link){
             echo "<table id = 'admin' class='listB'>";
             echo "<thead><tr>";
             echo "<form method = 'post' id = 'adminlist'>";
-            echo "<th colspan = '2'>
+            echo "<th class='filterSearch' colspan = '2'>
                             <label for = 'search2' ></label>
                             <input type = 'text' id = 'search2' name = 'search2' value = '' placeholder = 'suchen'></th>";
             $test2 = isset($_POST['filter']) ? $_POST['filter'] : "n";
-            echo "<th><label for = 'filter'></label>
+            echo "<th class='filterSearch'><label for = 'filter'></label>
                             <input type = 'hidden' id = 'filter' name = 'filter' value = '$test2'>
                             <select id = 'filter2' name = 'filter2' form = 'adminlist'>
                                 <option value = 'aufsteigend'> Namen aufsteigend </option>
@@ -254,8 +254,7 @@ function create_adminlist($post, $link){
                             <input type = 'submit' id = 'filtern2' name = 'filtern2' value = 'filtern'>
                     </form></th>";
             echo "</tr><tr>";
-            echo "<th>Name</th>";
-            echo "<th>Punktestand</th>";
+            echo "<th colspan = '2'>Name</th>";
             echo "<th>Bearbeiten</th>";
             echo "</tr></thead>";
             if(!isset($_POST['filter2']) || $_POST['filter2'] === "n"){ //Selbe wie oben (User tabelle)
@@ -269,8 +268,8 @@ function create_adminlist($post, $link){
                 while($row = mysqli_fetch_array($result)){
                     echo "<tr>";
                     echo "<form action = '../Profile/ProfileUser.php' method = 'post'>";
-                    echo "<td> " . $row['nickname'] . "</td>";
-                    echo "<td>  " . $row['punktestand'] . "</td>";
+                    echo "<td colspan = '2'> " . $row['nickname'] . "</td>";
+                    //echo "<td>  " . $row['punktestand'] . "</td>";
                     echo "<td><button type = 'submit' name='nickname' value = ".$row['nickname']."> Bearbeiten </button> </td>";
                     echo "</tr>";
                     echo "</form>";

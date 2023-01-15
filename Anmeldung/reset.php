@@ -3,7 +3,6 @@ include("../database/db_functions.php");
 session_start();
 
 
-
 $nameMail = false;
 $pwGleich= false;
 if(isset($_POST['reset'])){
@@ -36,6 +35,8 @@ if(isset($_POST['reset'])){
 
         $sql = "UPDATE swe_tts.benutzer SET passwort = '".$hash."' WHERE nickname = '".$nutzer['nickname']."';";
         mysqli_query($link, $sql);
+        $sql2 = "UPDATE swe_tts.benutzer SET gesperrt = 0 WHERE nickname = '".$nutzer['nickname']."';";
+        mysqli_query($link, $sql2);
         closeLink($link);
         header( "Location: ../Anmeldung/Anmeldung.php");
     }
