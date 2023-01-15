@@ -66,7 +66,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
         <div class="nav-links" id="navLinks">
             <a href="../Hauptseite/Hauptseite.php" onclick="closeIcon()">Hauptseite</a>
             <a href="#Scoreboard" onclick="closeIcon()">Scoreboard</a>
-            <a href="#News" onclick="closeIcon()">News</a>
+            <a href="#news" onclick="closeIcon()">News</a>
             <a href="#Anstehende" onclick="closeIcon()">Anstehende</a>
             <a href="#Vergangene" onclick="closeIcon()">Vergangene</a>
             <a href="../Profile/Profile.php">Profil</a>
@@ -165,7 +165,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
         <section class="a_spiele">
             <h1 id="Anstehende">Anstehende Spiele</h1>
-            <table id="anst">
+            <table id="anst" class="darkT">
                 <thead>
                 <tr>
                     <th>Team 1</th>
@@ -261,7 +261,7 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
         <section class="v_spiele">
             <h1 id="Vergangene">Vergangene Spiele</h1>
-            <table id="vergng">
+            <table id="vergng" class="darkT">
                 <thead>
                 <tr>
                     <th>Team 1</th>
@@ -313,9 +313,9 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
     <div class="rest">
         <img src="../logo.png" alt="logo">
         <section class="news">
+            <div class="darkT">
             <h1 id="news">Newsfeed</h1>
-            <p>
-            <ul>
+                <ul>
                 <?php
                 //holen der Daten aus der Datenbank
                 $link = createLink();
@@ -413,8 +413,8 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                     */
                 }
                 ?>
-            </ul>
-            </p>
+                </ul>
+            </div>
         </section>
     </div>
 </div>

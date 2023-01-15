@@ -185,7 +185,7 @@ function create_adminlist($post, $link){
         <section class = "user-liste">
             <h1 id = "<Userliste">Userliste</h1>
             <?php       //User tabelle erstellen
-            echo "<table id = 'user'>";
+            echo "<table id = 'user' class='listB'>";
             echo "<thead><tr>";
             echo "<form method = 'post' id = 'userlist'>";
             echo "<th colspan = '2'>
@@ -234,7 +234,7 @@ function create_adminlist($post, $link){
         <?php if($_SESSION['rolle'] == 2){     //nur anzeigen wenn Superadmin
             echo "<section class = 'admin-liste'>";
             echo "<h1 id = 'Adminliste'> Adminliste</h1>";
-            echo "<table id = 'admin'>";
+            echo "<table id = 'admin' class='listB'>";
             echo "<thead><tr>";
             echo "<form method = 'post' id = 'adminlist'>";
             echo "<th colspan = '2'>
@@ -283,11 +283,14 @@ function create_adminlist($post, $link){
         } ?>
     </div>
     <div class = "rest">
+        <h1>Spielerstellung</h1>
         <div class = "login-box">
+
             <section class = "spielerstellung">
                 <form method = "post" id = "spiel_erstellung">
+
                     <fieldset>
-                        <legend> Spielerstellen </legend>
+
                         <div class = "user-box">
                             <label for = "team1">Team 1: </label>
                             <select id = "team1" name = "team1" required>
@@ -403,7 +406,7 @@ function create_adminlist($post, $link){
                 }
                 ?></h1>
 
-            <table class = "verwaltung">
+            <table class = "listB">
                 <thead>
                 <tr>
                     <th colspan = "3"> Anstehende Spiele </th>
