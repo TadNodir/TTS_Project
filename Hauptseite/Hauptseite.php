@@ -76,10 +76,12 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
     </nav>
 </header>
 <br>
-<label class="switch">
-    <input type="checkbox" onclick="darkL()">
-    <span class="slider round"></span>
-</label>
+
+<button id="dark-mode-toggle" class="dark-mode-toggle">
+    <svg width="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 496"><path fill="currentColor" d="M8,256C8,393,119,504,256,504S504,393,504,256,393,8,256,8,8,119,8,256ZM256,440V72a184,184,0,0,1,0,368Z" transform="translate(-8 -8)"/></svg>
+</button>
+
+
 <div class="background">
     <div class="main_page">
         <section class="scoreboard">
@@ -160,12 +162,12 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
             if($pagescr > 1)
             {
-                echo "<p class='prevNext'><a href =  'Hauptseite.php?pagescr=".($pagescr-1)." #Scoreboard ' > Prev </a></p>" ;
+                echo "<button class='prevNext'><a href =  'Hauptseite.php?pagescr=".($pagescr-1)." #Scoreboard ' > Prev </a></button>" ;
 
             }
             if($pagescr < $total_pages_scr)
             {
-                echo "<p class='prevNext'><a href = 'Hauptseite.php?pagescr=".($pagescr+1)." #Scoreboard'> Next </a></p>" ;
+                echo "<button class='prevNext'><a href = 'Hauptseite.php?pagescr=".($pagescr+1)." #Scoreboard'> Next </a></button>" ;
 
             }
             ?>
@@ -193,9 +195,9 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                         $divID = "pop-" . $spiel;
                         $closeBtn = "cls-" . $spiel;
                         echo "<tr>".
-                            "<td>".$row['FLAG1'].$row['LAND1']."</td>".
+                            "<td>".$row['FLAG1'] . " " .$row['LAND1']."</td>".
                             "<td>".$row['uhrzeit']."</td>".
-                            "<td>".$row['FLAG2'].$row['LAND2']."</td>";
+                            "<td>".$row['FLAG2']. " " .$row['LAND2']."</td>";
                         if($_SESSION['rolle'] == '0') {
                             if(timestampVergleich($row['uhrzeit'])){
                                 if (isset($row['TIPP1'])) {
@@ -254,12 +256,15 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
             $total_record_anst = mysqli_num_rows($pr_result_anst);
             $total_pages_anst = ceil($total_record_anst/$num_per_page);
 
-            if($pageanst > 1) {
-                echo "<p class='prevNext'><a class='prevNext' href =  'Hauptseite.php?pageanst=".($pageanst-1)."&pagevrg=".$pagevrg." #Anstehende ' > Prev </a></p>" ;
+
+            if($pageanst > 1)
+            {
+                echo "<button class='prevNext'><a href =  'Hauptseite.php?pageanst=".($pageanst-1)."&pagevrg=".$pagevrg." #Anstehende ' > Prev </a></button>" ;
 
             }
-            if($pageanst < $total_pages_anst) {
-                echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pageanst=".($pageanst+1)."&pagevrg=".$pagevrg." #Anstehende'> Next </a></p>" ;
+            if($pageanst < $total_pages_anst)
+            {
+                echo "<button class='prevNext'><a href = 'Hauptseite.php?pageanst=".($pageanst+1)."&pagevrg=".$pagevrg." #Anstehende'> Next </a></button>" ;
             }
             ?>
         </section>
@@ -282,9 +287,9 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                 $result_verg_spiele = db_select_verg_spiele($link, $eingellogt, $start_from_verg ,$num_per_page);
                     while ($row = mysqli_fetch_assoc($result_verg_spiele)) {
                     echo "<tr>" .
-                        "<td>" .$row['FLAG1'] . $row['LAND1'] . "</td>" .
+                        "<td>" .$row['FLAG1'] . " ". $row['LAND1'] . "</td>" .
                         "<td>" . $row['tore_team1'] . ":" . $row['tore_team2'] . "</td>" .
-                        "<td>" .$row['FLAG2'] . $row['LAND2'] . "</td>";
+                        "<td>" .$row['FLAG2'] . " " . $row['LAND2'] . "</td>";
                     if($row['TIPP1']) echo "<td>"  . $row['TIPP1'] .":". $row['TIPP2'] . "</td>".
                         "<td>"  . $row['VERDIENT'] . "</td>";
                    else echo "<td>"  . "Nicht Gettipt" . "</td>" .
@@ -303,12 +308,12 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
 
                 if($pagevrg > 1)
                 {
-                    echo "<p class='prevNext'><a href =  'Hauptseite.php?pagevrg=".($pagevrg-1)."&pageanst=".$pageanst." #Vergangene ' > Prev </a></p>" ;
+                    echo "<button class='prevNext'><a href =  'Hauptseite.php?pagevrg=".($pagevrg-1)."&pageanst=".$pageanst." #Vergangene ' > Prev </a></button>" ;
 
                 }
                 if($pagevrg < $total_pages_verg)
                 {
-                    echo "<p class='prevNext'><a class='prevNext' href = 'Hauptseite.php?pagevrg=".($pagevrg+1)."&pageanst=".$pageanst." #Vergangene'> Next </a></p>" ;
+                    echo "<button class='prevNext'><a href = 'Hauptseite.php?pagevrg=".($pagevrg+1)."&pageanst=".$pageanst." #Vergangene'> Next </a></button>" ;
 
                 }
             ?>
@@ -423,7 +428,11 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
     </div>
 </div>
 <footer>
-    <li>(c) Gruppe D9</li>
+    <li>Made with <svg viewBox="0 0 1792 1792" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
+                       style="height: 0.8rem;"><path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26T145 952.5 77 855
+                       23.5 734 0 596q0-220 127-344t351-124q62 0 126.5 21.5t120 58T820 276t76 68q36-36 76-68t95.5-68.5
+                       120-58T1314 128q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z" fill="#e25555">
+            </path></svg> by Team TTS</li>
 </footer>
 
 </body>

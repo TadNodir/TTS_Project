@@ -180,11 +180,6 @@ function create_adminlist($post, $link){
     <svg width="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 496"><path fill="currentColor" d="M8,256C8,393,119,504,256,504S504,393,504,256,393,8,256,8,8,119,8,256ZM256,440V72a184,184,0,0,1,0,368Z" transform="translate(-8 -8)"/></svg>
 </button>
 
-<br>
-<label class="switch">
-    <input type="checkbox" onclick="darkL()">
-    <span class="slider round"></span>
-</label>
 <div class = "background">
     <div class = "tabellen">
         <section class = "user-liste">
@@ -193,11 +188,11 @@ function create_adminlist($post, $link){
             echo "<table id = 'user'>";
             echo "<thead><tr>";
             echo "<form method = 'post' id = 'userlist'>";
-            echo "<th colspan = '2'>
+            echo "<th class='filterSearch' colspan = '2'>
                         <label for = 'search' ></label>
                         <input type = 'text' id = 'search' name = 'search' value = '' placeholder = 'suchen'></th>";
             $test = isset($_POST['filter2']) ? $_POST['filter2'] : "n";
-            echo "<th><label for = 'filter'></label>
+            echo "<th class='filterSearch'><label for = 'filter'></label>
                       <input type = 'hidden' id = 'filter2' name = 'filter2' value = '$test'>
                         <select id = 'filter' name = 'filter' form = 'userlist'>
                         <option value = 'aufsteigend'> Namen aufsteigend </option>

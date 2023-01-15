@@ -92,8 +92,6 @@ $errors = array(
     "trashMail"=>false
 );
 
-
-
 if(isset($_POST['submit'])){
 
     # Array mit cleanen Nutzerdaten. Leerzeichen am Anfang und Ende werden entfernt
@@ -209,7 +207,7 @@ if(isset($_POST['submit'])){
                 echo"<p style='color:lightcoral;'>Benutzername existiert bereits.</p>"?>
 
             <label for="email">E-Mail:</label>
-            <input type="email" name="email" id="email" placeholder="max.mustermann@gmail.com" required maxlength="25"
+            <input type="email" name="email" id="email" placeholder="max.mustermann@gmail.com" required maxlength="50"
                    value="<?php if(isset($_POST['email'])) echo $_POST['email'];  ?>">
             <?php
             if($errors['emailFormat'])
@@ -245,14 +243,11 @@ if(isset($_POST['submit'])){
 
 </body>
 <script>
-    function con(){
-        console.log("test");
-    }
+
     // check for saved 'darkMode' in localStorage
     let darkMode = localStorage.getItem('darkMode');
 
     const darkModeToggle = document.querySelector('#dark-mode-toggle');
-
 
     const enableDarkMode = () => {
         // 1. Add the class to the body
