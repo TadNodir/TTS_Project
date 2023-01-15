@@ -261,7 +261,7 @@ function create_adminlist($post, $link){
                 relax();
             } else {
                 !empty($_POST['search2']) ? $name = $_POST['search2'] : $filter = const_filter_admin[$_POST['filter2']];
-                $adminlist_sql = (isset($name)) ? "SELECT punktestand, nickname FROM benutzer WHERE nickname like '%$name%' and (rolle = 1 or rolle = 2)"
+                $adminlist_sql = (isset($name)) ? "SELECT punktestand, nickname FROM benutzer WHERE nickname like '%$name%' and rolle = 1"
                     : $filter;
                 $result = mysqli_query($link, $adminlist_sql);
                 echo "<tbody>";
