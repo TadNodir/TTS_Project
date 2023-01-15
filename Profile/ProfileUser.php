@@ -307,7 +307,7 @@ function Trashmail($e){
         <button class="delete-button" id="delButton" onclick="openDelete()"> Konto löschen </button>
 
         <div class="delete-popup" id="myDelete">
-            <form method="get" class="delete-conatainer" action="../Adminpanel/Adminpanel.php">
+            <form method="post" class="delete-conatainer" action="../Adminpanel/Adminpanel.php">
                 <h3 style="text-decoration: underline"> Konto löschen </h3>
                 <label>
                     Wollen Sie ihr <br>

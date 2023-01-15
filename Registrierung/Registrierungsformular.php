@@ -197,7 +197,7 @@ if(isset($_POST['submit'])){
                 echo"<p style='color:lightcoral;'>Nachname darf nur aus A-Z und a-z bestehen</p>"?>
 
             <label for="username">Benutzername</label>
-            <input type="text" placeholder="MusterMax" name="username" id="username" required maxlength="25"
+            <input type="text" placeholder="MusterMax" name="username" id="username" required maxlength="50"
                    value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>" >
 
             <?php
@@ -240,9 +240,6 @@ if(isset($_POST['submit'])){
 
 </body>
 <script>
-    function con(){
-        console.log("test");
-    }
     // check for saved 'darkMode' in localStorage
     let darkMode = localStorage.getItem('darkMode');
 
