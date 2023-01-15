@@ -92,8 +92,6 @@ $errors = array(
     "trashMail"=>false
 );
 
-
-
 if(isset($_POST['submit'])){
 
     # Array mit cleanen Nutzerdaten. Leerzeichen am Anfang und Ende werden entfernt
@@ -245,14 +243,11 @@ if(isset($_POST['submit'])){
 
 </body>
 <script>
-    function con(){
-        console.log("test");
-    }
+
     // check for saved 'darkMode' in localStorage
     let darkMode = localStorage.getItem('darkMode');
 
     const darkModeToggle = document.querySelector('#dark-mode-toggle');
-
 
     const enableDarkMode = () => {
         // 1. Add the class to the body
