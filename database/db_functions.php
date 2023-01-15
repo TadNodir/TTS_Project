@@ -101,3 +101,18 @@ function db_tippen($link, $userid, $spiel, $tipp1, $tipp2){
     }
 }
 
+function db_select_anst_spiele2($link){
+    $query = "SELECT
+    spiele.id AS SPIEL,
+    t.id, t.land AS LAND1, t.flag AS FLAG1,
+    t2.id, t2.land AS LAND2, t2.flag AS FLAG2,
+    tore_team1, tore_team2,
+    uhrzeit
+FROM spiele
+         JOIN teams t on spiele.team_1 = t.id
+         JOIN teams t2 on spiele.team_2 = t2.id
+WHERE beendet = 0 
+ORDER BY uhrzeit ASC;";
+return mysqli_query($link, $query);
+}
+
