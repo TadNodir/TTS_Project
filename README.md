@@ -232,3 +232,112 @@ der URL-Zeile <localhost:8000> eingetippt werden.
 > kann allerdings mit dem `date -s <string-der-aktuellen Zeit>` vor einer
 > Präsentation wieder angepasst werden.
 
+Vorraussetzung für diese Anleitung ist ein [kompatibeler
+RaspberryPi](https://github.com/RaspAP/raspap-webgui#prerequisites) mit 32bit Betriebsystem, in unserem
+Fall benutzten wir einen RaspberryPi. Während der Installation der Software
+braucht der RaspberryPi eine Verbinung zum Internet. 
+
+Es empfielt sich den RaspberryPi über ein [einzelnes
+USB-C-Kabel](https://www.youtube.com/watch?v=3UPaI4Hp66Y) zu betreiben.
+
+
+Alle weiteren Schritte werden über die Commandozeile des RaspberryPi ausgeführt.
+
+#### Updaten des RaspberryPi
+
+Als aller erstes sollte der RaspberryPi auf die neueste Version geupdatet werden.
+
+``` shell
+sudo apt update
+sudo apt full-upgrade
+sudo reboot now
+```
+
+Es empfielt sich einen Commandozeileneditor wie `vim`, `emacs` oder `nano` zu
+verwenden. Der Commandozeileneditor `nano` sollte bereits installiert sein.
+
+``` shell
+sudo apt install neovim
+```
+
+#### Apache2-Webserver
+
+Für den Webserver verwenden wir den
+[Apache2-Webserver](https://httpd.apache.org). Dieser sollte zwar schon
+installiert sein aber falls nicht kann dieser wie folgt installiert werden:
+
+``` shell
+sudo apt install apache2
+```
+
+Da wir zwei Webseiten auf dem Pi Hosten wollen (einerseits die `TTS
+Tippspielwebseite` und andererseits die Konfigurationsseite des Routers) ändern
+wir das `root-directory` des Apache2-Webservers.
+
+``` shell
+sudo nvim /etc/apache2/apache2.conf
+```
+
+In dieser Datei fügen wir diese Zeilen hinzu.
+
+``` shell
+<Directory /home/pi/tts>
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>
+```
+
+Als nächstes verändern wir die Konfiguration der Default-Seite. Es wäre möglich
+eine neue `<Seite>.conf` zu erstellen, dies tun wir in diesem Beispiel
+allerdings nicht.
+
+``` shell
+sudo nvim /etc/apache2/sites-available/000-default.conf
+```
+
+An dieser Stelle ist es nur wichtig die `DocumentRoot` zu verändern.
+Vorrausgesetzt der Benutzer heißt `pi` und wir wollen den Projektordner in
+`~/tts/` ablegen ist `/home/pi/tts` der neue Wert für `DocumentRoot`.
+
+#### PHP8.2 
+
+Für unsere Website ist PHP8.2 notwendig. Da es aktuell nicht im
+Standardrepository ist, muss ein weiteres Repository hinzugefügt werden.
+
+``` shell
+sudo apt-get -y install apt-transport-https lsb-release ca-certificates curl
+sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+sudo sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
+sudo apt-get update
+```
+
+Danach kann PHP8.2 installiert werden.
+
+``` shell
+sudo apt install php8.2
+```
+
+#### MariaDB und Integration mit PHP
+
+Die Installation von MariaDB kann trivial mit dem folgenden Befehl geschehen.
+
+``` shell
+sudo apt install mariadb-server
+```
+
+Die Integration von MariaDB und PHP geschieht über zwei Schritte.
+
+Zunächst muss die PHP-Extention `php-mysql` installiert werden.
+
+``` shell
+sudo apt install php-mysql
+```
+
+Danach muss die Zeile `; extention=mysqli` in der `php.ini` einkommentiert
+werden. Dies befindet sich bei unserer Installation auf Zeile 935.
+
+``` shell
+sudo nvim /etc/php/php8.2/apache2/php.ini
+```
