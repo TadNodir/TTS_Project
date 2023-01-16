@@ -187,7 +187,7 @@ php -S localhost:8000
 Nun kann in einem Browser unter <localhost:8000> die Website besucht werden.
 
 ### Inbuild-Server über PHPStorm
-   
+
 > Ggf. muss in PHPSTorm die PHP Version/Interpreter auf 8.2 gestellt werden!
 
 > Achtung: Je nach Betriebsystem und dementsprechenden PHP-Version kann es
