@@ -217,3 +217,18 @@ Link erscheinen, der auf die Website führt.
 Wenn nicht kann wie im vorherigen Beispiel ein Browser geöffnet werden und in
 der URL-Zeile <localhost:8000> eingetippt werden.
 
+### Headless HTTP-Server auf Raspberry Pi 4
+
+> Achtung: Dieser Ansatz besitzt einige Nachteile. Er wird für die Präsentation
+> unabhänig vom FH-Netz bei der Abschlusspräsentation präsentierern zu können,
+> da dort es nicht möglich ist auf Ports anderer Geräte zuzugreifen.
+
+> Da der PI sowohl als Server als auch als Router fungiert und seine, kann er nicht über
+> WLAN an ein weiteres Netz angeschlossen werden und erhält währenddessen keine
+> Softwareupdates.
+
+> Darüberhinaus verliert er über diese Zeit auch die Verbinung
+> zu Servern der für die Synchronisation der Systemzeit verwendet wird. Dies
+> kann allerdings mit dem `date -s <string-der-aktuellen Zeit>` vor einer
+> Präsentation wieder angepasst werden.
+
