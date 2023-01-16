@@ -187,3 +187,34 @@ php -S localhost:8000
 
 Nun kann in einem Browser unter <localhost:8000> die Website besucht werden.
 
+#### Inbuild-Server über PHPStorm
+   
+> Ggf. muss in PHPSTorm die PHP Version/Interpreter auf 8.2 gestellt werden!
+
+> Achtung: Je nach Betriebsystem und dementsprechenden PHP-Version kann es
+> notwendig sein die `mysqli`-Extention in der `php.ini` einzuschalten. Dies
+> kann mit Hilfe der Funktion `phpinfo();` diagnostiziert werden.
+
+Wer nicht gerne mit der Komandozeile arbeitet kann auch über PHPStorm die
+Website über den Inbuild-Server starten.
+
+Dafür kann über das Auswahlmenü (Doppel Shift) die Funktion `Edit
+Configurations` ausgewählt werden und danach muss auf `Add new` oder das Plus
+gedrückt werden. Als nächstes wird `PHP Build-in Webserver` ausgewählt
+
+Es öffenet sich ein Fenster in dem verschiedene Einstellungen getroffen werden
+können. Wenn gewünscht kann hier der Name der `Run Configuration` geändert
+werden.
+
+Auf normalen PCs, die nicht dedizierte Server sind muss wahrschienlich der Port
+auf geändert werden. Port 8000 sollte frei sein.
+
+Nun kann auf `Aplly` und `OK` gedrückt werden. Das Fenster sollte sich
+schließen.
+
+Sobald nun auf `Run` geklickt wird, sollte in der Komandozeile ein klickbarer
+Link erscheinen, der auf die Website führt.
+
+Wenn nicht kann wie im vorherigen Beispiel ein Browser geöffnet werden und in
+der URL-Zeile <localhost:8000> eingetippt werden.
+
