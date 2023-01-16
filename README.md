@@ -341,3 +341,63 @@ werden. Dies befindet sich bei unserer Installation auf Zeile 935.
 ``` shell
 sudo nvim /etc/php/php8.2/apache2/php.ini
 ```
+
+#### Konfiguration des RaspberryPi als unabhäniger WiFi-Rooter
+
+> Achtung: Nach diesem Schritt ist der Pi nicht mehr über WLAN mit anderen
+> Routern verbunden und kann ohne LAN-Verbinung keine
+> Softwareupdates/Installationen durchführen. 
+
+> Achtung: Ohne dauerhafte Verbindung zum Internet kann es passieren, dass die
+> Systemuhr des Raspberry Pi nicht mehr mit der Realzeit in sync ist.
+
+
+Für die Konfiguration als WiFi-Rooter verwenden wir das opensource Projekt
+[RaspAP](https://raspap.com).
+
+Hierfür verwenden wir das Installtionsscript.
+
+``` shell
+curl -sL https://install.raspap.com | bash
+```
+
+Während des Scripts wird mehrfach nachgefragt, ob optionale Schritte ausgeführt
+werden sollen. Alle Optionen außer `Wiregard`, `OpenVPN` und `AdBlocking`
+sollten bestätigt werden.
+
+Vor dem Reboot sollte nun der [Port für die Konfigurationsseite](https://docs.raspap.com/faq/#can-i-configure-an-alternate-port-for-raspaps-web-service) verändert werden.
+Dies kann durch die Anpassung der Konfigurationsdatei von `lighttpd` in Zeile 14 angepasst werden.
+
+
+``` shell
+sudo nvim /etc/lighttpd/lighttpd.conf
+```
+
+```
+server.port                 = 81
+```
+
+Da wir über den standard HTTP Port bereits die TTS-Website verwenden wollen
+müssen wir hier noch einen anderen Port angeben.
+
+Als letztes Starten wir den RaspberryPi neu. 
+
+``` shell
+sudo reboot now
+```
+
+Danach konfigurieren das Netzwerk des RaspberryPi. Vorrausgesetzt, dass der
+`hostname` des RaspberryPi _tts_ ist kann diese unter <tts.local:81> aufgerufen
+werden. Die Standard-Konfigurationsdaten lassen sich
+[hier](https://docs.raspap.com/#quick-start) nachschlagen. Zum akteullen
+Zeitpunkt sind sie wie folgt:
+
+
+| Konifuration | Wert                        |
+|:-------------|:----------------------------|
+| IP address   | 10.3.141.1                  |
+| Username     | admin                       |
+| Password     | secret                      |
+| DHCP range   | 10.3.141.50 to 10.3.141.255 |
+| SSID         | raspi-webgui                |
+| Password     | ChangeMe                    |
