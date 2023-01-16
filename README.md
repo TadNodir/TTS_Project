@@ -4,18 +4,17 @@ Eine Fußball-WM Tipp-Website
 Diese Webseite wurde von 7 Studenten im Rahmen des SWE-Praktikums erstellt.
 Dabei wurden HTML, CSS, PHP8.2, MariaDB und ein bisschen Java-Script verwendet.
 
-## Setup 
-In diesem Abschnitt werden 3 Wege beschrieben wie diese Website zum laufen
+Es werden 3 Wege beschrieben wie diese Website zum laufen
 gebracht werden kann. Zunächst wrid das allgemeine Aufsetzten der Datenbank
 beschrieben und danach von einfach nach komplizierter die 3 Wege beschrieben.
 
-### Datenbanksetup
+## Datenbanksetup
 
 Für alle 3 Arten ist es notwendig die Datenbank bis zu einem gewissen Grad
 befüllt zu haben. Dieser Schritt ist für alle drei Methoden gleich wird darum
 als erstes beschrieben.
 
-####  Vorrausetzungen
+###  Vorrausetzungen
 
 Vorraussetzung ist es [MariaDB](https://mariadb.com) installiert zu haben. Die
 Installation für unterschiedliche Plattformen kann
@@ -23,7 +22,7 @@ Installation für unterschiedliche Plattformen kann
 nachgelesen werden. Getestet und entwickelt wurde mit Version 15.1 Distrib
 10.5.15-MariaDB.
 
-#### Datenbank und User erstellen 
+### Datenbank und User erstellen 
 
 Sobald installiert und als root eingeloggt sollte eine Datenbank und ein User
 wie folgt installiert werden:
@@ -48,7 +47,7 @@ GRANT CREATE, DROP, SELECT, INSERT, UPDATE, DELETE
 ON swe_tts.* TO 'dev_tts'@'localhost';
 ```
 
-#### Erstellen der Schema
+### Erstellen der Schema
 
 Als nächsten sollten die für die Anwendung nötigen Schema erstellt werden.
 
@@ -103,7 +102,7 @@ CREATE TABLE IF NOT EXISTS tipps (
 );
 ```
 
-#### Erstellen der Teams
+### Erstellen der Teams
 
 Um alle Funktionalitäten der Website benutzen zu können müssen die Temas der
 Weltmeisterschaft und mindestens ein Superadmin hinzugefügt werden.
@@ -152,7 +151,7 @@ INSERT INTO teams VALUES
 ;
 ```
 
-#### Erstellen eines Superadmins
+### Erstellen eines Superadmins
 
 Um weitere Admins zu erstellen ist es notwenig einen Superadmin zu haben. Dieser
 kann wie folgt erstellt werden. Dabei sollte `<Random-generated-Salt>` und
@@ -165,12 +164,12 @@ INSERT INTO benutzer (rolle, vorname, nachname, nickname, email, passwort, salt)
     VALUES (2, 'superadmin', 'superadmin', 'superadmin', 'superadmin@tts.de', SHA1('<Random-generated-Salt><Super-Sicheres-Am-Besten-Zufälliges-Passwort>'), '<Random-generated-Salt>');
 ```
 
-### Einrichten der Laufzeitumgebung
+## Einrichten der Laufzeitumgebung
 
 In diesem Abschnitt wird beschrieben wie dieses Website in unterschiedlichen
 Laufzeitumgebungen eingrichtet werden kann.
 
-#### PHP-Inbuild-Server über die Komandozeile
+### PHP-Inbuild-Server über die Komandozeile
 
 > Achtung: Je nach Betriebsystem und dementsprechenden PHP-Version kann es
 > notwendig sein die `mysqli`-Extention in der `php.ini` einzuschalten. Dies
@@ -187,7 +186,7 @@ php -S localhost:8000
 
 Nun kann in einem Browser unter <localhost:8000> die Website besucht werden.
 
-#### Inbuild-Server über PHPStorm
+### Inbuild-Server über PHPStorm
    
 > Ggf. muss in PHPSTorm die PHP Version/Interpreter auf 8.2 gestellt werden!
 
