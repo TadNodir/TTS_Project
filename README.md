@@ -4,19 +4,19 @@ Eine Fußball-WM Tipp-Website
 Diese Webseite wurde von 7 Studenten im Rahmen des SWE-Praktikums erstellt.
 Dabei wurden HTML, CSS, PHP8.2, MariaDB und ein bisschen Java-Script verwendet.
 
-Es werden 3 Wege beschrieben wie diese Website zum laufen
-gebracht werden kann. Zunächst wrid das allgemeine Aufsetzten der Datenbank
+Es werden 3 Wege beschrieben, wie diese Website zum Laufen
+gebracht werden kann. Zunächst wird das allgemeine Aufsetzten der Datenbank
 beschrieben und danach von einfach nach komplizierter die 3 Wege beschrieben.
 
 ## Datenbanksetup
 
-Für alle 3 Arten ist es notwendig die Datenbank bis zu einem gewissen Grad
-befüllt zu haben. Dieser Schritt ist für alle drei Methoden gleich wird darum
+Für alle 3 Arten ist es notwendig, die Datenbank bis zu einem gewissen Grad
+befüllt zu haben. Dieser Schritt ist für alle drei Methoden gleich, wird darum
 als erstes beschrieben.
 
-###  Vorrausetzungen
+### Voraussetzungen
 
-Vorraussetzung ist es [MariaDB](https://mariadb.com) installiert zu haben. Die
+Voraussetzung ist es, [MariaDB](https://mariadb.com) installiert zu haben. Die
 Installation für unterschiedliche Plattformen kann
 [hier](https://mariadb.com/kb/en/getting-installing-and-upgrading-mariadb/)
 nachgelesen werden. Getestet und entwickelt wurde mit Version 15.1 Distrib
@@ -24,7 +24,7 @@ nachgelesen werden. Getestet und entwickelt wurde mit Version 15.1 Distrib
 
 ### Datenbank und User erstellen 
 
-Sobald installiert und als root eingeloggt sollte eine Datenbank und ein User
+Sobald installiert und als Root eingeloggt sollte eine Datenbank und ein User
 wie folgt installiert werden:
 
 ``` sql
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS tipps (
 
 ### Erstellen der Teams
 
-Um alle Funktionalitäten der Website benutzen zu können müssen die Temas der
+Um alle Funktionalitäten der Website benutzen zu können, müssen die Teams der
 Weltmeisterschaft und mindestens ein Superadmin hinzugefügt werden.
 
 ``` sql
@@ -153,11 +153,11 @@ INSERT INTO teams VALUES
 
 ### Erstellen eines Superadmins
 
-Um weitere Admins zu erstellen ist es notwenig einen Superadmin zu haben. Dieser
+Um weitere Admins zu erstellen ist es notwendig otwenig einen Superadmin zu haben. Dieser
 kann wie folgt erstellt werden. Dabei sollte `<Random-generated-Salt>` und
 `<Super-Sicheres-Am-Besten-Zufälliges-Passwort>` mit jeweils ersetzt werden und
 das Passwort in einem Passwortmanager wie [KeePass](https://keepass.info)
-gespiechert werde.
+gespeichert werde.
 
 ``` sql
 INSERT INTO benutzer (rolle, vorname, nachname, nickname, email, passwort, salt)
@@ -166,17 +166,17 @@ INSERT INTO benutzer (rolle, vorname, nachname, nickname, email, passwort, salt)
 
 ## Einrichten der Laufzeitumgebung
 
-In diesem Abschnitt wird beschrieben wie dieses Website in unterschiedlichen
-Laufzeitumgebungen eingrichtet werden kann.
+In diesem Abschnitt wird beschrieben wie diese Website in unterschiedlichen
+Laufzeitumgebungen eingerichtet werden kann.
 
-### PHP-Inbuild-Server über die Komandozeile
+### PHP In-build-Server über die Kommandozeile
 
 > Achtung: Je nach Betriebsystem und dementsprechenden PHP-Version kann es
 > notwendig sein die `mysqli`-Extention in der `php.ini` einzuschalten. Dies
 > kann mit Hilfe der Funktion `phpinfo();` diagnostiziert werden.
 
 Am einfachsten ist es über den
-[PHP-Inbuild-Server](https://www.php.net/manual/en/features.commandline.webserver.php)
+[PHP In-build-Server](https://www.php.net/manual/en/features.commandline.webserver.php)
 die Website zu starten.
 
 ``` shell
@@ -194,27 +194,27 @@ Nun kann in einem Browser unter <localhost:8000> die Website besucht werden.
 > notwendig sein die `mysqli`-Extention in der `php.ini` einzuschalten. Dies
 > kann mit Hilfe der Funktion `phpinfo();` diagnostiziert werden.
 
-Wer nicht gerne mit der Komandozeile arbeitet kann auch über PHPStorm die
-Website über den Inbuild-Server starten.
+Wer nicht gerne mit der Kommandozeile arbeitet, kann auch über PHPStorm die
+Website über den In-build-Server starten.
 
 Dafür kann über das Auswahlmenü (Doppel Shift) die Funktion `Edit
 Configurations` ausgewählt werden und danach muss auf `Add new` oder das Plus
-gedrückt werden. Als nächstes wird `PHP Build-in Webserver` ausgewählt
+gedrückt werden. Als Nächstes wird `PHP Build-in Webserver` ausgewählt
 
-Es öffenet sich ein Fenster in dem verschiedene Einstellungen getroffen werden
+Es öffnet sich ein Fenster, in dem verschiedene Einstellungen getroffen werden
 können. Wenn gewünscht kann hier der Name der `Run Configuration` geändert
 werden.
 
-Auf normalen PCs, die nicht dedizierte Server sind muss wahrschienlich der Port
+Auf normalen PCs, die nicht dedizierte Server sind, muss wahrscheinlich der Port
 auf geändert werden. Port 8000 sollte frei sein.
 
 Nun kann auf `Aplly` und `OK` gedrückt werden. Das Fenster sollte sich
 schließen.
 
-Sobald nun auf `Run` geklickt wird, sollte in der Komandozeile ein klickbarer
+Sobald nun auf `Run` geklickt wird, sollte in der Kommandozeile ein klickbarer
 Link erscheinen, der auf die Website führt.
 
-Wenn nicht kann wie im vorherigen Beispiel ein Browser geöffnet werden und in
+Wenn nicht, kann wie im vorherigen Beispiel ein Browser geöffnet werden und in
 der URL-Zeile <localhost:8000> eingetippt werden.
 
 ### Headless HTTP-Server auf Raspberry Pi 4
@@ -232,20 +232,20 @@ der URL-Zeile <localhost:8000> eingetippt werden.
 > kann allerdings mit dem `date -s <string-der-aktuellen Zeit>` vor einer
 > Präsentation wieder angepasst werden.
 
-Vorraussetzung für diese Anleitung ist ein [kompatibeler
-RaspberryPi](https://github.com/RaspAP/raspap-webgui#prerequisites) mit 32bit Betriebsystem, in unserem
-Fall benutzten wir einen RaspberryPi. Während der Installation der Software
-braucht der RaspberryPi eine Verbinung zum Internet. 
+Voraussetzung für diese Anleitung ist ein [kompatibler
+Raspberry Pi](https://github.com/RaspAP/raspap-webgui#prerequisites) mit 32Bit Betriebssystem, in unserem
+Fall benutzten wir einen Raspberry Pi. Während der Installation der Software
+braucht der Raspberry Pi eine Verbindung zum Internet. 
 
-Es empfielt sich den RaspberryPi über ein [einzelnes
+Es empfiehlt sich, den Raspberry Pi über ein [einzelnes
 USB-C-Kabel](https://www.youtube.com/watch?v=3UPaI4Hp66Y) zu betreiben.
 
 
-Alle weiteren Schritte werden über die Commandozeile des RaspberryPi ausgeführt.
+Alle weiteren Schritte werden über die Kommandozeile des Raspberry Pi ausgeführt.
 
-#### Updaten des RaspberryPi
+#### Updaten des Raspberry Pi
 
-Als aller erstes sollte der RaspberryPi auf die neueste Version geupdatet werden.
+Als allererstes sollte der Raspberry Pi auf die neueste Version upgedatet werden.
 
 ``` shell
 sudo apt update
@@ -253,7 +253,7 @@ sudo apt full-upgrade
 sudo reboot now
 ```
 
-Es empfielt sich einen Commandozeileneditor wie `vim`, `emacs` oder `nano` zu
+Es empfiehlt sich einen Commandozeileneditor wie `vim`, `emacs` oder `nano` zu
 verwenden. Der Commandozeileneditor `nano` sollte bereits installiert sein.
 
 ``` shell
@@ -264,13 +264,13 @@ sudo apt install neovim
 
 Für den Webserver verwenden wir den
 [Apache2-Webserver](https://httpd.apache.org). Dieser sollte zwar schon
-installiert sein aber falls nicht kann dieser wie folgt installiert werden:
+installiert sein, aber falls nicht, kann dieser wie folgt installiert werden:
 
 ``` shell
 sudo apt install apache2
 ```
 
-Da wir zwei Webseiten auf dem Pi Hosten wollen (einerseits die `TTS
+Da wir zwei Webseiten auf dem Pi hosten wollen (einerseits die `TTS
 Tippspielwebseite` und andererseits die Konfigurationsseite des Routers) ändern
 wir das `root-directory` des Apache2-Webservers.
 
@@ -288,7 +288,7 @@ In dieser Datei fügen wir diese Zeilen hinzu.
 </Directory>
 ```
 
-Als nächstes verändern wir die Konfiguration der Default-Seite. Es wäre möglich
+Als Nächstes verändern wir, die Konfiguration der Default-Seite. Es wäre möglich
 eine neue `<Seite>.conf` zu erstellen, dies tun wir in diesem Beispiel
 allerdings nicht.
 
@@ -297,7 +297,7 @@ sudo nvim /etc/apache2/sites-available/000-default.conf
 ```
 
 An dieser Stelle ist es nur wichtig die `DocumentRoot` zu verändern.
-Vorrausgesetzt der Benutzer heißt `pi` und wir wollen den Projektordner in
+Vorausgesetzt der Benutzer heißt `pi` und wir wollen den Projektordner in
 `~/tts/` ablegen ist `/home/pi/tts` der neue Wert für `DocumentRoot`.
 
 #### PHP8.2 
@@ -329,7 +329,7 @@ sudo apt install mariadb-server
 
 Die Integration von MariaDB und PHP geschieht über zwei Schritte.
 
-Zunächst muss die PHP-Extention `php-mysql` installiert werden.
+Zunächst muss die PHP-Extension `php-mysql` installiert werden.
 
 ``` shell
 sudo apt install php-mysql
@@ -342,7 +342,7 @@ werden. Dies befindet sich bei unserer Installation auf Zeile 935.
 sudo nvim /etc/php/php8.2/apache2/php.ini
 ```
 
-#### Konfiguration des RaspberryPi als unabhäniger WiFi-Rooter
+#### Konfiguration des Raspberry Pi als unabhängiger WiFi-Router
 
 > Achtung: Nach diesem Schritt ist der Pi nicht mehr über WLAN mit anderen
 > Routern verbunden und kann ohne LAN-Verbinung keine
@@ -352,10 +352,10 @@ sudo nvim /etc/php/php8.2/apache2/php.ini
 > Systemuhr des Raspberry Pi nicht mehr mit der Realzeit in sync ist.
 
 
-Für die Konfiguration als WiFi-Rooter verwenden wir das opensource Projekt
+Für die Konfiguration als WiFi-Router verwenden wir das opensource Projekt
 [RaspAP](https://raspap.com).
 
-Hierfür verwenden wir das Installtionsscript.
+Hierfür verwenden wir das Installationsskript.
 
 ``` shell
 curl -sL https://install.raspap.com | bash
@@ -377,19 +377,19 @@ sudo nvim /etc/lighttpd/lighttpd.conf
 server.port                 = 81
 ```
 
-Da wir über den standard HTTP Port bereits die TTS-Website verwenden wollen
+Da wir über den Standard HTTP Port bereits die TTS-Website verwenden wollen
 müssen wir hier noch einen anderen Port angeben.
 
-Als letztes Starten wir den RaspberryPi neu. 
+Als Letztes starten wir den Raspberry Pi neu. 
 
 ``` shell
 sudo reboot now
 ```
 
-Danach konfigurieren das Netzwerk des RaspberryPi. Vorrausgesetzt, dass der
-`hostname` des RaspberryPi _tts_ ist kann diese unter <tts.local:81> aufgerufen
+Danach konfigurieren das Netzwerk des Raspberry Pi. Vorausgesetzte, dass der
+`hostname` des Raspberry Pi _tts_ ist, kann diese unter <tts.local:81> aufgerufen
 werden. Die Standard-Konfigurationsdaten lassen sich
-[hier](https://docs.raspap.com/#quick-start) nachschlagen. Zum akteullen
+[hier](https://docs.raspap.com/#quick-start) nachschlagen. Zum aktuellen
 Zeitpunkt sind sie wie folgt:
 
 
