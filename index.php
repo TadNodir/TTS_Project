@@ -1,4 +1,6 @@
 <?php
+// Beim Debuggen auskommentieren : Schneller Zugriff auf die Einzelne Seiten
+header("Location: ../Anmeldung/Anmeldung.php")
 ?>
 
 
