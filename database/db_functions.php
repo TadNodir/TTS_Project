@@ -2,8 +2,8 @@
 function createLink()
 {
     $servername = "localhost";
-    $username = 'root';
-    $password = "root";
+    $username = "dev_tts";
+    $password = "QN7ZAqgGY9wZ";
     $database = "swe_tts";
     $link = mysqli_connect($servername, $username, $password, $database);
     if (!$link) {
