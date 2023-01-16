@@ -164,3 +164,26 @@ gespiechert werde.
 INSERT INTO benutzer (rolle, vorname, nachname, nickname, email, passwort, salt)
     VALUES (2, 'superadmin', 'superadmin', 'superadmin', 'superadmin@tts.de', SHA1('<Random-generated-Salt><Super-Sicheres-Am-Besten-Zufälliges-Passwort>'), '<Random-generated-Salt>');
 ```
+
+### Einrichten der Laufzeitumgebung
+
+In diesem Abschnitt wird beschrieben wie dieses Website in unterschiedlichen
+Laufzeitumgebungen eingrichtet werden kann.
+
+#### PHP-Inbuild-Server über die Komandozeile
+
+> Achtung: Je nach Betriebsystem und dementsprechenden PHP-Version kann es
+> notwendig sein die `mysqli`-Extention in der `php.ini` einzuschalten. Dies
+> kann mit Hilfe der Funktion `phpinfo();` diagnostiziert werden.
+
+Am einfachsten ist es über den
+[PHP-Inbuild-Server](https://www.php.net/manual/en/features.commandline.webserver.php)
+die Website zu starten.
+
+``` shell
+cd /Wo/Auch/Immer/Dieser/Ordner/Ist
+php -S localhost:8000
+```
+
+Nun kann in einem Browser unter <localhost:8000> die Website besucht werden.
+
