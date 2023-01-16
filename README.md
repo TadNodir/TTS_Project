@@ -184,7 +184,7 @@ cd /Wo/Auch/Immer/Dieser/Ordner/Ist
 php -S localhost:8000
 ```
 
-Nun kann in einem Browser unter <localhost:8000> die Website besucht werden.
+Jetzt kann in einem Browser unter <localhost:8000> die Website besucht werden.
 
 ### Inbuild-Server über PHPStorm
 
@@ -208,10 +208,10 @@ werden.
 Auf normalen PCs, die nicht dedizierte Server sind, muss wahrscheinlich der Port
 auf geändert werden. Port 8000 sollte frei sein.
 
-Nun kann auf `Aplly` und `OK` gedrückt werden. Das Fenster sollte sich
+Jetzt kann auf `Aplly` und `OK` gedrückt werden. Das Fenster sollte sich
 schließen.
 
-Sobald nun auf `Run` geklickt wird, sollte in der Kommandozeile ein klickbarer
+Sobald auf `Run` geklickt wird, sollte in der Kommandozeile ein klickbarer
 Link erscheinen, der auf die Website führt.
 
 Wenn nicht, kann wie im vorherigen Beispiel ein Browser geöffnet werden und in
