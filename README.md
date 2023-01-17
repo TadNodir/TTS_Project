@@ -96,7 +96,8 @@ CREATE TABLE IF NOT EXISTS tipps (
     tipp_team1  TINYINT unsigned not null,
     tipp_team2  TINYINT unsigned not null,
     verdient    TINYINT unsigned not null,
-    FOREIGN KEY (tipper) REFERENCES  benutzer(id),
+    FOREIGN KEY (tipper) REFERENCES  benutzer(id)
+        ON DELETE CASCADE,
     FOREIGN KEY (spiel) REFERENCES spiele(id),
     PRIMARY KEY (id)
 );
