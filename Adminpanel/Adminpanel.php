@@ -6,8 +6,9 @@ include '../database/db_functions.php';
 $conn = createLink();
 if (isset($_POST["del"]))
 {
-    mysqli_query($conn, "DELETE FROM swe_tts.benutzer WHERE nickname = '".$_SESSION['del']."';");
-
+    $value = $_SESSION['del'] ?? null;
+    $value = mysqli_real_escape_string($conn, $value);
+    mysqli_query($conn, "DELETE FROM swe_tts.benutzer WHERE nickname = '$value';");
 
     mysqli_query($conn, "SET @num := 0");
     mysqli_query($conn, "UPDATE swe_tts.benutzer SET id = @num := (@num + 1)");
@@ -44,10 +45,18 @@ if($link->connect_error){
 //Teams $_POST['create']
 if (isset($_POST["create111"])) {
     if ($_POST["team1"] != "" && $_POST["team2"] != "") {
-        $sql = "UPDATE swe_tts.spiele SET team_1 = '" . $_POST['team1'] . "' WHERE id = '" . $_POST['id'] . "'";
+        $team1 = $_POST['team1'] ?? null;
+        $team2 = $_POST['team2'] ?? null;
+        $id = $_POST['id'] ?? null;
+
+        $team1 = mysqli_real_escape_string($link, $team1);
+        $team2 = mysqli_real_escape_string($link, $team2);
+        $id = mysqli_real_escape_string($link, $id);
+
+        $sql = "UPDATE swe_tts.spiele SET team_1 = '$team1' WHERE id = '$id'";
         mysqli_query($link, $sql);
 
-        $sql = "UPDATE swe_tts.spiele SET team_2 = '" . $_POST['team2'] . "' WHERE id = '" . $_POST['id'] . "'";
+        $sql = "UPDATE swe_tts.spiele SET team_2 = '$team2' WHERE id = '$id'";
         mysqli_query($link, $sql);
 
         echo "<label class='erfolg'> Erfolgreiche änderung des Spiels </label>";
@@ -55,8 +64,12 @@ if (isset($_POST["create111"])) {
         echo "<meta http-equiv='refresh' content='3'>";
     }
 
+    $date = $_POST['date'] ?? null;
+    $date = mysqli_real_escape_string($link, $date);
+    $time = $_POST['time'] ?? null;
+    $time = mysqli_real_escape_string($link, $time);
     if($_POST['date'] != "" && $_POST['time'] != ""){
-        $sql = "UPDATE swe_tts.spiele SET uhrzeit = '".$_POST['date']." ".$_POST['time']."'";
+        $sql = "UPDATE swe_tts.spiele SET uhrzeit = '".$date." ".$time."'";
         mysqli_query($link, $sql);
     }
 }
@@ -82,16 +95,23 @@ if(!isset($_POST['create'])){//Kein Spiel muss hinzugefügt werden
         $spiel_vergangen = 1;
     } else {
         $time = $_POST['time'];
-        $check_existence = "SELECT team_1, team_2, uhrzeit FROM spiele WHERE (uhrzeit >= '$time' - 1 and uhrzeit <= '$time' + 1) and team_1 = ".$_POST['team1']." and team_2 = ".$_POST['team2'].";";
+        $time = mysqli_real_escape_string($link, $time);
+        $team1 = $_POST['team1'] ?? null;
+        $team1 = mysqli_real_escape_string($link, $team1);
+        $team2 = $_POST['team2'] ?? null;
+        $team2 = mysqli_real_escape_string($link, $team2);
+
+        $check_existence = "SELECT team_1, team_2, uhrzeit FROM spiele WHERE (uhrzeit >= '$time' - 1 and uhrzeit <= '$time' + 1) and team_1 = ".$team1." and team_2 = ".$team2.";";
         //if not null game exists already in a 1 day timeframe
         $result2 = mysqli_query($link, $check_existence);
         $data2 = mysqli_fetch_assoc($result2);
         //var_dump($data2);
         if (empty($data2)) {
             $once = 0;
-            $team1 = $_POST['team1'];
-            $team2 = $_POST['team2'];
+//            $team1 = $_POST['team1'];
+//            $team2 = $_POST['team2'];
             $uhrzeit = $_POST['date'] . " " . $_POST['time'];
+            $uhrzeit = mysqli_real_escape_string($link, $uhrzeit);
             //game doesn't exist
             /*$get_teamID_sql = "SELECT land FROM teams WHERE id = '$team1' and id = '$team2'";
             $result = mysqli_query($link, $get_teamID_sql);
@@ -213,6 +233,9 @@ function create_adminlist($post, $link){
                 relax();
             } else {
                 !empty($_POST['search']) ? $name = $_POST['search'] : $filter = const_filter_user[$_POST['filter']];    //Abfrage ob filter oder search gesetzt
+                if (isset($name)) {
+                    $name = mysqli_real_escape_string($link, $name);
+                }
                 $userlist_sql = (!empty($name)) ? "SELECT nickname, punktestand FROM benutzer WHERE nickname like '%$name%' and rolle = 0"  //sql für USER
                     : $filter;
                 $result = mysqli_query($link, $userlist_sql);
@@ -261,6 +284,9 @@ function create_adminlist($post, $link){
                 relax();
             } else {
                 !empty($_POST['search2']) ? $name = $_POST['search2'] : $filter = const_filter_admin[$_POST['filter2']];
+                if (isset($name)) {
+                    $name = mysqli_real_escape_string($link, $name);
+                }
                 $adminlist_sql = (isset($name)) ? "SELECT punktestand, nickname FROM benutzer WHERE nickname like '%$name%' and rolle = 1"
                     : $filter;
                 $result = mysqli_query($link, $adminlist_sql);

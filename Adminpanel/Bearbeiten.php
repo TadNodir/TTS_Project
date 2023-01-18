@@ -8,18 +8,26 @@ if (isset($_POST['create'])) { //Spiel kann überprüft werden
     if ($_POST['team1'] === $_POST['team2']) { //Überprüfe ob Teams gleich sind
         $gleiche_teams = 1;
     } else {
-        $time = $_POST['time'];
+        $time = $_POST['time'] ?? null;
+        $time = mysqli_real_escape_string($link, $time);
+        $team1 = $_POST['team1'] ?? null;
+        $team1 = mysqli_real_escape_string($link, $team1);
+        $team2 = $_POST['team2'] ?? null;
+        $team2 = mysqli_real_escape_string($link, $team2);
         $check_existence = "SELECT team_1, team_2, uhrzeit FROM spiele WHERE (uhrzeit >= '$time' - 1 and uhrzeit <= '$time' + 1) and team_1 = " . $_POST['team1'] . " and team_2 = " . $_POST['team2'] . ";";
         $result2 = mysqli_query($link, $check_existence);
         $data2 = mysqli_fetch_assoc($result2);
         //Wenn !NULL → Spiel existiert in einem 1-Tage-Window
         if (empty($data2)) {
-            $team1 = $_POST['team1'];
-            $team2 = $_POST['team2'];
+//            $team1 = $_POST['team1'];
+//            $team2 = $_POST['team2'];
             $uhrzeit = $_POST['date'] . " " . $_POST['time'];
-            $sql = "UPDATE swe_tts.spiele SET team_1 = '" . $_POST['team1'] . "' WHERE id = '" . $_POST['create'] . "'";
-            $sql2 = "UPDATE swe_tts.spiele SET team_2 = '" . $_POST['team2'] . "' WHERE id = '" . $_POST['create'] . "'";
-            $sql3 = "UPDATE swe_tts.spiele SET uhrzeit = '" . $_POST['date'] . " " . $_POST['time'] . "' WHERE id = '" . $_POST['create'] . "'";
+            $uhrzeit = mysqli_real_escape_string($link, $uhrzeit);
+            $create = $_POST['create'];
+            $create = mysqli_real_escape_string($link, $create);
+            $sql = "UPDATE swe_tts.spiele SET team_1 = '$team1' WHERE id = '$create'";
+            $sql2 = "UPDATE swe_tts.spiele SET team_2 = '$team2' WHERE id = '$create'";
+            $sql3 = "UPDATE swe_tts.spiele SET uhrzeit = '$uhrzeit' WHERE id = '$create'";
             mysqli_query($link, $sql);
             mysqli_query($link, $sql2);
             mysqli_query($link, $sql3);

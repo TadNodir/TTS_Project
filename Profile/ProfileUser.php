@@ -219,6 +219,9 @@ function Trashmail($e){
 
         <?php //Daten ändern
 
+        $create2 = mysqli_real_escape_string($conn, $n);
+
+
         if (isset($_POST["email"]))
         {
             if (($_POST["email"] != ""))
@@ -231,7 +234,10 @@ function Trashmail($e){
 
                         if (!$check_email)
                         {
-                            $sql = "UPDATE swe_tts.benutzer SET email = '".$_POST["email"]."' WHERE nickname = '".$_SESSION['nickname']."';";
+                            $create = mysqli_real_escape_string($conn, $_POST["email"]);
+
+
+                            $sql = "UPDATE swe_tts.benutzer SET email = '".$create."' WHERE nickname = '".$_SESSION['nickname']."';";
                             mysqli_query($conn, $sql);
 
                             echo "<label class='erfolg'> Erfolgreiche änderung der E-mail adresse </label>";
@@ -260,7 +266,9 @@ function Trashmail($e){
             {
                 if ($_POST["password"] == $_POST["passwordRe"])
                 {
-                    $saltedPassword = sha1($_SESSION['salt'].$_POST["password"]);
+                    $create2 = mysqli_real_escape_string($conn, $_POST["password"]);
+                    $saltedPassword = sha1($_SESSION['salt'].$create2);
+
                     $sql = "UPDATE swe_tts.benutzer SET passwort = '".$saltedPassword."' WHERE nickname = '".$_SESSION['nickname']."';";
                     mysqli_query($conn, $sql);
 
@@ -282,7 +290,8 @@ function Trashmail($e){
 
                 if (mysqli_fetch_assoc(mysqli_query($conn, $g)) === NULL)
                 {
-                    $sql = "UPDATE swe_tts.benutzer SET nickname = '".$_POST["benutzer"]."' WHERE nickname = '".$n."';";
+                    $create3 = mysqli_real_escape_string($conn, $_POST["benutzer"]);
+                    $sql = "UPDATE swe_tts.benutzer SET nickname = '".$create3."' WHERE nickname = '".$n."';";
                     mysqli_query($conn, $sql);
 
                     $_SESSION['nick'] = $_POST['benutzer'];

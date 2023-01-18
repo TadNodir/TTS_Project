@@ -7,6 +7,7 @@ session_start();
 $link = createLink();
 
 function setScores($link, $spiel_id, $tore_1, $tore_2){
+    $spiel_id = mysqli_real_escape_string($link, $spiel_id);
     $sql = "SELECT tipper, tipp_team1, tipp_team2 from tipps WHERE spiel = '$spiel_id' ";
     $result = mysqli_query($link, $sql);
     //ist tipp vollständig korrekt
@@ -31,14 +32,20 @@ function setScores($link, $spiel_id, $tore_1, $tore_2){
 
 if (isset($_POST['create'])) { //Spiel kann überprüft werden
 
-    $sql = "SELECT team_1, team_2 FROM spiele WHERE id = '".$_POST['create']."'";
+    $create = $_POST['create'] ?? null;
+    $create = mysqli_real_escape_string($link, $create);
+    $team1 = $_POST['team1'] ?? null;
+    $team1 = mysqli_real_escape_string($link, $team1);
+    $team2 = $_POST['team2'] ?? null;
+    $team2 = mysqli_real_escape_string($link, $team2);
+    $sql = "SELECT team_1, team_2 FROM spiele WHERE id = '$create'";
     $result = mysqli_query($link, $sql);
     $data2 = mysqli_fetch_assoc($result);
 
-    $sql1 = "UPDATE swe_tts.spiele SET tore_team1 = '" . $_POST['team1'] . "' WHERE id = '" . $_POST['create'] . "'";
-    $sql2 = "UPDATE swe_tts.spiele SET tore_team2 = '" . $_POST['team2'] . "' WHERE id = '" . $_POST['create'] . "'";
+    $sql1 = "UPDATE swe_tts.spiele SET tore_team1 = '$team1' WHERE id = '$create'";
+    $sql2 = "UPDATE swe_tts.spiele SET tore_team2 = '$team2' WHERE id = '$create'";
 
-    $sql3 = "UPDATE swe_tts.spiele SET beendet = 1 WHERE id = '" . $_POST['create'] . "'";
+    $sql3 = "UPDATE swe_tts.spiele SET beendet = 1 WHERE id = '$create'";
 
     mysqli_query($link, $sql1);
     mysqli_query($link, $sql2);
