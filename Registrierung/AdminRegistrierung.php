@@ -7,7 +7,7 @@ $link = createLink();
 # Guckt in Datenbank ob es ein Ergebnis zum User gibt
 function checkUser($user,$link): bool
 {
-
+    $user = mysqli_real_escape_string($link, $user);
     /** @noinspection SqlResolve */
     $sql ="SELECT id FROM benutzer 
                    WHERE nickname ='".$user."';";
@@ -25,6 +25,7 @@ function checkUser($user,$link): bool
 # Guckt in Datenbank ob es ein Ergebnis zur E-Mail gibt
 function checkEmail($email,$link): bool
 {
+    $email = mysqli_real_escape_string($link, $email);
 
         /** @noinspection SqlResolve */
         $sql ="SELECT id FROM benutzer 
@@ -96,11 +97,17 @@ if(isset($_POST['submit'])){
 
     # Array mit cleanen Nutzerdaten. Leerzeichen am Anfang und Ende werden entfernt
     $nutzer['vorname'] = trim($_POST['vorname'] ?? "");
+    $nutzer['vorname'] = mysqli_real_escape_string($link, $nutzer['vorname']);
     $nutzer['nachname'] =  trim($_POST['nachname'] ?? "");
+    $nutzer['nachname'] = mysqli_real_escape_string($link, $nutzer['nachname']);
     $nutzer['benutzer'] =  trim($_POST['username'] ?? "");
+    $nutzer['benutzer'] = mysqli_real_escape_string($link, $nutzer['benutzer']);
     $nutzer['email'] =  trim($_POST['email'] ?? "");
+    $nutzer['email'] = mysqli_real_escape_string($link, $nutzer['email']);
     $nutzer['passwort'] =  trim($_POST['password'] ?? "");
+    $nutzer['passwort'] = mysqli_real_escape_string($link, $nutzer['passwort']);
     $nutzer['passwort2'] =  trim($_POST['password2'] ?? "");
+    $nutzer['passwort2'] = mysqli_real_escape_string($link, $nutzer['passwort2']);
 
     #Kontrolle der möglichen Fehlerquellen.
     #Damit nicht nach jeder Eingabe ein neuer Fehler kommen werden sofort alle Fehler ausgegeben

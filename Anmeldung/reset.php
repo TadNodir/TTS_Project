@@ -12,9 +12,17 @@ if(isset($_POST['reset'])){
     $nutzer['mail'] =  trim($_POST['emailReset'] ?? "");
     $nutzer['passwort'] =  trim($_POST['passwortReset'] ?? "");
     $nutzer['passwort2'] =  trim($_POST['passwortReset2'] ?? "");
+    $nick = $nutzer['nickname'] ?? null;
+    $nick = mysqli_real_escape_string($link, $nick);
+    $mail = $nutzer['mail'] ?? null;
+    $mail = mysqli_real_escape_string($link, $mail);
+    $pass1 = $nutzer['passwort'] ?? null;
+    $pass1 = mysqli_real_escape_string($link, $pass1);
+    $pass2 = $nutzer['passwort2'] ?? null;
+    $pass2 = mysqli_real_escape_string($link, $pass2);
 
     $sql ="SELECT id FROM swe_tts.benutzer 
-                   WHERE nickname ='".$nutzer['nickname']."' AND email = '".$nutzer['mail']."';";
+                   WHERE nickname ='$nick' AND email = '$mail';";
 
     $result = mysqli_query($link, $sql);
     
@@ -27,15 +35,16 @@ if(isset($_POST['reset'])){
     if ($nutzer['passwort'] == $nutzer['passwort2'] && !$nameMail){
         $pwGleich=false;
         $sql ="SELECT id,salt FROM swe_tts.benutzer 
-                   WHERE nickname ='".$nutzer['nickname']."';";
+                   WHERE nickname ='$nick';";
         $result = mysqli_query($link, $sql);
         $resultRow = mysqli_fetch_assoc($result);
 
         $hash = sha1($resultRow['salt'].$nutzer['passwort']);
-
-        $sql = "UPDATE swe_tts.benutzer SET passwort = '".$hash."' WHERE nickname = '".$nutzer['nickname']."';";
+        $hasher=$hash ?? null;;
+        $hasher = mysqli_real_escape_string($link, $hasher);
+        $sql = "UPDATE swe_tts.benutzer SET passwort = '$hasher' WHERE nickname = '$nick';";
         mysqli_query($link, $sql);
-        $sql2 = "UPDATE swe_tts.benutzer SET gesperrt = 0 WHERE nickname = '".$nutzer['nickname']."';";
+        $sql2 = "UPDATE swe_tts.benutzer SET gesperrt = 0 WHERE nickname = '$nick';";
         mysqli_query($link, $sql2);
         closeLink($link);
         header( "Location: ../Anmeldung/Anmeldung.php");

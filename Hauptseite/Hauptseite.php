@@ -243,7 +243,13 @@ $result_scoreboard_ergebniss = db_scoreboard_ergebniss($link, $eingellogt);
                                echo "<td> <p style='color:lightcoral;'>Tipp zu spät</p></td>";}
                         }
                         if(isset($_POST[$divID])){
-                            db_tippen($link, $_SESSION['id'],$spiel,$_POST['spiel1'],$_POST['spiel2']);
+                            $spiel1 = $_POST['spiel1'] ?? null;
+                            $spiel1 = mysqli_real_escape_string($link, $spiel1);
+                            $spiel2 = $_POST['spiel2'] ?? null;
+                            $spiel2 = mysqli_real_escape_string($link, $spiel2);
+                            $id = $_SESSION['id'] ?? null;
+                            $id = mysqli_real_escape_string($link, $id);
+                            db_tippen($link, $id, $spiel, $spiel1, $spiel2);
                             echo "<meta http-equiv='refresh' content='1088'>";
                         }
                     }

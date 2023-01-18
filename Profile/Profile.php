@@ -187,6 +187,7 @@ function Trashmail($e){
         </div>
 
         <?php //Daten ändern
+        $create2 = mysqli_real_escape_string($conn, $_SESSION['nickname']);
 
         if (isset($_POST["email"]))
         {
@@ -200,7 +201,11 @@ function Trashmail($e){
                         $test = mysqli_fetch_assoc($check_email);
                         if ($test === NULL)
                         {
-                            $sql = "UPDATE swe_tts.benutzer SET email = '".$_POST["email"]."' WHERE nickname = '".$_SESSION['nickname']."';";
+
+
+                            $create = mysqli_real_escape_string($conn, $_POST["email"]);
+
+                            $sql = "UPDATE swe_tts.benutzer SET email = '".$create."' WHERE nickname = '".$create2."';";
                             mysqli_query($conn, $sql);
 
                             $_SESSION['email'] = $_POST["email"];
@@ -231,7 +236,9 @@ function Trashmail($e){
             {
                 if ($_POST["password"] == $_POST["passwordRe"])
                 {
-                    $saltedPassword = sha1($_SESSION['salt'].$_POST["password"]);
+                    $create3 = mysqli_real_escape_string($conn, $_POST["password"]);
+                    $saltedPassword = sha1($_SESSION['salt'].$create3);
+
                     $sql = "UPDATE swe_tts.benutzer SET passwort = '".$saltedPassword."' WHERE nickname = '".$_SESSION['nickname']."';";
                     mysqli_query($conn, $sql);
 
@@ -253,7 +260,11 @@ function Trashmail($e){
 
                 if (mysqli_fetch_assoc(mysqli_query($conn, $g)) === NULL)
                 {
-                    $sql = "UPDATE swe_tts.benutzer SET nickname = '".$_POST["benutzer"]."' WHERE nickname = '".$_SESSION['nickname']."';";
+
+
+                    $create4 = mysqli_real_escape_string($conn, $_POST["benutzer"]);
+
+                    $sql = "UPDATE swe_tts.benutzer SET nickname = '".$create4."' WHERE nickname = '".$_SESSION['nickname']."';";
                     mysqli_query($conn, $sql);
 
                     $_SESSION['nickname'] = $_POST["benutzer"];

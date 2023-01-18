@@ -30,11 +30,12 @@ function checkAccount($user,$password): int
 {
     $link = createLink();
 
-
+    $nutzer = $user ?? null;
+    $nutzer = mysqli_real_escape_string($link, $nutzer);
     # Suche die ID der zugehörigen email oder des Benutzernamens
     /** @noinspection SqlResolve */
     $sql ="SELECT id,gesperrt,nickname,salt FROM benutzer 
-                   WHERE nickname ='".$user."';";
+                   WHERE nickname ='$nutzer';";
 
     $result = mysqli_query($link, $sql);
     $resultRow = mysqli_fetch_assoc($result);
@@ -43,7 +44,7 @@ function checkAccount($user,$password): int
 
         /** @noinspection SqlResolve */
         $sql ="SELECT id,gesperrt,nickname,salt FROM benutzer 
-                   WHERE email ='".$user."';";
+                   WHERE email ='$nutzer';";
         $result = mysqli_query($link, $sql);
         $resultRow = mysqli_fetch_assoc($result);
     }
@@ -53,8 +54,8 @@ function checkAccount($user,$password): int
         return 3;
     }
 
-    $idName=$resultRow['id'];
-
+    $idName=$resultRow['id'] ?? null;;
+    $idName = mysqli_real_escape_string($link, $idName);
 
     if($resultRow['gesperrt']>=5){
 
@@ -65,10 +66,12 @@ function checkAccount($user,$password): int
 
     }
     $hash = sha1($resultRow['salt'].$password);
+    $hasher=$hash ?? null;;
+    $hasher = mysqli_real_escape_string($link, $hasher);
     # Kontrolliere ob die gefundene ID mit dem Passwort übereinstimmt
     /** @noinspection SqlResolve */
     $sql ="SELECT id FROM benutzer 
-                   WHERE id ='".$idName."' AND passwort = '".$hash."';";
+                   WHERE id ='$idName' AND passwort = '$hasher';";
 
     $result = mysqli_query($link, $sql);
 
@@ -102,14 +105,15 @@ if(isset($_POST['submit'])){
     $fehlerCode = checkAccount($nutzer['benutzer'],$nutzer['passwort']);
 //    echo $fehlerCode;
     $link = createLink();
+    $user = $nutzer['benutzer'] ?? null;
+    $user = mysqli_real_escape_string($link, $user);
     if($fehlerCode == 1){
-
             $sql ="UPDATE benutzer
                 SET gesperrt = 0
-                   WHERE nickname ='".$nutzer['benutzer']."';";
+                   WHERE nickname ='$user';";
             mysqli_query($link, $sql);
 
-            $sql ="SELECT rolle,id,vorname,nachname,punktestand,email,salt FROM benutzer WHERE nickname ='".$nutzer['benutzer']."';";
+            $sql ="SELECT rolle,id,vorname,nachname,punktestand,email,salt FROM benutzer WHERE nickname ='$user';";
 
             $result = mysqli_query($link, $sql);
             $resultArray = mysqli_fetch_assoc($result);
@@ -136,17 +140,17 @@ if(isset($_POST['submit'])){
 
         $sql ="UPDATE benutzer
                 SET gesperrt = gesperrt+1 
-                   WHERE nickname ='".$nutzer['benutzer']."';";
+                   WHERE nickname ='$user';";
         mysqli_query($link, $sql);
 
         $sql= "SELECT gesperrt 
                 FROM benutzer 
-                WHERE nickname ='".$nutzer['benutzer']."';";
+                WHERE nickname ='$user';";
         $result=mysqli_query($link, $sql);
         $resultArray = mysqli_fetch_assoc($result);
 
        if($resultArray['gesperrt']>=5){
-           $_SESSION['gesperrt'] = $nutzer['benutzer'];
+           $_SESSION['gesperrt'] = $user;
            header( "Location: ../Anmeldung/reset.php");
            exit;
        }
